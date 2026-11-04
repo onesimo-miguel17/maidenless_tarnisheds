@@ -21,6 +21,8 @@ import {
   lundaSulMunicipalities,
   moxicoCommunes,
   moxicoMunicipalities,
+  moxicoLesteCommunes,
+  moxicoLesteMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -681,6 +683,77 @@ describe("Angola administrative hierarchy — Moxico tranche", () => {
       ...lundaNorteMunicipalities, ...lundaNorteCommunes,
       ...lundaSulMunicipalities, ...lundaSulCommunes,
       ...moxicoMunicipalities, ...moxicoCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Moxico Leste tranche", () => {
+  it("contains the nine municipalities in the legal annex order", () => {
+    expect(moxicoLesteMunicipalities).toHaveLength(9);
+    expect(moxicoLesteMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 9 }, (_, index) => `AOMLE13${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(moxicoLesteMunicipalities.map((unit) => unit.name)).toEqual([
+      "Cazombo", "Luacano", "Cameia", "Luaa", "Nana Candundo",
+      "Macondo", "Caianda", "Lóvua do Zambeze", "Lago Dilolo",
+    ]);
+  });
+
+  it("links all municipalities to the distinct Moxico Leste province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-moxico-leste");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOMLE13");
+    expect(province?.administrativeSeat).toBe("Cazombo");
+    expect(moxicoLesteMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(moxicoLesteMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains only the four communes explicitly listed in the legal annex", () => {
+    expect(moxicoLesteCommunes).toHaveLength(4);
+    expect(moxicoLesteCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOMLE130101", "AOMLE130102", "AOMLE130601", "AOMLE130602",
+    ]);
+    expect(moxicoLesteCommunes.map((unit) => unit.name)).toEqual([
+      "Cazombo", "Lumbala Caquengue", "Macondo", "Calunda",
+    ]);
+  });
+
+  it("links the four communes to Cazombo and Macondo respectively", () => {
+    const municipalityIds = new Set(moxicoLesteMunicipalities.map((unit) => unit.id));
+    expect(moxicoLesteCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(moxicoLesteCommunes.map((unit) => unit.parentId)).toEqual([
+      "ao-moxico-leste-cazombo", "ao-moxico-leste-cazombo",
+      "ao-moxico-leste-macondo", "ao-moxico-leste-macondo",
+    ]);
+  });
+
+  it("keeps seven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(moxicoLesteCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = moxicoLesteMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Luacano", "Cameia", "Luaa", "Nana Candundo", "Caianda",
+      "Lóvua do Zambeze", "Lago Dilolo",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all eleven imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);

@@ -19,9 +19,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Malanje: 27 municípios e 38 comunas;
 - Lunda-Norte: 19 municípios e 20 comunas;
 - Lunda-Sul: 14 municípios e 4 comunas;
-- Moxico: 12 municípios e 13 comunas.
+- Moxico: 12 municípios e 13 comunas;
+- Moxico Leste: 9 municípios e 4 comunas.
 
-Total actualmente registado: 169 municípios e 211 comunas, distribuídos por dez províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 178 municípios e 215 comunas, distribuídos por onze províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
