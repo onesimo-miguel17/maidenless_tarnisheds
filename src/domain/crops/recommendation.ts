@@ -38,11 +38,11 @@ export function assessCropAgainstSoil(
 ): CropAssessment {
   const range = crop.phRange;
   const hasUsableRange = range !== null && range.evidence !== "pending-validation";
-  const hasMeasuredPh = soil.ph !== null;
+  const measuredPh = soil.ph;
 
   let phAssessment: FactorAssessment;
 
-  if (!hasMeasuredPh) {
+  if (measuredPh === null) {
     phAssessment = {
       factor: "soil-ph",
       status: "unknown",
@@ -55,13 +55,13 @@ export function assessCropAgainstSoil(
     phAssessment = {
       factor: "soil-ph",
       status: "unknown",
-      observedValue: soil.ph.value,
+      observedValue: measuredPh.value,
       expectedRange: null,
       evidence: null,
       explanation: "Não existe um intervalo de pH com evidência utilizável para esta cultura.",
     };
   } else {
-    const compatible = soil.ph.value >= range.min && soil.ph.value <= range.max;
+    const compatible = measuredPh.value >= range.min && measuredPh.value <= range.max;
     phAssessment = {
       factor: "soil-ph",
       status: compatible ? "compatible" : "outside-range",
@@ -69,8 +69,8 @@ export function assessCropAgainstSoil(
       expectedRange: { min: range.min, max: range.max },
       evidence: range.evidence,
       explanation: compatible
-        ? `O pH medido (${soil.ph.value}) está dentro do intervalo de referência (${range.min}–${range.max}).`
-        : `O pH medido (${soil.ph.value}) está fora do intervalo de referência (${range.min}–${range.max}).`,
+        ? `O pH medido (${measuredPh.value}) está dentro do intervalo de referência (${range.min}–${range.max}).`
+        : `O pH medido (${measuredPh.value}) está fora do intervalo de referência (${range.min}–${range.max}).`,
     };
   }
 
