@@ -17,6 +17,8 @@ import {
   malanjeMunicipalities,
   lundaNorteCommunes,
   lundaNorteMunicipalities,
+  lundaSulCommunes,
+  lundaSulMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
