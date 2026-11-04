@@ -4,52 +4,57 @@ Este domínio representa a estrutura territorial administrativa usada para local
 
 ## Divisão político-administrativa
 
-A primeira versão regista as 21 províncias e as respectivas sedes indicadas no artigo 2.º da Lei n.º 14/24, de 5 de Setembro. A nova divisão entrou em vigor em 1 de Janeiro de 2025.
-
-A estrutura legal nacional é:
+A divisão de referência, em vigor desde 1 de Janeiro de 2025, compreende:
 - 21 províncias;
 - 326 municípios;
 - 378 comunas.
 
-O registo de software contém, nesta fase, as 21 províncias. As contagens de municípios e comunas são metadados de referência, não registos individuais.
+A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. A primeira tranche detalhada contém Cabinda: 10 municípios e 8 comunas efectivamente enumeradas no anexo.
 
 ## Códigos territoriais oficiais
 
-Os códigos oficiais das 21 províncias foram transcritos do anexo da Lei n.º 8/25, de 16 de Setembro, publicado no Diário da República, I Série, n.º 176.
+A fonte normativa dos códigos é a Lei n.º 8/25, de 16 de Setembro, Diário da República, I Série, n.º 176, páginas 20315 e seguintes, Anexo sobre a Codificação Nacional.
 
-O código provincial completo usado neste domínio combina:
-- o prefixo nacional `AO`;
-- o identificador alfabético provincial de três letras;
-- o número sequencial provincial definido no anexo.
+A aplicação guarda:
+- código provincial: `AOCDA01`;
+- código municipal: código provincial + número municipal, por exemplo `AOCDA0102`;
+- código de comuna: código municipal + número da comuna, por exemplo `AOCDA010201`.
 
-Exemplo: Cabinda = `AOCDA01`.
+Os IDs como `ao-cabinda-cacongo` são identificadores internos estáveis do Pambala. Não são códigos territoriais oficiais.
 
-Os IDs como `ao-huila` continuam a ser identificadores internos estáveis do Pambala. Não são códigos territoriais oficiais. Os códigos dos municípios e comunas ainda não foram importados.
+### Marcador de comuna 00
 
-A transcrição de dados administrativos deve ser confrontada com o PDF do Diário da República. Uma transcrição HTML secundária consultada durante a verificação apresentava divergência no número da comuna de Paredes (Quibaxe, Bengo); o PDF do diploma apresenta o código de comuna `02` e o código alfanumérico `AOBGO040202`. Por isso, a transcrição secundária não é usada como fonte de verdade.
+O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna para determinado município. Esse marcador aparece no código alfanumérico da linha do município, mas **não representa uma comuna autónoma**. A aplicação não cria registos de comuna para esses marcadores.
+
+### Importação por tranches
+
+O ficheiro `angola-administrative-units.ts` contém, nesta primeira tranche, os municípios e comunas de Cabinda. Os testes verificam:
+- os 10 municípios;
+- as 8 comunas enumeradas;
+- códigos oficiais e unicidade;
+- relações pai-filho;
+- ausência de falsas comunas criadas a partir do marcador `00`.
+
+Os nomes são preservados conforme a grafia apresentada no anexo legal. A normalização de nomes para pesquisa ou apresentação deverá ser uma camada separada, sem alterar a transcrição de origem.
+
+Uma transcrição HTML secundária consultada durante a verificação apresentava divergência no código da comuna de Paredes (Quibaxe, Bengo). O PDF do Diário da República apresenta o código `02` e o código alfanumérico `AOBGO040202`; a transcrição secundária não é usada como fonte de verdade.
 
 ## Proveniência
 
-1. Assembleia Nacional, Lei n.º 14/24, de 5 de Setembro — Diário da República, I Série, n.º 171. Artigos 2.º e 3.º.
+1. Assembleia Nacional, Lei n.º 14/24, de 5 de Setembro — Diário da República, I Série, n.º 171. Define a divisão político-administrativa.
    https://c2a.portais.gov.ao/uploads/LEI_14_24_5_de_SETEMBRO_LEI_DA_DPA_043a0de85f.pdf
 2. Ministério das Relações Exteriores, comunicação institucional sobre a entrada em vigor da nova divisão em 1 de Janeiro de 2025.
    https://brasil.mirex.gov.ao/web/noticias/nova-divisao-politica-administrativa
-3. INE, Resultados Definitivos do Recenseamento Geral da População e Habitação 2024, Novembro de 2025. A análise foi ajustada à nova divisão político-administrativa.
+3. INE, Resultados Definitivos do Recenseamento Geral da População e Habitação 2024, Novembro de 2025.
    https://www.ine.gov.ao/Arquivos/arquivosCarregados/Carregados/Publicacao_638992698392586291.pdf
-4. Assembleia Nacional, Lei n.º 8/25, de 16 de Setembro — Diário da República, I Série, n.º 176, incluindo o Anexo sobre a Codificação Nacional.
+4. Assembleia Nacional, Lei n.º 8/25, de 16 de Setembro — Diário da República, I Série, n.º 176, Anexo sobre a Codificação Nacional.
    https://files.lex.ao/assembleia-nacional/2025/lei-n-o-8-25-de-16-de-setembro/download/lei-n-o-8-25-de-16-de-setembro_assembleia-nacional_lex-ao.pdf
 
-## Limites desta versão
+## Limites e próximos passos
 
-- Não contém municípios, comunas ou localidades individualizados.
+- A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
+- A primeira tranche é apenas Cabinda; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
-- Não se deve inferir equivalência entre uma província administrativa e uma região agroecológica.
+- A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
 - Alterações futuras à divisão administrativa devem ser versionadas; não se deve sobrescrever silenciosamente o histórico territorial.
-
-## Próximos passos
-
-1. Transcrever e testar os códigos oficiais dos 326 municípios e 378 comunas.
-2. Validar contagens, unicidade de códigos, relações pai-filho e consistência entre o código hierárquico e o código alfanumérico publicado.
-3. Obter geometrias administrativas verificáveis e documentar sistema de referência espacial, escala, data e licença.
-4. Modelar zonas agroecológicas num domínio separado, com fonte, metodologia e resolução espacial próprias.
