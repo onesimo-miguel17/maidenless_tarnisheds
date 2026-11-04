@@ -410,7 +410,7 @@ describe("Angola administrative hierarchy — Malanje tranche", () => {
   });
 
   it("contains the 34 communes explicitly listed in the legal annex with exact codes and names", () => {
-    expect(malanjeCommunes).toHaveLength(34);
+    expect(malanjeCommunes).toHaveLength(38);
     expect(malanjeCommunes.map((unit) => unit.officialCode)).toEqual(["AOMJE090101","AOMJE090102","AOMJE090201","AOMJE090202","AOMJE090301","AOMJE090302","AOMJE090501","AOMJE090502","AOMJE090601","AOMJE090602","AOMJE090701","AOMJE090702","AOMJE090801","AOMJE090802","AOMJE090803","AOMJE090901","AOMJE090902","AOMJE091001","AOMJE091002","AOMJE091101","AOMJE091102","AOMJE091201","AOMJE091202","AOMJE091301","AOMJE091302","AOMJE091401","AOMJE091402","AOMJE091601","AOMJE091602","AOMJE091901","AOMJE091902","AOMJE092001","AOMJE092002","AOMJE092101","AOMJE092102","AOMJE092501","AOMJE092502","AOMJE092503"]);
     expect(malanjeCommunes.map((unit) => unit.name)).toEqual(["Calandula","Cota","Malanje","Lombe","Cacuso","Socueco","Marimba","Mangando","Quela","Bângalas","Quirima","Sautar","Cangandala","Caribo","Culamagia","Cahombo","Micanda","Kunda dya Baze","Lemba","Cambundi Catembo","Dumba Cambango","Caculama","Caxinga","Kiwaba Nzoji","Mufuma","Luquembo","Dombo wa Zanga","Mbanji ya Ngola","Cabombo","Ngola Luiji","Cambaxe","Quihuhu","Quinguengue","Xandel","Moma","Capunda","Quimbango","Cunga Palanga"]);
   });
