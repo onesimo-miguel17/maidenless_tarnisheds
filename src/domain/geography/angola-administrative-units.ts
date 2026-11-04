@@ -15,6 +15,7 @@ import type { AdministrativeUnit } from "./types";
  * - Lunda-Sul: page 20323.
  * - Moxico: page 20323.
  * - Moxico Leste: page 20324.
+ * - Bié: pages 20325–20326.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -482,4 +483,60 @@ export const moxicoLesteCommunes: AdministrativeUnit[] = [
   { id: "ao-moxico-leste-cazombo-lumbala-caquengue", name: "Lumbala Caquengue", level: "commune", parentId: "ao-moxico-leste-cazombo", officialCode: "AOMLE130102" },
   { id: "ao-moxico-leste-macondo-macondo", name: "Macondo", level: "commune", parentId: "ao-moxico-leste-macondo", officialCode: "AOMLE130601" },
   { id: "ao-moxico-leste-macondo-calunda", name: "Calunda", level: "commune", parentId: "ao-moxico-leste-macondo", officialCode: "AOMLE130602" },
+];
+
+
+export const bieMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-bie-andulo", name: "Andulo", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1401" },
+  { id: "ao-bie-chitembo", name: "Chitembo", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1402" },
+  { id: "ao-bie-cuito", name: "Cuito", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1403" },
+  { id: "ao-bie-camacupa", name: "Camacupa", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1404" },
+  { id: "ao-bie-chinguar", name: "Chinguar", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1405" },
+  { id: "ao-bie-catabola", name: "Catabola", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1406" },
+  { id: "ao-bie-cunhinga", name: "Cunhinga", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1407" },
+  { id: "ao-bie-cuemba", name: "Cuemba", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1408" },
+  { id: "ao-bie-nharea", name: "Nharêa", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1409" },
+  { id: "ao-bie-luando", name: "Luando", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1410" },
+  { id: "ao-bie-ringoma", name: "Ringoma", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1411" },
+  { id: "ao-bie-mumbue", name: "Mumbué", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1412" },
+  { id: "ao-bie-calucinga", name: "Calucinga", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1413" },
+  { id: "ao-bie-chicala", name: "Chicala", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1414" },
+  { id: "ao-bie-chipeta", name: "Chipeta", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1415" },
+  { id: "ao-bie-umpulo", name: "Umpulo", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1416" },
+  { id: "ao-bie-lubia", name: "Lúbia", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1417" },
+  { id: "ao-bie-cambandua", name: "Cambândua", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1418" },
+  { id: "ao-bie-belo-horizonte", name: "Belo Horizonte", level: "municipality", parentId: "ao-bie", officialCode: "AOBIE1419" },
+];
+
+export const bieCommunes: AdministrativeUnit[] = [
+  { id: "ao-bie-andulo-andulo", name: "Andulo", level: "commune", parentId: "ao-bie-andulo", officialCode: "AOBIE140101" },
+  { id: "ao-bie-andulo-cassumbe", name: "Cassumbe", level: "commune", parentId: "ao-bie-andulo", officialCode: "AOBIE140102" },
+  { id: "ao-bie-andulo-chivaulo", name: "Chivaulo", level: "commune", parentId: "ao-bie-andulo", officialCode: "AOBIE140103" },
+  { id: "ao-bie-chitembo-chitembo", name: "Chitembo", level: "commune", parentId: "ao-bie-chitembo", officialCode: "AOBIE140201" },
+  { id: "ao-bie-chitembo-cachingues", name: "Cachingues", level: "commune", parentId: "ao-bie-chitembo", officialCode: "AOBIE140202" },
+  { id: "ao-bie-chitembo-malengue", name: "Malengue", level: "commune", parentId: "ao-bie-chitembo", officialCode: "AOBIE140203" },
+  { id: "ao-bie-cuito-cuito", name: "Cuito", level: "commune", parentId: "ao-bie-cuito", officialCode: "AOBIE140301" },
+  { id: "ao-bie-cuito-cunje", name: "Cunje", level: "commune", parentId: "ao-bie-cuito", officialCode: "AOBIE140302" },
+  { id: "ao-bie-camacupa-camacupa", name: "Camacupa", level: "commune", parentId: "ao-bie-camacupa", officialCode: "AOBIE140401" },
+  { id: "ao-bie-camacupa-cuanza", name: "Cuanza", level: "commune", parentId: "ao-bie-camacupa", officialCode: "AOBIE140402" },
+  { id: "ao-bie-camacupa-munha", name: "Munha", level: "commune", parentId: "ao-bie-camacupa", officialCode: "AOBIE140403" },
+  { id: "ao-bie-chinguar-chinguar", name: "Chinguar", level: "commune", parentId: "ao-bie-chinguar", officialCode: "AOBIE140501" },
+  { id: "ao-bie-chinguar-cutato", name: "Cutato", level: "commune", parentId: "ao-bie-chinguar", officialCode: "AOBIE140502" },
+  { id: "ao-bie-chinguar-cangote", name: "Cangote", level: "commune", parentId: "ao-bie-chinguar", officialCode: "AOBIE140503" },
+  { id: "ao-bie-catabola-catabola", name: "Catabola", level: "commune", parentId: "ao-bie-catabola", officialCode: "AOBIE140601" },
+  { id: "ao-bie-catabola-caiuera", name: "Caiuera", level: "commune", parentId: "ao-bie-catabola", officialCode: "AOBIE140602" },
+  { id: "ao-bie-catabola-sande", name: "Sande", level: "commune", parentId: "ao-bie-catabola", officialCode: "AOBIE140603" },
+  { id: "ao-bie-cuemba-cuemba", name: "Cuemba", level: "commune", parentId: "ao-bie-cuemba", officialCode: "AOBIE140801" },
+  { id: "ao-bie-cuemba-munhango", name: "Munhango", level: "commune", parentId: "ao-bie-cuemba", officialCode: "AOBIE140802" },
+  { id: "ao-bie-cuemba-sachinemuna", name: "Sachinemuna", level: "commune", parentId: "ao-bie-cuemba", officialCode: "AOBIE140803" },
+  { id: "ao-bie-nharea-nharea", name: "Nharêa", level: "commune", parentId: "ao-bie-nharea", officialCode: "AOBIE140901" },
+  { id: "ao-bie-nharea-gamba", name: "Gamba", level: "commune", parentId: "ao-bie-nharea", officialCode: "AOBIE140902" },
+  { id: "ao-bie-nharea-caieie", name: "Caieie", level: "commune", parentId: "ao-bie-nharea", officialCode: "AOBIE140903" },
+  { id: "ao-bie-mumbue-mumbue", name: "Mumbué", level: "commune", parentId: "ao-bie-mumbue", officialCode: "AOBIE141201" },
+  { id: "ao-bie-mumbue-mutumbo", name: "Mutumbo", level: "commune", parentId: "ao-bie-mumbue", officialCode: "AOBIE141202" },
+  { id: "ao-bie-mumbue-soma-cuanza", name: "Soma Cuanza", level: "commune", parentId: "ao-bie-mumbue", officialCode: "AOBIE141203" },
+  { id: "ao-bie-chipeta-chipeta", name: "Chipeta", level: "commune", parentId: "ao-bie-chipeta", officialCode: "AOBIE141501" },
+  { id: "ao-bie-chipeta-chiuca", name: "Chiuca", level: "commune", parentId: "ao-bie-chipeta", officialCode: "AOBIE141502" },
+  { id: "ao-bie-lubia-lubia", name: "Lúbia", level: "commune", parentId: "ao-bie-lubia", officialCode: "AOBIE141701" },
+  { id: "ao-bie-lubia-dando", name: "Dando", level: "commune", parentId: "ao-bie-lubia", officialCode: "AOBIE141702" },
 ];
