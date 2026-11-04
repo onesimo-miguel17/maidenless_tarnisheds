@@ -17,7 +17,8 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Cuanza-Norte: 17 municípios e 24 comunas;
 - Cuanza-Sul: 24 municípios e 23 comunas;
 - Malanje: 27 municípios e 38 comunas;
-- Lunda-Norte: 19 municípios e 20 comunas;\n- Lunda-Sul: 14 municípios e 4 comunas.
+- Lunda-Norte: 19 municípios e 20 comunas;
+- Lunda-Sul: 14 municípios e 4 comunas.
 
 Total actualmente registado: 157 municípios e 198 comunas, distribuídos por nove províncias. Estes totais não representam a cobertura nacional.
 
