@@ -23,6 +23,8 @@ import {
   moxicoMunicipalities,
   moxicoLesteCommunes,
   moxicoLesteMunicipalities,
+  bieCommunes,
+  bieMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -754,6 +756,91 @@ describe("Angola administrative hierarchy — Moxico Leste tranche", () => {
       ...lundaSulMunicipalities, ...lundaSulCommunes,
       ...moxicoMunicipalities, ...moxicoCommunes,
       ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Bié tranche", () => {
+  it("contains the nineteen municipalities in the legal annex order", () => {
+    expect(bieMunicipalities).toHaveLength(19);
+    expect(bieMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 19 }, (_, index) => `AOBIE14${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(bieMunicipalities.map((unit) => unit.name)).toEqual([
+      "Andulo", "Chitembo", "Cuito", "Camacupa", "Chinguar", "Catabola",
+      "Cunhinga", "Cuemba", "Nharêa", "Luando", "Ringoma", "Mumbué",
+      "Calucinga", "Chicala", "Chipeta", "Umpulo", "Lúbia", "Cambândua",
+      "Belo Horizonte",
+    ]);
+  });
+
+  it("links Bié municipalities to the province with the correct code and seat", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-bie");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOBIE14");
+    expect(province?.administrativeSeat).toBe("Cuito");
+    expect(bieMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(bieMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the thirty communes explicitly listed in the legal annex", () => {
+    expect(bieCommunes).toHaveLength(30);
+    expect(bieCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOBIE140101", "AOBIE140102", "AOBIE140103",
+      "AOBIE140201", "AOBIE140202", "AOBIE140203",
+      "AOBIE140301", "AOBIE140302",
+      "AOBIE140401", "AOBIE140402", "AOBIE140403",
+      "AOBIE140501", "AOBIE140502", "AOBIE140503",
+      "AOBIE140601", "AOBIE140602", "AOBIE140603",
+      "AOBIE140801", "AOBIE140802", "AOBIE140803",
+      "AOBIE140901", "AOBIE140902", "AOBIE140903",
+      "AOBIE141201", "AOBIE141202", "AOBIE141203",
+      "AOBIE141501", "AOBIE141502",
+      "AOBIE141701", "AOBIE141702",
+    ]);
+    expect(bieCommunes.map((unit) => unit.name)).toEqual([
+      "Andulo", "Cassumbe", "Chivaulo", "Chitembo", "Cachingues", "Malengue",
+      "Cuito", "Cunje", "Camacupa", "Cuanza", "Munha", "Chinguar", "Cutato",
+      "Cangote", "Catabola", "Caiuera", "Sande", "Cuemba", "Munhango",
+      "Sachinemuna", "Nharêa", "Gamba", "Caieie", "Mumbué", "Mutumbo",
+      "Soma Cuanza", "Chipeta", "Chiuca", "Lúbia", "Dando",
+    ]);
+  });
+
+  it("links every Bié commune to its municipality", () => {
+    const municipalityIds = new Set(bieMunicipalities.map((unit) => unit.id));
+    expect(bieCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(bieCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps eight municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(bieCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = bieMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Cunhinga", "Luando", "Ringoma", "Calucinga", "Chicala", "Umpulo",
+      "Cambândua", "Belo Horizonte",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all twelve imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
