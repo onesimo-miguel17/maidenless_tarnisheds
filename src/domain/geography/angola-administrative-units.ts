@@ -14,6 +14,7 @@ import type { AdministrativeUnit } from "./types";
  * - Lunda-Norte: page 20322.
  * - Lunda-Sul: page 20323.
  * - Moxico: page 20323.
+ * - Moxico Leste: page 20324.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -461,4 +462,24 @@ export const moxicoCommunes: AdministrativeUnit[] = [
   { id: "ao-moxico-leua-liangongo", name: "Liangongo", level: "commune", parentId: "ao-moxico-leua", officialCode: "AOMCO120502" },
   { id: "ao-moxico-lutembo-lutembo", name: "Lutembo", level: "commune", parentId: "ao-moxico-lutembo", officialCode: "AOMCO120601" },
   { id: "ao-moxico-lutembo-luvuei", name: "Luvuei", level: "commune", parentId: "ao-moxico-lutembo", officialCode: "AOMCO120602" },
+];
+
+
+export const moxicoLesteMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-moxico-leste-cazombo", name: "Cazombo", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1301" },
+  { id: "ao-moxico-leste-luacano", name: "Luacano", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1302" },
+  { id: "ao-moxico-leste-cameia", name: "Cameia", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1303" },
+  { id: "ao-moxico-leste-luaa", name: "Luaa", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1304" },
+  { id: "ao-moxico-leste-nana-candundo", name: "Nana Candundo", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1305" },
+  { id: "ao-moxico-leste-macondo", name: "Macondo", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1306" },
+  { id: "ao-moxico-leste-caianda", name: "Caianda", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1307" },
+  { id: "ao-moxico-leste-lovua-do-zambeze", name: "Lóvua do Zambeze", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1308" },
+  { id: "ao-moxico-leste-lago-dilolo", name: "Lago Dilolo", level: "municipality", parentId: "ao-moxico-leste", officialCode: "AOMLE1309" },
+];
+
+export const moxicoLesteCommunes: AdministrativeUnit[] = [
+  { id: "ao-moxico-leste-cazombo-cazombo", name: "Cazombo", level: "commune", parentId: "ao-moxico-leste-cazombo", officialCode: "AOMLE130101" },
+  { id: "ao-moxico-leste-cazombo-lumbala-caquengue", name: "Lumbala Caquengue", level: "commune", parentId: "ao-moxico-leste-cazombo", officialCode: "AOMLE130102" },
+  { id: "ao-moxico-leste-macondo-macondo", name: "Macondo", level: "commune", parentId: "ao-moxico-leste-macondo", officialCode: "AOMLE130601" },
+  { id: "ao-moxico-leste-macondo-calunda", name: "Calunda", level: "commune", parentId: "ao-moxico-leste-macondo", officialCode: "AOMLE130602" },
 ];
