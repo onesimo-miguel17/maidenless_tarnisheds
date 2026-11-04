@@ -13,6 +13,7 @@ export const angolaGeographyMetadata: GeographicDatasetMetadata = {
   administrativeReferenceDate: "2025-01-01",
   publishedAt: "2024-09-05",
   accessedAt: "2026-11-04",
+  administrativeCounts: { provinces: 21, municipalities: 326, communes: 378 },
   sources: [
     {
       organization: "Assembleia Nacional da República de Angola",
@@ -20,6 +21,12 @@ export const angolaGeographyMetadata: GeographicDatasetMetadata = {
       url: "https://c2a.portais.gov.ao/uploads/LEI_14_24_5_de_SETEMBRO_LEI_DA_DPA_043a0de85f.pdf",
       notes:
         "Artigos 2.º e 3.º: estabelece 21 províncias, 326 municípios, 378 comunas e identifica as sedes provinciais.",
+    },
+    {
+      organization: "Ministério das Relações Exteriores de Angola",
+      title: "Nova divisão política administrativa — início de vigência em 1 de Janeiro de 2025",
+      url: "https://brasil.mirex.gov.ao/web/noticias/nova-divisao-politica-administrativa",
+      notes: "Comunicação institucional que indica o início de vigência da nova divisão em 1 de Janeiro de 2025.",
     },
     {
       organization: "Instituto Nacional de Estatística de Angola",
