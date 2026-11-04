@@ -532,3 +532,74 @@ describe("Angola administrative hierarchy — Lunda-Norte tranche", () => {
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
   });
 });
+
+
+describe("Angola administrative hierarchy — Lunda-Sul tranche", () => {
+  it("contains the 14 municipalities in the legal annex order", () => {
+    expect(lundaSulMunicipalities).toHaveLength(14);
+    expect(lundaSulMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 14 }, (_, index) => `AOLSU11${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(lundaSulMunicipalities.map((unit) => unit.name)).toEqual([
+      "Saurimo", "Muconda", "Cacolo", "Dala", "Chiluage", "Cassai-Sul",
+      "Xassengue", "Alto Chicapa", "Sombo", "Muriege", "Luma Cassai",
+      "Cazage", "Muangueji", "Cassengo",
+    ]);
+  });
+
+  it("links all Lunda-Sul municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-lunda-sul");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOLSU11");
+    expect(province?.administrativeSeat).toBe("Saurimo");
+    expect(lundaSulMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(lundaSulMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the four communes explicitly listed in the legal annex with exact codes and names", () => {
+    expect(lundaSulCommunes).toHaveLength(4);
+    expect(lundaSulCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOLSU110101", "AOLSU110102", "AOLSU110701", "AOLSU110702",
+    ]);
+    expect(lundaSulCommunes.map((unit) => unit.name)).toEqual([
+      "Saurimo", "Mona Quimbundo", "Xassengue", "Cucumbi",
+    ]);
+  });
+
+  it("links every Lunda-Sul commune to its correct municipality", () => {
+    const municipalityIds = new Set(lundaSulMunicipalities.map((unit) => unit.id));
+    expect(lundaSulCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(lundaSulCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(lundaSulCommunes.map((unit) => unit.parentId)).toEqual([
+      "ao-lunda-sul-saurimo", "ao-lunda-sul-saurimo",
+      "ao-lunda-sul-xassengue", "ao-lunda-sul-xassengue",
+    ]);
+  });
+
+  it("keeps the twelve municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(lundaSulCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = lundaSulMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Muconda", "Cacolo", "Dala", "Chiluage", "Cassai-Sul", "Alto Chicapa",
+      "Sombo", "Muriege", "Luma Cassai", "Cazage", "Muangueji", "Cassengo",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all nine imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
