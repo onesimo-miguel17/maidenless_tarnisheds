@@ -65,7 +65,7 @@ export function assessCropAgainstSoil(
     phAssessment = {
       factor: "soil-ph",
       status: compatible ? "compatible" : "outside-range",
-      observedValue: soil.ph.value,
+      observedValue: measuredPh.value,
       expectedRange: { min: range.min, max: range.max },
       evidence: range.evidence,
       explanation: compatible
