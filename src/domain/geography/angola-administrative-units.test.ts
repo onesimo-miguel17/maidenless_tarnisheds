@@ -9,6 +9,8 @@ import {
   uigeMunicipalities,
   bengoCommunes,
   bengoMunicipalities,
+  cuanzaNorteCommunes,
+  cuanzaNorteMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -248,6 +250,86 @@ describe("Angola administrative hierarchy — Bengo tranche", () => {
       ...zaireMunicipalities, ...zaireCommunes,
       ...uigeMunicipalities, ...uigeCommunes,
       ...bengoMunicipalities, ...bengoCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Cuanza-Norte tranche", () => {
+  it("contains the seventeen municipalities in the legal annex order", () => {
+    expect(cuanzaNorteMunicipalities).toHaveLength(17);
+    expect(cuanzaNorteMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 17 }, (_, index) => `AOCNO07${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(cuanzaNorteMunicipalities.map((unit) => unit.name)).toEqual([
+      "Cazengo", "Golungo Alto", "Cambambe", "Samba Cajú", "Ambaca",
+      "Lucala", "Banga", "Bolongongo", "Quiculungo", "Ngonguembo",
+      "Massangano", "Cêca", "Tango", "Terreiro", "Aldeia Nova",
+      "Caculo Cabaça", "Luinga",
+    ]);
+  });
+
+  it("links all Cuanza-Norte municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cuanza-norte");
+    expect(province).toBeDefined();
+    expect(cuanzaNorteMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cuanzaNorteMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the twenty-four communes and preserves their official codes", () => {
+    expect(cuanzaNorteCommunes).toHaveLength(24);
+    expect(cuanzaNorteCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOCNO070101", "AOCNO070102",
+      "AOCNO070201", "AOCNO070202", "AOCNO070203",
+      "AOCNO070301", "AOCNO070302", "AOCNO070303",
+      "AOCNO070401", "AOCNO070402",
+      "AOCNO070501", "AOCNO070502", "AOCNO070503",
+      "AOCNO070601", "AOCNO070602",
+      "AOCNO070701", "AOCNO070702",
+      "AOCNO071001", "AOCNO071002", "AOCNO071003",
+      "AOCNO071101", "AOCNO071102",
+      "AOCNO071401", "AOCNO071402",
+    ]);
+    expect(cuanzaNorteCommunes.map((unit) => unit.name)).toEqual([
+      "Ndalatando", "Caculo Camuiza",
+      "Golungo Alto", "Cambondo", "Quilombo quía Puto",
+      "Dondo", "Dange ya Menha", "São Pedro da Quilemba",
+      "Samba Cajú", "Samba Lucala",
+      "Camabatela", "Múa", "Bindo",
+      "Lucala", "Quiangombe",
+      "Banga", "Cariamba",
+      "Quilombo dos Dembos", "Camame", "Cavunga",
+      "Massangano", "Zenza do Itombe",
+      "Terreiro", "Quiquiemba",
+    ]);
+  });
+
+  it("links every Cuanza-Norte commune to an existing municipality", () => {
+    const municipalityIds = new Set(cuanzaNorteMunicipalities.map((unit) => unit.id));
+    expect(cuanzaNorteCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cuanzaNorteCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the seven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cuanzaNorteCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = cuanzaNorteMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Bolongongo", "Quiculungo", "Cêca", "Tango", "Aldeia Nova",
+      "Caculo Cabaça", "Luinga",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all five verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
