@@ -16,9 +16,9 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Bengo: 12 municípios e 19 comunas;
 - Cuanza-Norte: 17 municípios e 24 comunas;
 - Cuanza-Sul: 24 municípios e 23 comunas;
-- Malanje: 27 municípios e 34 comunas.
+- Malanje: 27 municípios e 38 comunas.
 
-Total actualmente registado: 124 municípios e 170 comunas, distribuídos por sete províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 124 municípios e 174 comunas, distribuídos por sete províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
