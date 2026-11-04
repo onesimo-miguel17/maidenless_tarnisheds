@@ -5,6 +5,8 @@ import {
   cabindaMunicipalities,
   zaireCommunes,
   zaireMunicipalities,
+  uigeCommunes,
+  uigeMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -100,6 +102,79 @@ describe("Angola administrative hierarchy — Zaire tranche", () => {
     const units = [
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Uíge tranche", () => {
+  it("contains the 23 municipalities in the legal annex order", () => {
+    expect(uigeMunicipalities).toHaveLength(23);
+    expect(uigeMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 23 }, (_, index) => `AOUGE03${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(uigeMunicipalities.map((unit) => unit.name)).toEqual([
+      "Dange Quitexe", "Bungo", "Ambuíla", "Negage", "Puri",
+      "Maquela do Zombo", "Damba", "Sanza Pombo", "Bembe", "Milunga",
+      "Songo", "Quimbele", "Cangola", "Uige", "Mucaba",
+      "Nova Esperança", "Sacandica", "Nsosso", "Lucunga", "Quipedro",
+      "Massau", "Vista Alegre", "Alto Zaza",
+    ]);
+  });
+
+  it("links all Uíge municipalities to the Uíge province", () => {
+    const uige = angolaProvinces.find((province) => province.id === "ao-uige");
+    expect(uige).toBeDefined();
+    expect(uigeMunicipalities.every((unit) => unit.parentId === uige?.id)).toBe(true);
+    expect(uigeMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the 44 communes explicitly listed in the legal annex", () => {
+    expect(uigeCommunes).toHaveLength(44);
+    expect(uigeCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOUGE030101", "AOUGE030102",
+      "AOUGE030401", "AOUGE030402", "AOUGE030403",
+      "AOUGE030601", "AOUGE030602",
+      "AOUGE030701", "AOUGE030702", "AOUGE030703", "AOUGE030704",
+      "AOUGE030801", "AOUGE030802", "AOUGE030803", "AOUGE030804",
+      "AOUGE030901", "AOUGE030902",
+      "AOUGE031001", "AOUGE031002",
+      "AOUGE031101", "AOUGE031102",
+      "AOUGE031201", "AOUGE031202",
+      "AOUGE031301", "AOUGE031302", "AOUGE031303",
+      "AOUGE031401", "AOUGE031402", "AOUGE031403", "AOUGE031404",
+      "AOUGE031501", "AOUGE031502",
+      "AOUGE031601", "AOUGE031602", "AOUGE031603",
+      "AOUGE031701", "AOUGE031702", "AOUGE031703",
+      "AOUGE032101", "AOUGE032102",
+      "AOUGE032201", "AOUGE032202",
+      "AOUGE032301", "AOUGE032302",
+    ]);
+  });
+
+  it("links every Uíge commune to an existing municipality", () => {
+    const municipalityIds = new Set(uigeMunicipalities.map((unit) => unit.id));
+    expect(uigeCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(uigeCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("does not create communes for the six municipality rows marked 00", () => {
+    const communeParentIds = new Set(uigeCommunes.map((unit) => unit.parentId));
+    const municipalitiesWithoutCommunes = uigeMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalitiesWithoutCommunes.map((unit) => unit.name)).toEqual([
+      "Bungo", "Ambuíla", "Puri", "Nsosso", "Lucunga", "Quipedro",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all three verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
