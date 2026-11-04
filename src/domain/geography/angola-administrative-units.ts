@@ -12,6 +12,7 @@ import type { AdministrativeUnit } from "./types";
  * - Cuanza-Sul: page 20320.
  * - Malanje: page 20321.
  * - Lunda-Norte: page 20322.
+ * - Lunda-Sul: page 20323.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -402,4 +403,29 @@ export const lundaNorteCommunes: AdministrativeUnit[] = [
   { id: "ao-lunda-norte-cassanje-calucala-iongo", name: "Iongo", level: "commune", parentId: "ao-lunda-norte-cassanje-calucala", officialCode: "AOLNO101702" },
   { id: "ao-lunda-norte-mussungue-mussungue", name: "Mussungue", level: "commune", parentId: "ao-lunda-norte-mussungue", officialCode: "AOLNO101801" },
   { id: "ao-lunda-norte-mussungue-caita", name: "Caíta", level: "commune", parentId: "ao-lunda-norte-mussungue", officialCode: "AOLNO101802" },
+];
+
+
+export const lundaSulMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-lunda-sul-saurimo", name: "Saurimo", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1101" },
+  { id: "ao-lunda-sul-muconda", name: "Muconda", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1102" },
+  { id: "ao-lunda-sul-cacolo", name: "Cacolo", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1103" },
+  { id: "ao-lunda-sul-dala", name: "Dala", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1104" },
+  { id: "ao-lunda-sul-chiluage", name: "Chiluage", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1105" },
+  { id: "ao-lunda-sul-cassai-sul", name: "Cassai-Sul", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1106" },
+  { id: "ao-lunda-sul-xassengue", name: "Xassengue", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1107" },
+  { id: "ao-lunda-sul-alto-chicapa", name: "Alto Chicapa", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1108" },
+  { id: "ao-lunda-sul-sombo", name: "Sombo", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1109" },
+  { id: "ao-lunda-sul-muriege", name: "Muriege", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1110" },
+  { id: "ao-lunda-sul-luma-cassai", name: "Luma Cassai", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1111" },
+  { id: "ao-lunda-sul-cazage", name: "Cazage", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1112" },
+  { id: "ao-lunda-sul-muangueji", name: "Muangueji", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1113" },
+  { id: "ao-lunda-sul-cassengo", name: "Cassengo", level: "municipality", parentId: "ao-lunda-sul", officialCode: "AOLSU1114" },
+];
+
+export const lundaSulCommunes: AdministrativeUnit[] = [
+  { id: "ao-lunda-sul-saurimo-saurimo", name: "Saurimo", level: "commune", parentId: "ao-lunda-sul-saurimo", officialCode: "AOLSU110101" },
+  { id: "ao-lunda-sul-saurimo-mona-quimbundo", name: "Mona Quimbundo", level: "commune", parentId: "ao-lunda-sul-saurimo", officialCode: "AOLSU110102" },
+  { id: "ao-lunda-sul-xassengue-xassengue", name: "Xassengue", level: "commune", parentId: "ao-lunda-sul-xassengue", officialCode: "AOLSU110701" },
+  { id: "ao-lunda-sul-xassengue-cucumbi", name: "Cucumbi", level: "commune", parentId: "ao-lunda-sul-xassengue", officialCode: "AOLSU110702" },
 ];
