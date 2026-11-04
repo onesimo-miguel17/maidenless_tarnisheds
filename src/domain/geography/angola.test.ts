@@ -44,7 +44,12 @@ describe("Angola geographic foundation", () => {
   });
 
   it("records source provenance and dataset limitations", () => {
-    expect(angolaGeographyMetadata.sources.length).toBeGreaterThanOrEqual(2);
+    expect(angolaGeographyMetadata.sources.length).toBeGreaterThanOrEqual(3);
+    expect(angolaGeographyMetadata.administrativeCounts).toEqual({
+      provinces: 21,
+      municipalities: 326,
+      communes: 378,
+    });
     expect(angolaGeographyMetadata.limitations.length).toBeGreaterThan(0);
     expect(angolaGeographyMetadata.administrativeReferenceDate).toBe("2025-01-01");
   });
