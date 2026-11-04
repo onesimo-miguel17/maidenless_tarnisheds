@@ -17,7 +17,6 @@ import type { AdministrativeUnit } from "./types";
  * - Moxico Leste: page 20324;
  * - Bié: pages 20325–20326.
  * - Huambo: pages 20326–20327.
- * - Bié: pages 20325–20326.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
