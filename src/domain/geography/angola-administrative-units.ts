@@ -6,7 +6,9 @@ import type { AdministrativeUnit } from "./types";
  * Transcribed from the annex to Law n.º 8/25, Diário da República,
  * I Série, n.º 176, 16 September 2025:
  * - Cabinda: page 20315.
- * - Zaire: page 20316.
+ * - Zaire and Uíge: page 20316.
+ * - Bengo: page 20317.
+ * - Cuanza-Norte: page 20319.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
