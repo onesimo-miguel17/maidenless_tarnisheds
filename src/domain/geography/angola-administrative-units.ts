@@ -13,6 +13,7 @@ import type { AdministrativeUnit } from "./types";
  * - Malanje: page 20321.
  * - Lunda-Norte: page 20322.
  * - Lunda-Sul: page 20323.
+ * - Moxico: page 20323.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -428,4 +429,36 @@ export const lundaSulCommunes: AdministrativeUnit[] = [
   { id: "ao-lunda-sul-saurimo-mona-quimbundo", name: "Mona Quimbundo", level: "commune", parentId: "ao-lunda-sul-saurimo", officialCode: "AOLSU110102" },
   { id: "ao-lunda-sul-xassengue-xassengue", name: "Xassengue", level: "commune", parentId: "ao-lunda-sul-xassengue", officialCode: "AOLSU110701" },
   { id: "ao-lunda-sul-xassengue-cucumbi", name: "Cucumbi", level: "commune", parentId: "ao-lunda-sul-xassengue", officialCode: "AOLSU110702" },
+];
+
+
+export const moxicoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-moxico-luena", name: "Luena", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1201" },
+  { id: "ao-moxico-cangamba", name: "Cangamba", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1202" },
+  { id: "ao-moxico-lumbala-nguimbo", name: "Lumbala Nguimbo", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1203" },
+  { id: "ao-moxico-camanongue", name: "Camanongue", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1204" },
+  { id: "ao-moxico-leua", name: "Léua", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1205" },
+  { id: "ao-moxico-lutembo", name: "Lutembo", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1206" },
+  { id: "ao-moxico-lucusse", name: "Lucusse", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1207" },
+  { id: "ao-moxico-cangumbe", name: "Cangumbe", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1208" },
+  { id: "ao-moxico-chiume", name: "Chiume", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1209" },
+  { id: "ao-moxico-alto-cuito", name: "Alto Cuito", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1210" },
+  { id: "ao-moxico-ninda", name: "Ninda", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1211" },
+  { id: "ao-moxico-lutuei", name: "Lutuei", level: "municipality", parentId: "ao-moxico", officialCode: "AOMCO1212" },
+];
+
+export const moxicoCommunes: AdministrativeUnit[] = [
+  { id: "ao-moxico-luena-luena", name: "Luena", level: "commune", parentId: "ao-moxico-luena", officialCode: "AOMCO120101" },
+  { id: "ao-moxico-luena-cassongo", name: "Cassongo", level: "commune", parentId: "ao-moxico-luena", officialCode: "AOMCO120102" },
+  { id: "ao-moxico-cangamba-cangombe", name: "Cangombe", level: "commune", parentId: "ao-moxico-cangamba", officialCode: "AOMCO120201" },
+  { id: "ao-moxico-cangamba-cassamba", name: "Cassamba", level: "commune", parentId: "ao-moxico-cangamba", officialCode: "AOMCO120202" },
+  { id: "ao-moxico-cangamba-cangamba", name: "Cangamba", level: "commune", parentId: "ao-moxico-cangamba", officialCode: "AOMCO120203" },
+  { id: "ao-moxico-cangamba-muie", name: "Muié", level: "commune", parentId: "ao-moxico-cangamba", officialCode: "AOMCO120204" },
+  { id: "ao-moxico-lumbala-nguimbo-lumbala-nguimbo", name: "Lumbala Nguimbo", level: "commune", parentId: "ao-moxico-lumbala-nguimbo", officialCode: "AOMCO120301" },
+  { id: "ao-moxico-lumbala-nguimbo-mussuma-mitete", name: "Mussuma Mitete", level: "commune", parentId: "ao-moxico-lumbala-nguimbo", officialCode: "AOMCO120302" },
+  { id: "ao-moxico-lumbala-nguimbo-sessa", name: "Sessa", level: "commune", parentId: "ao-moxico-lumbala-nguimbo", officialCode: "AOMCO120303" },
+  { id: "ao-moxico-leua-leua", name: "Léua", level: "commune", parentId: "ao-moxico-leua", officialCode: "AOMCO120501" },
+  { id: "ao-moxico-leua-liangongo", name: "Liangongo", level: "commune", parentId: "ao-moxico-leua", officialCode: "AOMCO120502" },
+  { id: "ao-moxico-lutembo-lutembo", name: "Lutembo", level: "commune", parentId: "ao-moxico-lutembo", officialCode: "AOMCO120601" },
+  { id: "ao-moxico-lutembo-luvuei", name: "Luvuei", level: "commune", parentId: "ao-moxico-lutembo", officialCode: "AOMCO120602" },
 ];
