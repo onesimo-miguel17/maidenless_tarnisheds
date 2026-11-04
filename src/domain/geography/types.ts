@@ -24,6 +24,11 @@ export interface GeographicDatasetMetadata {
   administrativeReferenceDate: string;
   publishedAt: string;
   accessedAt: string;
+  administrativeCounts: {
+    provinces: number;
+    municipalities: number;
+    communes: number;
+  };
   sources: Array<{
     organization: string;
     title: string;
