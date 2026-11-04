@@ -18,9 +18,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Cuanza-Sul: 24 municípios e 23 comunas;
 - Malanje: 27 municípios e 38 comunas;
 - Lunda-Norte: 19 municípios e 20 comunas;
-- Lunda-Sul: 14 municípios e 4 comunas.
+- Lunda-Sul: 14 municípios e 4 comunas;
+- Moxico: 12 municípios e 13 comunas.
 
-Total actualmente registado: 157 municípios e 198 comunas, distribuídos por nove províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 169 municípios e 211 comunas, distribuídos por dez províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 

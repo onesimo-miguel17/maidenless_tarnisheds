@@ -19,6 +19,8 @@ import {
   lundaNorteMunicipalities,
   lundaSulCommunes,
   lundaSulMunicipalities,
+  moxicoCommunes,
+  moxicoMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -600,6 +602,85 @@ describe("Angola administrative hierarchy — Lunda-Sul tranche", () => {
       ...malanjeMunicipalities, ...malanjeCommunes,
       ...lundaNorteMunicipalities, ...lundaNorteCommunes,
       ...lundaSulMunicipalities, ...lundaSulCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Moxico tranche", () => {
+  it("contains the twelve municipalities in the legal annex order", () => {
+    expect(moxicoMunicipalities).toHaveLength(12);
+    expect(moxicoMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 12 }, (_, index) => `AOMCO12${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(moxicoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Luena", "Cangamba", "Lumbala Nguimbo", "Camanongue", "Léua",
+      "Lutembo", "Lucusse", "Cangumbe", "Chiume", "Alto Cuito", "Ninda", "Lutuei",
+    ]);
+  });
+
+  it("links all Moxico municipalities to the province with the correct code and seat", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-moxico");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOMCO12");
+    expect(province?.administrativeSeat).toBe("Luena");
+    expect(moxicoMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(moxicoMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the thirteen communes explicitly listed in the legal annex", () => {
+    expect(moxicoCommunes).toHaveLength(13);
+    expect(moxicoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOMCO120101", "AOMCO120102",
+      "AOMCO120201", "AOMCO120202", "AOMCO120203", "AOMCO120204",
+      "AOMCO120301", "AOMCO120302", "AOMCO120303",
+      "AOMCO120501", "AOMCO120502",
+      "AOMCO120601", "AOMCO120602",
+    ]);
+    expect(moxicoCommunes.map((unit) => unit.name)).toEqual([
+      "Luena", "Cassongo", "Cangombe", "Cassamba", "Cangamba", "Muié",
+      "Lumbala Nguimbo", "Mussuma Mitete", "Sessa", "Léua", "Liangongo",
+      "Lutembo", "Luvuei",
+    ]);
+  });
+
+  it("links each Moxico commune to the correct municipality", () => {
+    const municipalityIds = new Set(moxicoMunicipalities.map((unit) => unit.id));
+    expect(moxicoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(moxicoCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(moxicoCommunes.map((unit) => unit.parentId)).toEqual([
+      "ao-moxico-luena", "ao-moxico-luena",
+      "ao-moxico-cangamba", "ao-moxico-cangamba", "ao-moxico-cangamba", "ao-moxico-cangamba",
+      "ao-moxico-lumbala-nguimbo", "ao-moxico-lumbala-nguimbo", "ao-moxico-lumbala-nguimbo",
+      "ao-moxico-leua", "ao-moxico-leua",
+      "ao-moxico-lutembo", "ao-moxico-lutembo",
+    ]);
+  });
+
+  it("keeps seven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(moxicoCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = moxicoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Camanongue", "Lucusse", "Cangumbe", "Chiume", "Alto Cuito", "Ninda", "Lutuei",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all ten imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
