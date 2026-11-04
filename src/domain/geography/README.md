@@ -14,9 +14,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Zaire: 11 municípios e 18 comunas;
 - Uíge: 23 municípios e 44 comunas;
 - Bengo: 12 municípios e 19 comunas;
-- Cuanza-Norte: 17 municípios e 24 comunas.
+- Cuanza-Norte: 17 municípios e 24 comunas;
+- Cuanza-Sul: 24 municípios e 23 comunas.
 
-Total actualmente registado: 73 municípios e 113 comunas, distribuídos por cinco províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 97 municípios e 136 comunas, distribuídos por seis províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
@@ -60,7 +61,7 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- As tranches detalhadas são apenas Cabinda, Zaire, Uíge, Bengo e Cuanza-Norte; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são apenas Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte e Cuanza-Sul; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
