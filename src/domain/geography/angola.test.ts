@@ -37,14 +37,26 @@ describe("Angola geographic foundation", () => {
     expect(getProvinceByName("Moxico Leste")?.administrativeSeat).toBe("Cazombo");
   });
 
-  it("does not invent official territorial codes or geospatial coordinates", () => {
-    expect(angolaProvinces.every((province) => province.officialCode === null)).toBe(true);
+  it("uses the 21 official provincial codes published in the annex to Law 8/25", () => {
+    const expectedCodes = [
+      "AOCDA01", "AOZRE02", "AOUGE03", "AOBGO04", "AOLDA05", "AOIBE06",
+      "AOCNO07", "AOCSU08", "AOMJE09", "AOLNO10", "AOLSU11", "AOMCO12",
+      "AOMLE13", "AOBIE14", "AOHBO15", "AOBLA16", "AONBE17", "AOHLA18",
+      "AOCNE19", "AOCGO20", "AOCDO21",
+    ];
+
+    expect(angolaProvinces.map((province) => province.officialCode)).toEqual(expectedCodes);
+    expect(new Set(expectedCodes).size).toBe(21);
+  });
+
+  it("does not invent geospatial coordinates", () => {
     expect(angolaProvinces.every((province) => !("latitude" in province))).toBe(true);
     expect(angolaProvinces.every((province) => !("longitude" in province))).toBe(true);
   });
 
   it("records source provenance and dataset limitations", () => {
-    expect(angolaGeographyMetadata.sources.length).toBeGreaterThanOrEqual(3);
+    expect(angolaGeographyMetadata.sources.length).toBeGreaterThanOrEqual(4);
+    expect(angolaGeographyMetadata.sources.some((source) => source.url.endsWith(".pdf"))).toBe(true);
     expect(angolaGeographyMetadata.administrativeCounts).toEqual({
       provinces: 21,
       municipalities: 326,

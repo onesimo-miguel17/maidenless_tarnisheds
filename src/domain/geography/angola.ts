@@ -1,9 +1,10 @@
 import type { AdministrativeUnit, GeographicDatasetMetadata } from "./types";
 
 /**
- * Administrative reference for Angola based on Law 14/24.
+ * Administrative reference for Angola based on Law 14/24 and the national
+ * territorial codes published in the annex to Law 8/25.
  *
- * Internal IDs are application identifiers, not official territorial codes.
+ * Internal IDs are application identifiers, not legal territorial codes.
  * Municipality and commune records are intentionally not fabricated here.
  */
 export const angolaGeographyMetadata: GeographicDatasetMetadata = {
@@ -11,7 +12,7 @@ export const angolaGeographyMetadata: GeographicDatasetMetadata = {
   datasetId: "ao-administrative-division-2025",
   title: "Divisão político-administrativa de Angola",
   administrativeReferenceDate: "2025-01-01",
-  publishedAt: "2024-09-05",
+  publishedAt: "2025-09-16",
   accessedAt: "2026-11-04",
   administrativeCounts: { provinces: 21, municipalities: 326, communes: 378 },
   sources: [
@@ -38,15 +39,15 @@ export const angolaGeographyMetadata: GeographicDatasetMetadata = {
     {
       organization: "Assembleia Nacional da República de Angola",
       title: "Lei n.º 8/25, de 16 de Setembro — Lei sobre a Codificação das Unidades Territoriais",
-      url: "https://lex.ao/docs/assembleia-nacional/2025/lei-n-o-8-25-de-16-de-setembro/",
+      url: "https://files.lex.ao/assembleia-nacional/2025/lei-n-o-8-25-de-16-de-setembro/download/lei-n-o-8-25-de-16-de-setembro_assembleia-nacional_lex-ao.pdf",
       notes:
-        "Define a Codificação Nacional das Unidades Territoriais. Os códigos oficiais devem ser transcritos do anexo legal e verificados antes de serem adicionados.",
+        "Anexo sobre a Codificação Nacional, publicado no Diário da República, I Série, n.º 176, de 16 de Setembro de 2025. Os códigos provinciais completos foram transcritos do PDF do diploma.",
     },
   ],
   limitations: [
-    "Este registo inicial contém apenas as 21 províncias e as respectivas sedes indicadas na Lei n.º 14/24.",
+    "Este registo contém as 21 províncias e as respectivas sedes indicadas na Lei n.º 14/24.",
     "Os 326 municípios e 378 comunas são contagens nacionais de referência; os respectivos registos individuais ainda não estão incluídos.",
-    "Os identificadores internos não substituem os códigos oficiais definidos pela Lei n.º 8/25.",
+    "Os IDs internos não substituem os códigos territoriais oficiais definidos pela Lei n.º 8/25.",
     "Não são incluídos polígonos, centroides, coordenadas, limites ou áreas territoriais sem uma fonte geoespacial verificável.",
     "A divisão administrativa não representa zonas agroecológicas; estas serão modeladas num domínio separado.",
   ],
@@ -61,27 +62,27 @@ export const angola: AdministrativeUnit = {
 };
 
 export const angolaProvinces: AdministrativeUnit[] = [
-  { id: "ao-cabinda", name: "Cabinda", level: "province", parentId: "ao", administrativeSeat: "Cabinda", officialCode: null },
-  { id: "ao-zaire", name: "Zaire", level: "province", parentId: "ao", administrativeSeat: "Mbanza Kongo", officialCode: null },
-  { id: "ao-uige", name: "Uíge", level: "province", parentId: "ao", administrativeSeat: "Uíge", officialCode: null },
-  { id: "ao-bengo", name: "Bengo", level: "province", parentId: "ao", administrativeSeat: "Dande", officialCode: null },
-  { id: "ao-luanda", name: "Luanda", level: "province", parentId: "ao", administrativeSeat: "Ingombota", officialCode: null },
-  { id: "ao-icolo-e-bengo", name: "Icolo e Bengo", level: "province", parentId: "ao", administrativeSeat: "Catete", officialCode: null },
-  { id: "ao-cuanza-norte", name: "Cuanza-Norte", level: "province", parentId: "ao", administrativeSeat: "Cazengo", officialCode: null },
-  { id: "ao-cuanza-sul", name: "Cuanza-Sul", level: "province", parentId: "ao", administrativeSeat: "Sumbe", officialCode: null },
-  { id: "ao-malanje", name: "Malanje", level: "province", parentId: "ao", administrativeSeat: "Malanje", officialCode: null },
-  { id: "ao-lunda-norte", name: "Lunda-Norte", level: "province", parentId: "ao", administrativeSeat: "Dundo", officialCode: null },
-  { id: "ao-lunda-sul", name: "Lunda-Sul", level: "province", parentId: "ao", administrativeSeat: "Saurimo", officialCode: null },
-  { id: "ao-moxico", name: "Moxico", level: "province", parentId: "ao", administrativeSeat: "Luena", officialCode: null },
-  { id: "ao-moxico-leste", name: "Moxico Leste", level: "province", parentId: "ao", administrativeSeat: "Cazombo", officialCode: null },
-  { id: "ao-bie", name: "Bié", level: "province", parentId: "ao", administrativeSeat: "Cuito", officialCode: null },
-  { id: "ao-huambo", name: "Huambo", level: "province", parentId: "ao", administrativeSeat: "Huambo", officialCode: null },
-  { id: "ao-benguela", name: "Benguela", level: "province", parentId: "ao", administrativeSeat: "Benguela", officialCode: null },
-  { id: "ao-namibe", name: "Namibe", level: "province", parentId: "ao", administrativeSeat: "Moçâmedes", officialCode: null },
-  { id: "ao-huila", name: "Huíla", level: "province", parentId: "ao", administrativeSeat: "Lubango", officialCode: null },
-  { id: "ao-cunene", name: "Cunene", level: "province", parentId: "ao", administrativeSeat: "Cuanhama", officialCode: null },
-  { id: "ao-cubango", name: "Cubango", level: "province", parentId: "ao", administrativeSeat: "Menongue", officialCode: null },
-  { id: "ao-cuando", name: "Cuando", level: "province", parentId: "ao", administrativeSeat: "Mavinga", officialCode: null },
+  { id: "ao-cabinda", name: "Cabinda", level: "province", parentId: "ao", administrativeSeat: "Cabinda", officialCode: "AOCDA01" },
+  { id: "ao-zaire", name: "Zaire", level: "province", parentId: "ao", administrativeSeat: "Mbanza Kongo", officialCode: "AOZRE02" },
+  { id: "ao-uige", name: "Uíge", level: "province", parentId: "ao", administrativeSeat: "Uíge", officialCode: "AOUGE03" },
+  { id: "ao-bengo", name: "Bengo", level: "province", parentId: "ao", administrativeSeat: "Dande", officialCode: "AOBGO04" },
+  { id: "ao-luanda", name: "Luanda", level: "province", parentId: "ao", administrativeSeat: "Ingombota", officialCode: "AOLDA05" },
+  { id: "ao-icolo-e-bengo", name: "Icolo e Bengo", level: "province", parentId: "ao", administrativeSeat: "Catete", officialCode: "AOIBE06" },
+  { id: "ao-cuanza-norte", name: "Cuanza-Norte", level: "province", parentId: "ao", administrativeSeat: "Cazengo", officialCode: "AOCNO07" },
+  { id: "ao-cuanza-sul", name: "Cuanza-Sul", level: "province", parentId: "ao", administrativeSeat: "Sumbe", officialCode: "AOCSU08" },
+  { id: "ao-malanje", name: "Malanje", level: "province", parentId: "ao", administrativeSeat: "Malanje", officialCode: "AOMJE09" },
+  { id: "ao-lunda-norte", name: "Lunda-Norte", level: "province", parentId: "ao", administrativeSeat: "Dundo", officialCode: "AOLNO10" },
+  { id: "ao-lunda-sul", name: "Lunda-Sul", level: "province", parentId: "ao", administrativeSeat: "Saurimo", officialCode: "AOLSU11" },
+  { id: "ao-moxico", name: "Moxico", level: "province", parentId: "ao", administrativeSeat: "Luena", officialCode: "AOMCO12" },
+  { id: "ao-moxico-leste", name: "Moxico Leste", level: "province", parentId: "ao", administrativeSeat: "Cazombo", officialCode: "AOMLE13" },
+  { id: "ao-bie", name: "Bié", level: "province", parentId: "ao", administrativeSeat: "Cuito", officialCode: "AOBIE14" },
+  { id: "ao-huambo", name: "Huambo", level: "province", parentId: "ao", administrativeSeat: "Huambo", officialCode: "AOHBO15" },
+  { id: "ao-benguela", name: "Benguela", level: "province", parentId: "ao", administrativeSeat: "Benguela", officialCode: "AOBLA16" },
+  { id: "ao-namibe", name: "Namibe", level: "province", parentId: "ao", administrativeSeat: "Moçâmedes", officialCode: "AONBE17" },
+  { id: "ao-huila", name: "Huíla", level: "province", parentId: "ao", administrativeSeat: "Lubango", officialCode: "AOHLA18" },
+  { id: "ao-cunene", name: "Cunene", level: "province", parentId: "ao", administrativeSeat: "Cuanhama", officialCode: "AOCNE19" },
+  { id: "ao-cubango", name: "Cubango", level: "province", parentId: "ao", administrativeSeat: "Menongue", officialCode: "AOCGO20" },
+  { id: "ao-cuando", name: "Cuando", level: "province", parentId: "ao", administrativeSeat: "Mavinga", officialCode: "AOCDO21" },
 ];
 
 export function getProvinceById(id: string): AdministrativeUnit | undefined {
