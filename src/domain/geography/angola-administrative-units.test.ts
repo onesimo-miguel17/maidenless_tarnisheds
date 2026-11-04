@@ -13,6 +13,12 @@ import {
   cuanzaNorteMunicipalities,
   cuanzaSulCommunes,
   cuanzaSulMunicipalities,
+  malanjeCommunes,
+  malanjeMunicipalities,
+  lundaNorteCommunes,
+  lundaNorteMunicipalities,
+  lundaSulCommunes,
+  lundaSulMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -384,6 +390,216 @@ describe("Angola administrative hierarchy — Cuanza-Sul tranche", () => {
       ...bengoMunicipalities, ...bengoCommunes,
       ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
       ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Malanje tranche", () => {
+  it("contains the 27 municipalities in the legal annex order", () => {
+    expect(malanjeMunicipalities).toHaveLength(27);
+    expect(malanjeMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 27 }, (_, index) => `AOMJE09${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(malanjeMunicipalities.map((unit) => unit.name)).toEqual(["Calandula","Malanje","Cacuso","Massango","Marimba","Quela","Quirima","Cangandala","Cahombo","Kunda dya Baze","Cambundi Catembo","Caculama","Kiwaba Nzoji","Luquembo","Cateco Cangola","Mbanji ya Ngola","Cuale","Pungo a Ndongo","Ngola Luiji","Quihuhu","Xandel","Cambo Suinginge","Milando","Quitapa","Capunda","Muquixe","Quessua"]);
+  });
+
+  it("links all Malanje municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-malanje");
+    expect(province).toBeDefined();
+    expect(malanjeMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(malanjeMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the 38 communes explicitly listed in the legal annex with exact codes and names", () => {
+    expect(malanjeCommunes).toHaveLength(38);
+    expect(malanjeCommunes.map((unit) => unit.officialCode)).toEqual(["AOMJE090101","AOMJE090102","AOMJE090201","AOMJE090202","AOMJE090301","AOMJE090302","AOMJE090501","AOMJE090502","AOMJE090601","AOMJE090602","AOMJE090701","AOMJE090702","AOMJE090801","AOMJE090802","AOMJE090803","AOMJE090901","AOMJE090902","AOMJE091001","AOMJE091002","AOMJE091101","AOMJE091102","AOMJE091201","AOMJE091202","AOMJE091301","AOMJE091302","AOMJE091401","AOMJE091402","AOMJE091601","AOMJE091602","AOMJE091901","AOMJE091902","AOMJE092001","AOMJE092002","AOMJE092101","AOMJE092102","AOMJE092501","AOMJE092502","AOMJE092503"]);
+    expect(malanjeCommunes.map((unit) => unit.name)).toEqual(["Calandula","Cota","Malanje","Lombe","Cacuso","Socueco","Marimba","Mangando","Quela","Bângalas","Quirima","Sautar","Cangandala","Caribo","Culamagia","Cahombo","Micanda","Kunda dya Baze","Lemba","Cambundi Catembo","Dumba Cambango","Caculama","Caxinga","Kiwaba Nzoji","Mufuma","Luquembo","Dombo wa Zanga","Mbanji ya Ngola","Cabombo","Ngola Luiji","Cambaxe","Quihuhu","Quinguengue","Xandel","Moma","Capunda","Quimbango","Cunga Palanga"]);
+  });
+
+  it("links every Malanje commune to its correct municipality", () => {
+    const municipalityIds = new Set(malanjeMunicipalities.map((unit) => unit.id));
+    expect(malanjeCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(malanjeCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(malanjeCommunes.map((unit) => unit.parentId)).toEqual(["ao-malanje-calandula","ao-malanje-calandula","ao-malanje-malanje","ao-malanje-malanje","ao-malanje-cacuso","ao-malanje-cacuso","ao-malanje-marimba","ao-malanje-marimba","ao-malanje-quela","ao-malanje-quela","ao-malanje-quirima","ao-malanje-quirima","ao-malanje-cangandala","ao-malanje-cangandala","ao-malanje-cangandala","ao-malanje-cahombo","ao-malanje-cahombo","ao-malanje-kunda-dya-baze","ao-malanje-kunda-dya-baze","ao-malanje-cambundi-catembo","ao-malanje-cambundi-catembo","ao-malanje-caculama","ao-malanje-caculama","ao-malanje-kiwaba-nzoji","ao-malanje-kiwaba-nzoji","ao-malanje-luquembo","ao-malanje-luquembo","ao-malanje-mbanji-ya-ngola","ao-malanje-mbanji-ya-ngola","ao-malanje-ngola-luiji","ao-malanje-ngola-luiji","ao-malanje-quihuhu","ao-malanje-quihuhu","ao-malanje-xandel","ao-malanje-xandel","ao-malanje-capunda","ao-malanje-capunda","ao-malanje-capunda"]);
+  });
+
+  it("keeps the nine municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(malanjeCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = malanjeMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual(["Massango","Cateco Cangola","Cuale","Pungo a Ndongo","Cambo Suinginge","Milando","Quitapa","Muquixe","Quessua"]);
+  });
+
+  it("keeps IDs and official codes unique across all seven imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Lunda-Norte tranche", () => {
+  it("contains the 19 municipalities in the legal annex order", () => {
+    expect(lundaNorteMunicipalities).toHaveLength(19);
+    expect(lundaNorteMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 19 }, (_, index) => `AOLNO10${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(lundaNorteMunicipalities.map((unit) => unit.name)).toEqual([
+      "Cuilo", "Dundo", "Lubalo", "Capenda Camulemba", "Cuango", "Lucapa",
+      "Cambulo", "Xá Muteba", "Caungula", "Lóvua", "Chitato", "Xá Cassau",
+      "Camaxilo", "Luangue", "Luremo", "Canzar", "Cassanje Calucala",
+      "Mussungue", "Cafunfo",
+    ]);
+  });
+
+  it("links all Lunda-Norte municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-lunda-norte");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOLNO10");
+    expect(province?.administrativeSeat).toBe("Dundo");
+    expect(lundaNorteMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(lundaNorteMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the 20 communes explicitly listed in the legal annex with exact codes and names", () => {
+    expect(lundaNorteCommunes).toHaveLength(20);
+    expect(lundaNorteCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOLNO100101", "AOLNO100102", "AOLNO100201", "AOLNO100202",
+      "AOLNO100301", "AOLNO100302", "AOLNO100401", "AOLNO100402",
+      "AOLNO100601", "AOLNO100602", "AOLNO100701", "AOLNO100702",
+      "AOLNO101201", "AOLNO101202", "AOLNO101601", "AOLNO101602",
+      "AOLNO101701", "AOLNO101702", "AOLNO101801", "AOLNO101802",
+    ]);
+    expect(lundaNorteCommunes.map((unit) => unit.name)).toEqual([
+      "Cuilo", "Caluango", "Dundo", "Luachimo", "Lubalo", "Muvuluege",
+      "Capenda Camulemba", "Xinge", "Lucapa", "Camissombo", "N'zage",
+      "Cachimo", "Xá Cassau", "Capaia", "Canzar", "Luia",
+      "Cassanje Calucala", "Iongo", "Mussungue", "Caíta",
+    ]);
+  });
+
+  it("links every Lunda-Norte commune to its correct municipality", () => {
+    const municipalityIds = new Set(lundaNorteMunicipalities.map((unit) => unit.id));
+    expect(lundaNorteCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(lundaNorteCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(lundaNorteCommunes.map((unit) => unit.parentId)).toEqual([
+      "ao-lunda-norte-cuilo", "ao-lunda-norte-cuilo",
+      "ao-lunda-norte-dundo", "ao-lunda-norte-dundo",
+      "ao-lunda-norte-lubalo", "ao-lunda-norte-lubalo",
+      "ao-lunda-norte-capenda-camulemba", "ao-lunda-norte-capenda-camulemba",
+      "ao-lunda-norte-lucapa", "ao-lunda-norte-lucapa",
+      "ao-lunda-norte-cambulo", "ao-lunda-norte-cambulo",
+      "ao-lunda-norte-xa-cassau", "ao-lunda-norte-xa-cassau",
+      "ao-lunda-norte-canzar", "ao-lunda-norte-canzar",
+      "ao-lunda-norte-cassanje-calucala", "ao-lunda-norte-cassanje-calucala",
+      "ao-lunda-norte-mussungue", "ao-lunda-norte-mussungue",
+    ]);
+  });
+
+  it("keeps the nine municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(lundaNorteCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = lundaNorteMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Cuango", "Xá Muteba", "Caungula", "Lóvua", "Chitato",
+      "Camaxilo", "Luangue", "Luremo", "Cafunfo",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all eight imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Lunda-Sul tranche", () => {
+  it("contains the 14 municipalities in the legal annex order", () => {
+    expect(lundaSulMunicipalities).toHaveLength(14);
+    expect(lundaSulMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 14 }, (_, index) => `AOLSU11${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(lundaSulMunicipalities.map((unit) => unit.name)).toEqual([
+      "Saurimo", "Muconda", "Cacolo", "Dala", "Chiluage", "Cassai-Sul",
+      "Xassengue", "Alto Chicapa", "Sombo", "Muriege", "Luma Cassai",
+      "Cazage", "Muangueji", "Cassengo",
+    ]);
+  });
+
+  it("links all Lunda-Sul municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-lunda-sul");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOLSU11");
+    expect(province?.administrativeSeat).toBe("Saurimo");
+    expect(lundaSulMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(lundaSulMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the four communes explicitly listed in the legal annex with exact codes and names", () => {
+    expect(lundaSulCommunes).toHaveLength(4);
+    expect(lundaSulCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOLSU110101", "AOLSU110102", "AOLSU110701", "AOLSU110702",
+    ]);
+    expect(lundaSulCommunes.map((unit) => unit.name)).toEqual([
+      "Saurimo", "Mona Quimbundo", "Xassengue", "Cucumbi",
+    ]);
+  });
+
+  it("links every Lunda-Sul commune to its correct municipality", () => {
+    const municipalityIds = new Set(lundaSulMunicipalities.map((unit) => unit.id));
+    expect(lundaSulCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(lundaSulCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(lundaSulCommunes.map((unit) => unit.parentId)).toEqual([
+      "ao-lunda-sul-saurimo", "ao-lunda-sul-saurimo",
+      "ao-lunda-sul-xassengue", "ao-lunda-sul-xassengue",
+    ]);
+  });
+
+  it("keeps the twelve municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(lundaSulCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = lundaSulMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Muconda", "Cacolo", "Dala", "Chiluage", "Cassai-Sul", "Alto Chicapa",
+      "Sombo", "Muriege", "Luma Cassai", "Cazage", "Muangueji", "Cassengo",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all nine imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
