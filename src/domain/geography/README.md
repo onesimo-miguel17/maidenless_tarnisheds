@@ -9,18 +9,22 @@ A divisão de referência, em vigor desde 1 de Janeiro de 2025, compreende:
 - 326 municípios;
 - 378 comunas.
 
-A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. A primeira tranche detalhada contém Cabinda: 10 municípios e 8 comunas efectivamente enumeradas no anexo.
+A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. As tranches detalhadas actualmente transcritas são:
+- Cabinda: 10 municípios e 8 comunas;
+- Zaire: 11 municípios e 18 comunas.
+
+Total actualmente registado: 21 municípios e 26 comunas, distribuídos por duas províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
-A fonte normativa dos códigos é a Lei n.º 8/25, de 16 de Setembro, Diário da República, I Série, n.º 176, páginas 20315 e seguintes, Anexo sobre a Codificação Nacional.
+A fonte normativa dos códigos é a Lei n.º 8/25, de 16 de Setembro, Diário da República, I Série, n.º 176, Anexo sobre a Codificação Nacional.
 
 A aplicação guarda:
-- código provincial: `AOCDA01`;
-- código municipal: código provincial + número municipal, por exemplo `AOCDA0102`;
-- código de comuna: código municipal + número da comuna, por exemplo `AOCDA010201`.
+- código provincial: por exemplo, Zaire `AOZRE02`;
+- código municipal: código provincial + número municipal, por exemplo `AOZRE0201`;
+- código de comuna: código municipal + número da comuna, por exemplo `AOZRE020101`.
 
-Os IDs como `ao-cabinda-cacongo` são identificadores internos estáveis do Pambala. Não são códigos territoriais oficiais.
+Os IDs como `ao-zaire-mbanza-kongo` são identificadores internos estáveis do Pambala. Não são códigos territoriais oficiais.
 
 ### Marcador de comuna 00
 
@@ -28,10 +32,10 @@ O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna pa
 
 ### Importação por tranches
 
-O ficheiro `angola-administrative-units.ts` contém, nesta primeira tranche, os municípios e comunas de Cabinda. Os testes verificam:
-- os 10 municípios;
-- as 8 comunas enumeradas;
-- códigos oficiais e unicidade;
+O ficheiro `angola-administrative-units.ts` contém os municípios e comunas das províncias importadas. Os testes verificam:
+- quantidades por tranche;
+- grafia e códigos oficiais;
+- unicidade de IDs e códigos;
 - relações pai-filho;
 - ausência de falsas comunas criadas a partir do marcador `00`.
 
@@ -53,7 +57,7 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- A primeira tranche é apenas Cabinda; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são apenas Cabinda e Zaire; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
