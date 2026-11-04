@@ -20,9 +20,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Lunda-Norte: 19 municípios e 20 comunas;
 - Lunda-Sul: 14 municípios e 4 comunas;
 - Moxico: 12 municípios e 13 comunas;
-- Moxico Leste: 9 municípios e 4 comunas.
+- Moxico Leste: 9 municípios e 4 comunas;
+- Bié: 19 municípios e 30 comunas.
 
-Total actualmente registado: 178 municípios e 215 comunas, distribuídos por onze províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 197 municípios e 245 comunas, distribuídos por doze províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
