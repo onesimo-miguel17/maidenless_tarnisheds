@@ -4,7 +4,16 @@ Plataforma de apoio à decisão agrícola orientada inicialmente para Angola. O 
 
 ## Estado do projecto
 
-Em desenvolvimento — Fase 1: biblioteca de culturas, caracterização do solo, motor de recomendação e planeamento de rotação.
+Em desenvolvimento — Fase 1: fundação geográfica de Angola, biblioteca de culturas, caracterização do solo e motor conservador de avaliação.
+
+## Domínios implementados
+
+- `geography`: referência inicial das 21 províncias angolanas, sedes administrativas e proveniência legal.
+- `soil`: esquema tipado para caracterização do solo.
+- `crops`: catálogo inicial de seis culturas com referências FAO EcoCrop.
+- `recommendations`: avaliação preliminar e conservadora de compatibilidade com base no pH.
+
+A estrutura administrativa está documentada em `src/domain/geography/README.md`. Municípios, comunas, códigos oficiais e geometrias ainda não foram importados; não são inferidos.
 
 ## Stack
 
