@@ -7,6 +7,8 @@ import {
   zaireMunicipalities,
   uigeCommunes,
   uigeMunicipalities,
+  bengoCommunes,
+  bengoMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -175,6 +177,77 @@ describe("Angola administrative hierarchy — Uíge tranche", () => {
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
       ...uigeMunicipalities, ...uigeCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Bengo tranche", () => {
+  it("contains the twelve municipalities in the legal annex order", () => {
+    expect(bengoMunicipalities).toHaveLength(12);
+    expect(bengoMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 12 }, (_, index) => `AOBGO04${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(bengoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Dande", "Quibaxe", "Muxaluando", "Bula Atumba", "Ambriz",
+      "Pango Aluquém", "Barra do Dande", "Piri", "Quicunzo",
+      "Nambuangongo", "Úcua", "Panguila",
+    ]);
+  });
+
+  it("links all Bengo municipalities to the Bengo province", () => {
+    const bengo = angolaProvinces.find((province) => province.id === "ao-bengo");
+    expect(bengo).toBeDefined();
+    expect(bengoMunicipalities.every((unit) => unit.parentId === bengo?.id)).toBe(true);
+    expect(bengoMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the nineteen communes explicitly listed in the legal annex", () => {
+    expect(bengoCommunes).toHaveLength(19);
+    expect(bengoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOBGO040101", "AOBGO040102", "AOBGO040103",
+      "AOBGO040201", "AOBGO040202", "AOBGO040203",
+      "AOBGO040301", "AOBGO040302", "AOBGO040303",
+      "AOBGO040401", "AOBGO040402",
+      "AOBGO040501", "AOBGO040502", "AOBGO040503",
+      "AOBGO040601", "AOBGO040602",
+      "AOBGO041001", "AOBGO041002", "AOBGO041003",
+    ]);
+    expect(bengoCommunes.map((unit) => unit.name)).toEqual([
+      "Caxito", "Mabubas", "Quicabo",
+      "Quibaxe", "Paredes", "Coxe",
+      "Muxaluando", "Quixico", "Cage Mazumbo",
+      "Bula Atumba", "Quiage",
+      "Ambriz", "Bela Vista", "Tabi",
+      "Pango Aluquém", "Cazuangongo",
+      "Gombe", "Canacassala", "Zala",
+    ]);
+  });
+
+  it("links every Bengo commune to an existing municipality", () => {
+    const municipalityIds = new Set(bengoMunicipalities.map((unit) => unit.id));
+    expect(bengoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(bengoCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("does not create communes for the five municipality rows marked 00", () => {
+    const communeParentIds = new Set(bengoCommunes.map((unit) => unit.parentId));
+    const municipalitiesWithoutCommunes = bengoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalitiesWithoutCommunes.map((unit) => unit.name)).toEqual([
+      "Barra do Dande", "Piri", "Quicunzo", "Úcua", "Panguila",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all four verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
