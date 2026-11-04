@@ -143,3 +143,41 @@ export const uigeCommunes: AdministrativeUnit[] = [
   { id: "ao-uige-alto-zaza-alto-zaza", name: "Alto Zaza", level: "commune", parentId: "ao-uige-alto-zaza", officialCode: "AOUGE032301" },
   { id: "ao-uige-alto-zaza-cuango-calumbo", name: "Cuango Calumbo", level: "commune", parentId: "ao-uige-alto-zaza", officialCode: "AOUGE032302" },
 ];
+
+
+export const bengoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-bengo-dande", name: "Dande", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0401" },
+  { id: "ao-bengo-quibaxe", name: "Quibaxe", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0402" },
+  { id: "ao-bengo-muxaluando", name: "Muxaluando", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0403" },
+  { id: "ao-bengo-bula-atumba", name: "Bula Atumba", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0404" },
+  { id: "ao-bengo-ambriz", name: "Ambriz", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0405" },
+  { id: "ao-bengo-pango-aluquem", name: "Pango Aluquém", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0406" },
+  { id: "ao-bengo-barra-do-dande", name: "Barra do Dande", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0407" },
+  { id: "ao-bengo-piri", name: "Piri", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0408" },
+  { id: "ao-bengo-quicunzo", name: "Quicunzo", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0409" },
+  { id: "ao-bengo-nambuangongo", name: "Nambuangongo", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0410" },
+  { id: "ao-bengo-ucua", name: "Úcua", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0411" },
+  { id: "ao-bengo-panguila", name: "Panguila", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0412" },
+];
+
+export const bengoCommunes: AdministrativeUnit[] = [
+  { id: "ao-bengo-dande-caxito", name: "Caxito", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040101" },
+  { id: "ao-bengo-dande-mabubas", name: "Mabubas", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040102" },
+  { id: "ao-bengo-dande-quicabo", name: "Quicabo", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040103" },
+  { id: "ao-bengo-quibaxe-quibaxe", name: "Quibaxe", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040201" },
+  { id: "ao-bengo-quibaxe-paredes", name: "Paredes", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040202" },
+  { id: "ao-bengo-quibaxe-coxe", name: "Coxe", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040203" },
+  { id: "ao-bengo-muxaluando-muxaluando", name: "Muxaluando", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040301" },
+  { id: "ao-bengo-muxaluando-quixico", name: "Quixico", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040302" },
+  { id: "ao-bengo-muxaluando-cage-mazumbo", name: "Cage Mazumbo", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040303" },
+  { id: "ao-bengo-bula-atumba-bula-atumba", name: "Bula Atumba", level: "commune", parentId: "ao-bengo-bula-atumba", officialCode: "AOBGO040401" },
+  { id: "ao-bengo-bula-atumba-quiage", name: "Quiage", level: "commune", parentId: "ao-bengo-bula-atumba", officialCode: "AOBGO040402" },
+  { id: "ao-bengo-ambriz-ambriz", name: "Ambriz", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040501" },
+  { id: "ao-bengo-ambriz-bela-vista", name: "Bela Vista", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040502" },
+  { id: "ao-bengo-ambriz-tabi", name: "Tabi", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040503" },
+  { id: "ao-bengo-pango-aluquem-pango-aluquem", name: "Pango Aluquém", level: "commune", parentId: "ao-bengo-pango-aluquem", officialCode: "AOBGO040601" },
+  { id: "ao-bengo-pango-aluquem-cazuangongo", name: "Cazuangongo", level: "commune", parentId: "ao-bengo-pango-aluquem", officialCode: "AOBGO040602" },
+  { id: "ao-bengo-nambuangongo-gombe", name: "Gombe", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041001" },
+  { id: "ao-bengo-nambuangongo-canacassala", name: "Canacassala", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041002" },
+  { id: "ao-bengo-nambuangongo-zala", name: "Zala", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041003" },
+];
