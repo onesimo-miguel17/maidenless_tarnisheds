@@ -9,6 +9,7 @@ import type { AdministrativeUnit } from "./types";
  * - Zaire and Uíge: page 20316.
  * - Bengo: page 20317.
  * - Cuanza-Norte: page 20319.
+ * - Cuanza-Sul: page 20320.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
