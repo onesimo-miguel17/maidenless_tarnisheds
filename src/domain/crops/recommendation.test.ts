@@ -10,7 +10,7 @@ const crop: CropProfile = {
   description: "Cultura cerealífera.",
   botanicalFamily: "Poaceae",
   temperatureC: null,
-  rainfallMmPerCycle: null,
+  annualRainfallMm: null,
   soilTextures: [],
   phRange: {
     min: 5,
