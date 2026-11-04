@@ -24,7 +24,7 @@ export interface CropProfile {
   description: string;
   botanicalFamily: string;
   temperatureC: NumericRange | null;
-  rainfallMmPerCycle: NumericRange | null;
+  annualRainfallMm: NumericRange | null;
   soilTextures: Array<"sandy" | "clayey" | "loamy">;
   phRange: NumericRange | null;
   cycleDays: NumericRange | null;
