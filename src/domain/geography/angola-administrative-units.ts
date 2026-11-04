@@ -11,6 +11,7 @@ import type { AdministrativeUnit } from "./types";
  * - Cuanza-Norte: page 20319.
  * - Cuanza-Sul: page 20320.
  * - Malanje: page 20321.
+ * - Lunda-Norte: page 20322.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -356,4 +357,49 @@ export const malanjeCommunes: AdministrativeUnit[] = [
   { id: "ao-malanje-capunda-capunda", name: "Capunda", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092501" },
   { id: "ao-malanje-capunda-quimbango", name: "Quimbango", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092502" },
   { id: "ao-malanje-capunda-cunga-palanga", name: "Cunga Palanga", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092503" },
+];
+
+export const lundaNorteMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-lunda-norte-cuilo", name: "Cuilo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1001" },
+  { id: "ao-lunda-norte-dundo", name: "Dundo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1002" },
+  { id: "ao-lunda-norte-lubalo", name: "Lubalo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1003" },
+  { id: "ao-lunda-norte-capenda-camulemba", name: "Capenda Camulemba", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1004" },
+  { id: "ao-lunda-norte-cuango", name: "Cuango", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1005" },
+  { id: "ao-lunda-norte-lucapa", name: "Lucapa", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1006" },
+  { id: "ao-lunda-norte-cambulo", name: "Cambulo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1007" },
+  { id: "ao-lunda-norte-xa-muteba", name: "Xá Muteba", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1008" },
+  { id: "ao-lunda-norte-caungula", name: "Caungula", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1009" },
+  { id: "ao-lunda-norte-lovua", name: "Lóvua", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1010" },
+  { id: "ao-lunda-norte-chitato", name: "Chitato", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1011" },
+  { id: "ao-lunda-norte-xa-cassau", name: "Xá Cassau", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1012" },
+  { id: "ao-lunda-norte-camaxilo", name: "Camaxilo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1013" },
+  { id: "ao-lunda-norte-luangue", name: "Luangue", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1014" },
+  { id: "ao-lunda-norte-luremo", name: "Luremo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1015" },
+  { id: "ao-lunda-norte-canzar", name: "Canzar", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1016" },
+  { id: "ao-lunda-norte-cassanje-calucala", name: "Cassanje Calucala", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1017" },
+  { id: "ao-lunda-norte-mussungue", name: "Mussungue", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1018" },
+  { id: "ao-lunda-norte-cafunfo", name: "Cafunfo", level: "municipality", parentId: "ao-lunda-norte", officialCode: "AOLNO1019" },
+];
+
+export const lundaNorteCommunes: AdministrativeUnit[] = [
+  { id: "ao-lunda-norte-cuilo-cuilo", name: "Cuilo", level: "commune", parentId: "ao-lunda-norte-cuilo", officialCode: "AOLNO100101" },
+  { id: "ao-lunda-norte-cuilo-caluango", name: "Caluango", level: "commune", parentId: "ao-lunda-norte-cuilo", officialCode: "AOLNO100102" },
+  { id: "ao-lunda-norte-dundo-dundo", name: "Dundo", level: "commune", parentId: "ao-lunda-norte-dundo", officialCode: "AOLNO100201" },
+  { id: "ao-lunda-norte-dundo-luachimo", name: "Luachimo", level: "commune", parentId: "ao-lunda-norte-dundo", officialCode: "AOLNO100202" },
+  { id: "ao-lunda-norte-lubalo-lubalo", name: "Lubalo", level: "commune", parentId: "ao-lunda-norte-lubalo", officialCode: "AOLNO100301" },
+  { id: "ao-lunda-norte-lubalo-muvuluege", name: "Muvuluege", level: "commune", parentId: "ao-lunda-norte-lubalo", officialCode: "AOLNO100302" },
+  { id: "ao-lunda-norte-capenda-camulemba-capenda-camulemba", name: "Capenda Camulemba", level: "commune", parentId: "ao-lunda-norte-capenda-camulemba", officialCode: "AOLNO100401" },
+  { id: "ao-lunda-norte-capenda-camulemba-xinge", name: "Xinge", level: "commune", parentId: "ao-lunda-norte-capenda-camulemba", officialCode: "AOLNO100402" },
+  { id: "ao-lunda-norte-lucapa-lucapa", name: "Lucapa", level: "commune", parentId: "ao-lunda-norte-lucapa", officialCode: "AOLNO100601" },
+  { id: "ao-lunda-norte-lucapa-camissombo", name: "Camissombo", level: "commune", parentId: "ao-lunda-norte-lucapa", officialCode: "AOLNO100602" },
+  { id: "ao-lunda-norte-cambulo-nzage", name: "N'zage", level: "commune", parentId: "ao-lunda-norte-cambulo", officialCode: "AOLNO100701" },
+  { id: "ao-lunda-norte-cambulo-cachimo", name: "Cachimo", level: "commune", parentId: "ao-lunda-norte-cambulo", officialCode: "AOLNO100702" },
+  { id: "ao-lunda-norte-xa-cassau-xa-cassau", name: "Xá Cassau", level: "commune", parentId: "ao-lunda-norte-xa-cassau", officialCode: "AOLNO101201" },
+  { id: "ao-lunda-norte-xa-cassau-capaia", name: "Capaia", level: "commune", parentId: "ao-lunda-norte-xa-cassau", officialCode: "AOLNO101202" },
+  { id: "ao-lunda-norte-canzar-canzar", name: "Canzar", level: "commune", parentId: "ao-lunda-norte-canzar", officialCode: "AOLNO101601" },
+  { id: "ao-lunda-norte-canzar-luia", name: "Luia", level: "commune", parentId: "ao-lunda-norte-canzar", officialCode: "AOLNO101602" },
+  { id: "ao-lunda-norte-cassanje-calucala-cassanje-calucala", name: "Cassanje Calucala", level: "commune", parentId: "ao-lunda-norte-cassanje-calucala", officialCode: "AOLNO101701" },
+  { id: "ao-lunda-norte-cassanje-calucala-iongo", name: "Iongo", level: "commune", parentId: "ao-lunda-norte-cassanje-calucala", officialCode: "AOLNO101702" },
+  { id: "ao-lunda-norte-mussungue-mussungue", name: "Mussungue", level: "commune", parentId: "ao-lunda-norte-mussungue", officialCode: "AOLNO101801" },
+  { id: "ao-lunda-norte-mussungue-caita", name: "Caíta", level: "commune", parentId: "ao-lunda-norte-mussungue", officialCode: "AOLNO101802" },
 ];
