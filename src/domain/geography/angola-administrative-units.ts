@@ -10,6 +10,7 @@ import type { AdministrativeUnit } from "./types";
  * - Bengo: page 20317.
  * - Cuanza-Norte: page 20319.
  * - Cuanza-Sul: page 20320.
+ * - Malanje: page 20321.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -284,4 +285,75 @@ export const cuanzaSulCommunes: AdministrativeUnit[] = [
   { id: "ao-cuanza-sul-conda-cunjo", name: "Cunjo", level: "commune", parentId: "ao-cuanza-sul-conda", officialCode: "AOCSU081202" },
   { id: "ao-cuanza-sul-lonhe-lonhe", name: "Lonhe", level: "commune", parentId: "ao-cuanza-sul-lonhe", officialCode: "AOCSU082201" },
   { id: "ao-cuanza-sul-lonhe-cariango", name: "Cariango", level: "commune", parentId: "ao-cuanza-sul-lonhe", officialCode: "AOCSU082202" },
+];
+
+export const malanjeMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-malanje-calandula", name: "Calandula", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0901" },
+  { id: "ao-malanje-malanje", name: "Malanje", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0902" },
+  { id: "ao-malanje-cacuso", name: "Cacuso", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0903" },
+  { id: "ao-malanje-massango", name: "Massango", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0904" },
+  { id: "ao-malanje-marimba", name: "Marimba", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0905" },
+  { id: "ao-malanje-quela", name: "Quela", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0906" },
+  { id: "ao-malanje-quirima", name: "Quirima", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0907" },
+  { id: "ao-malanje-cangandala", name: "Cangandala", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0908" },
+  { id: "ao-malanje-cahombo", name: "Cahombo", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0909" },
+  { id: "ao-malanje-kunda-dya-baze", name: "Kunda dya Baze", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0910" },
+  { id: "ao-malanje-cambundi-catembo", name: "Cambundi Catembo", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0911" },
+  { id: "ao-malanje-caculama", name: "Caculama", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0912" },
+  { id: "ao-malanje-kiwaba-nzoji", name: "Kiwaba Nzoji", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0913" },
+  { id: "ao-malanje-luquembo", name: "Luquembo", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0914" },
+  { id: "ao-malanje-cateco-cangola", name: "Cateco Cangola", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0915" },
+  { id: "ao-malanje-mbanji-ya-ngola", name: "Mbanji ya Ngola", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0916" },
+  { id: "ao-malanje-cuale", name: "Cuale", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0917" },
+  { id: "ao-malanje-pungo-a-ndongo", name: "Pungo a Ndongo", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0918" },
+  { id: "ao-malanje-ngola-luiji", name: "Ngola Luiji", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0919" },
+  { id: "ao-malanje-quihuhu", name: "Quihuhu", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0920" },
+  { id: "ao-malanje-xandel", name: "Xandel", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0921" },
+  { id: "ao-malanje-cambo-suinginge", name: "Cambo Suinginge", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0922" },
+  { id: "ao-malanje-milando", name: "Milando", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0923" },
+  { id: "ao-malanje-quitapa", name: "Quitapa", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0924" },
+  { id: "ao-malanje-capunda", name: "Capunda", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0925" },
+  { id: "ao-malanje-muquixe", name: "Muquixe", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0926" },
+  { id: "ao-malanje-quessua", name: "Quessua", level: "municipality", parentId: "ao-malanje", officialCode: "AOMJE0927" },
+];
+
+export const malanjeCommunes: AdministrativeUnit[] = [
+  { id: "ao-malanje-calandula-calandula", name: "Calandula", level: "commune", parentId: "ao-malanje-calandula", officialCode: "AOMJE090101" },
+  { id: "ao-malanje-calandula-cota", name: "Cota", level: "commune", parentId: "ao-malanje-calandula", officialCode: "AOMJE090102" },
+  { id: "ao-malanje-malanje-malanje", name: "Malanje", level: "commune", parentId: "ao-malanje-malanje", officialCode: "AOMJE090201" },
+  { id: "ao-malanje-malanje-lombe", name: "Lombe", level: "commune", parentId: "ao-malanje-malanje", officialCode: "AOMJE090202" },
+  { id: "ao-malanje-cacuso-cacuso", name: "Cacuso", level: "commune", parentId: "ao-malanje-cacuso", officialCode: "AOMJE090301" },
+  { id: "ao-malanje-cacuso-socueco", name: "Socueco", level: "commune", parentId: "ao-malanje-cacuso", officialCode: "AOMJE090302" },
+  { id: "ao-malanje-marimba-marimba", name: "Marimba", level: "commune", parentId: "ao-malanje-marimba", officialCode: "AOMJE090501" },
+  { id: "ao-malanje-marimba-mangando", name: "Mangando", level: "commune", parentId: "ao-malanje-marimba", officialCode: "AOMJE090502" },
+  { id: "ao-malanje-quela-quela", name: "Quela", level: "commune", parentId: "ao-malanje-quela", officialCode: "AOMJE090601" },
+  { id: "ao-malanje-quela-bangalas", name: "Bângalas", level: "commune", parentId: "ao-malanje-quela", officialCode: "AOMJE090602" },
+  { id: "ao-malanje-quirima-quirima", name: "Quirima", level: "commune", parentId: "ao-malanje-quirima", officialCode: "AOMJE090701" },
+  { id: "ao-malanje-quirima-sautar", name: "Sautar", level: "commune", parentId: "ao-malanje-quirima", officialCode: "AOMJE090702" },
+  { id: "ao-malanje-cangandala-cangandala", name: "Cangandala", level: "commune", parentId: "ao-malanje-cangandala", officialCode: "AOMJE090801" },
+  { id: "ao-malanje-cangandala-caribo", name: "Caribo", level: "commune", parentId: "ao-malanje-cangandala", officialCode: "AOMJE090802" },
+  { id: "ao-malanje-cangandala-culamagia", name: "Culamagia", level: "commune", parentId: "ao-malanje-cangandala", officialCode: "AOMJE090803" },
+  { id: "ao-malanje-cahombo-cahombo", name: "Cahombo", level: "commune", parentId: "ao-malanje-cahombo", officialCode: "AOMJE090901" },
+  { id: "ao-malanje-cahombo-micanda", name: "Micanda", level: "commune", parentId: "ao-malanje-cahombo", officialCode: "AOMJE090902" },
+  { id: "ao-malanje-kunda-dya-baze-kunda-dya-baze", name: "Kunda dya Baze", level: "commune", parentId: "ao-malanje-kunda-dya-baze", officialCode: "AOMJE091001" },
+  { id: "ao-malanje-kunda-dya-baze-lemba", name: "Lemba", level: "commune", parentId: "ao-malanje-kunda-dya-baze", officialCode: "AOMJE091002" },
+  { id: "ao-malanje-cambundi-catembo-cambundi-catembo", name: "Cambundi Catembo", level: "commune", parentId: "ao-malanje-cambundi-catembo", officialCode: "AOMJE091101" },
+  { id: "ao-malanje-cambundi-catembo-dumba-cambango", name: "Dumba Cambango", level: "commune", parentId: "ao-malanje-cambundi-catembo", officialCode: "AOMJE091102" },
+  { id: "ao-malanje-caculama-caculama", name: "Caculama", level: "commune", parentId: "ao-malanje-caculama", officialCode: "AOMJE091201" },
+  { id: "ao-malanje-caculama-caxinga", name: "Caxinga", level: "commune", parentId: "ao-malanje-caculama", officialCode: "AOMJE091202" },
+  { id: "ao-malanje-kiwaba-nzoji-kiwaba-nzoji", name: "Kiwaba Nzoji", level: "commune", parentId: "ao-malanje-kiwaba-nzoji", officialCode: "AOMJE091301" },
+  { id: "ao-malanje-kiwaba-nzoji-mufuma", name: "Mufuma", level: "commune", parentId: "ao-malanje-kiwaba-nzoji", officialCode: "AOMJE091302" },
+  { id: "ao-malanje-luquembo-luquembo", name: "Luquembo", level: "commune", parentId: "ao-malanje-luquembo", officialCode: "AOMJE091401" },
+  { id: "ao-malanje-luquembo-dombo-wa-zanga", name: "Dombo wa Zanga", level: "commune", parentId: "ao-malanje-luquembo", officialCode: "AOMJE091402" },
+  { id: "ao-malanje-mbanji-ya-ngola-mbanji-ya-ngola", name: "Mbanji ya Ngola", level: "commune", parentId: "ao-malanje-mbanji-ya-ngola", officialCode: "AOMJE091601" },
+  { id: "ao-malanje-mbanji-ya-ngola-cabombo", name: "Cabombo", level: "commune", parentId: "ao-malanje-mbanji-ya-ngola", officialCode: "AOMJE091602" },
+  { id: "ao-malanje-ngola-luiji-ngola-luiji", name: "Ngola Luiji", level: "commune", parentId: "ao-malanje-ngola-luiji", officialCode: "AOMJE091901" },
+  { id: "ao-malanje-ngola-luiji-cambaxe", name: "Cambaxe", level: "commune", parentId: "ao-malanje-ngola-luiji", officialCode: "AOMJE091902" },
+  { id: "ao-malanje-quihuhu-quihuhu", name: "Quihuhu", level: "commune", parentId: "ao-malanje-quihuhu", officialCode: "AOMJE092001" },
+  { id: "ao-malanje-quihuhu-quinguengue", name: "Quinguengue", level: "commune", parentId: "ao-malanje-quihuhu", officialCode: "AOMJE092002" },
+  { id: "ao-malanje-xandel-xandel", name: "Xandel", level: "commune", parentId: "ao-malanje-xandel", officialCode: "AOMJE092101" },
+  { id: "ao-malanje-xandel-moma", name: "Moma", level: "commune", parentId: "ao-malanje-xandel", officialCode: "AOMJE092102" },
+  { id: "ao-malanje-capunda-capunda", name: "Capunda", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092501" },
+  { id: "ao-malanje-capunda-quimbango", name: "Quimbango", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092502" },
+  { id: "ao-malanje-capunda-cunga-palanga", name: "Cunga Palanga", level: "commune", parentId: "ao-malanje-capunda", officialCode: "AOMJE092503" },
 ];
