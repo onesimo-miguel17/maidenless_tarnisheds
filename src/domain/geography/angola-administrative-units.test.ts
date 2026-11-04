@@ -86,7 +86,7 @@ describe("Angola administrative hierarchy — Zaire tranche", () => {
     expect(zaireCommunes.every((unit) => unit.level === "commune")).toBe(true);
   });
 
-  it("does not create communes for the six municipality rows marked 00", () => {
+  it("does not create communes for the four municipality rows marked 00", () => {
     const communeParentIds = new Set(zaireCommunes.map((unit) => unit.parentId));
     const municipalitiesWithoutCommunes = zaireMunicipalities.filter(
       (unit) => !communeParentIds.has(unit.id),
