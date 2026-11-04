@@ -14,7 +14,9 @@ import type { AdministrativeUnit } from "./types";
  * - Lunda-Norte: page 20322.
  * - Lunda-Sul: page 20323.
  * - Moxico: page 20323.
- * - Moxico Leste: page 20324.
+ * - Moxico Leste: page 20324;
+ * - Bié: pages 20325–20326.
+ * - Huambo: pages 20326–20327.
  * - Bié: pages 20325–20326.
  *
  * The annex uses commune code "00" when no commune is listed for a
@@ -539,4 +541,57 @@ export const bieCommunes: AdministrativeUnit[] = [
   { id: "ao-bie-chipeta-chiuca", name: "Chiuca", level: "commune", parentId: "ao-bie-chipeta", officialCode: "AOBIE141502" },
   { id: "ao-bie-lubia-lubia", name: "Lúbia", level: "commune", parentId: "ao-bie-lubia", officialCode: "AOBIE141701" },
   { id: "ao-bie-lubia-dando", name: "Dando", level: "commune", parentId: "ao-bie-lubia", officialCode: "AOBIE141702" },
+];
+
+export const huamboMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-huambo-bailundo", name: "Bailundo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1501" },
+  { id: "ao-huambo-huambo", name: "Huambo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1502" },
+  { id: "ao-huambo-londjuimbali", name: "Londjuimbali", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1503" },
+  { id: "ao-huambo-caala", name: "Caála", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1504" },
+  { id: "ao-huambo-chicala-choloanga", name: "Chicala Choloanga", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1505" },
+  { id: "ao-huambo-cachiungo", name: "Cachiungo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1506" },
+  { id: "ao-huambo-mungo", name: "Mungo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1507" },
+  { id: "ao-huambo-longonjo", name: "Longonjo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1508" },
+  { id: "ao-huambo-ucuma", name: "Ucuma", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1509" },
+  { id: "ao-huambo-ecunha", name: "Ecunha", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1510" },
+  { id: "ao-huambo-chinjenje", name: "Chinjenje", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1511" },
+  { id: "ao-huambo-bimbe", name: "Bimbe", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1512" },
+  { id: "ao-huambo-sambo", name: "Sambo", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1513" },
+  { id: "ao-huambo-galanga", name: "Galanga", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1514" },
+  { id: "ao-huambo-alto-hama", name: "Alto Hama", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1515" },
+  { id: "ao-huambo-chilata", name: "Chilata", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1516" },
+  { id: "ao-huambo-cuima", name: "Cuima", level: "municipality", parentId: "ao-huambo", officialCode: "AOHBO1517" },
+];
+
+export const huamboCommunes: AdministrativeUnit[] = [
+  { id: "ao-huambo-bailundo-bailundo", name: "Bailundo", level: "commune", parentId: "ao-huambo-bailundo", officialCode: "AOHBO150101" },
+  { id: "ao-huambo-bailundo-lunge", name: "Lunge", level: "commune", parentId: "ao-huambo-bailundo", officialCode: "AOHBO150102" },
+  { id: "ao-huambo-bailundo-luvemba", name: "Luvemba", level: "commune", parentId: "ao-huambo-bailundo", officialCode: "AOHBO150103" },
+  { id: "ao-huambo-huambo-huambo", name: "Huambo", level: "commune", parentId: "ao-huambo-huambo", officialCode: "AOHBO150201" },
+  { id: "ao-huambo-huambo-calima", name: "Calima", level: "commune", parentId: "ao-huambo-huambo", officialCode: "AOHBO150202" },
+  { id: "ao-huambo-londjuimbali-londjuimbali", name: "Londjuimbali", level: "commune", parentId: "ao-huambo-londjuimbali", officialCode: "AOHBO150301" },
+  { id: "ao-huambo-londjuimbali-ussoque", name: "Ussoque", level: "commune", parentId: "ao-huambo-londjuimbali", officialCode: "AOHBO150302" },
+  { id: "ao-huambo-chicala-choloanga-chicala", name: "Chicala", level: "commune", parentId: "ao-huambo-chicala-choloanga", officialCode: "AOHBO150501" },
+  { id: "ao-huambo-chicala-choloanga-mbave", name: "Mbave", level: "commune", parentId: "ao-huambo-chicala-choloanga", officialCode: "AOHBO150502" },
+  { id: "ao-huambo-cachiungo-cachiungo", name: "Cachiungo", level: "commune", parentId: "ao-huambo-cachiungo", officialCode: "AOHBO150601" },
+  { id: "ao-huambo-cachiungo-chinhama", name: "Chinhama", level: "commune", parentId: "ao-huambo-cachiungo", officialCode: "AOHBO150602" },
+  { id: "ao-huambo-mungo-mungo", name: "Mungo", level: "commune", parentId: "ao-huambo-mungo", officialCode: "AOHBO150701" },
+  { id: "ao-huambo-mungo-cambuengo", name: "Cambuengo", level: "commune", parentId: "ao-huambo-mungo", officialCode: "AOHBO150702" },
+  { id: "ao-huambo-longonjo-longonjo", name: "Longonjo", level: "commune", parentId: "ao-huambo-longonjo", officialCode: "AOHBO150801" },
+  { id: "ao-huambo-longonjo-lepi", name: "Lépi", level: "commune", parentId: "ao-huambo-longonjo", officialCode: "AOHBO150802" },
+  { id: "ao-huambo-ucuma-ucuma", name: "Ucuma", level: "commune", parentId: "ao-huambo-ucuma", officialCode: "AOHBO150901" },
+  { id: "ao-huambo-ucuma-cacoma", name: "Cacoma", level: "commune", parentId: "ao-huambo-ucuma", officialCode: "AOHBO150902" },
+  { id: "ao-huambo-ucuma-mundundo", name: "Mundundo", level: "commune", parentId: "ao-huambo-ucuma", officialCode: "AOHBO150903" },
+  { id: "ao-huambo-ecunha-ecunha", name: "Ecunha", level: "commune", parentId: "ao-huambo-ecunha", officialCode: "AOHBO151001" },
+  { id: "ao-huambo-ecunha-quipeio", name: "Quipéio", level: "commune", parentId: "ao-huambo-ecunha", officialCode: "AOHBO151002" },
+  { id: "ao-huambo-chinjenje-chinjenje", name: "Chinjenje", level: "commune", parentId: "ao-huambo-chinjenje", officialCode: "AOHBO151101" },
+  { id: "ao-huambo-chinjenje-chiaca", name: "Chiaca", level: "commune", parentId: "ao-huambo-chinjenje", officialCode: "AOHBO151102" },
+  { id: "ao-huambo-bimbe-bimbe", name: "Bimbe", level: "commune", parentId: "ao-huambo-bimbe", officialCode: "AOHBO151201" },
+  { id: "ao-huambo-bimbe-hengue", name: "Hengue", level: "commune", parentId: "ao-huambo-bimbe", officialCode: "AOHBO151202" },
+  { id: "ao-huambo-sambo-sambo", name: "Sambo", level: "commune", parentId: "ao-huambo-sambo", officialCode: "AOHBO151301" },
+  { id: "ao-huambo-sambo-samboto", name: "Samboto", level: "commune", parentId: "ao-huambo-sambo", officialCode: "AOHBO151302" },
+  { id: "ao-huambo-galanga-galanga", name: "Galanga", level: "commune", parentId: "ao-huambo-galanga", officialCode: "AOHBO151401" },
+  { id: "ao-huambo-galanga-cumbira", name: "Cumbira", level: "commune", parentId: "ao-huambo-galanga", officialCode: "AOHBO151402" },
+  { id: "ao-huambo-cuima-cuima", name: "Cuima", level: "commune", parentId: "ao-huambo-cuima", officialCode: "AOHBO151701" },
+  { id: "ao-huambo-cuima-catata", name: "Catata", level: "commune", parentId: "ao-huambo-cuima", officialCode: "AOHBO151702" },
 ];
