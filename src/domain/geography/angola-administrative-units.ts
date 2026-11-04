@@ -6,7 +6,10 @@ import type { AdministrativeUnit } from "./types";
  * Transcribed from the annex to Law n.º 8/25, Diário da República,
  * I Série, n.º 176, 16 September 2025:
  * - Cabinda: page 20315.
- * - Zaire: page 20316.
+ * - Zaire and Uíge: page 20316.
+ * - Bengo: page 20317.
+ * - Cuanza-Norte: page 20319.
+ * - Cuanza-Sul: page 20320.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -142,4 +145,143 @@ export const uigeCommunes: AdministrativeUnit[] = [
   { id: "ao-uige-vista-alegre-cambamba", name: "Cambamba", level: "commune", parentId: "ao-uige-vista-alegre", officialCode: "AOUGE032202" },
   { id: "ao-uige-alto-zaza-alto-zaza", name: "Alto Zaza", level: "commune", parentId: "ao-uige-alto-zaza", officialCode: "AOUGE032301" },
   { id: "ao-uige-alto-zaza-cuango-calumbo", name: "Cuango Calumbo", level: "commune", parentId: "ao-uige-alto-zaza", officialCode: "AOUGE032302" },
+];
+
+
+export const bengoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-bengo-dande", name: "Dande", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0401" },
+  { id: "ao-bengo-quibaxe", name: "Quibaxe", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0402" },
+  { id: "ao-bengo-muxaluando", name: "Muxaluando", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0403" },
+  { id: "ao-bengo-bula-atumba", name: "Bula Atumba", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0404" },
+  { id: "ao-bengo-ambriz", name: "Ambriz", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0405" },
+  { id: "ao-bengo-pango-aluquem", name: "Pango Aluquém", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0406" },
+  { id: "ao-bengo-barra-do-dande", name: "Barra do Dande", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0407" },
+  { id: "ao-bengo-piri", name: "Piri", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0408" },
+  { id: "ao-bengo-quicunzo", name: "Quicunzo", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0409" },
+  { id: "ao-bengo-nambuangongo", name: "Nambuangongo", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0410" },
+  { id: "ao-bengo-ucua", name: "Úcua", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0411" },
+  { id: "ao-bengo-panguila", name: "Panguila", level: "municipality", parentId: "ao-bengo", officialCode: "AOBGO0412" },
+];
+
+export const bengoCommunes: AdministrativeUnit[] = [
+  { id: "ao-bengo-dande-caxito", name: "Caxito", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040101" },
+  { id: "ao-bengo-dande-mabubas", name: "Mabubas", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040102" },
+  { id: "ao-bengo-dande-quicabo", name: "Quicabo", level: "commune", parentId: "ao-bengo-dande", officialCode: "AOBGO040103" },
+  { id: "ao-bengo-quibaxe-quibaxe", name: "Quibaxe", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040201" },
+  { id: "ao-bengo-quibaxe-paredes", name: "Paredes", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040202" },
+  { id: "ao-bengo-quibaxe-coxe", name: "Coxe", level: "commune", parentId: "ao-bengo-quibaxe", officialCode: "AOBGO040203" },
+  { id: "ao-bengo-muxaluando-muxaluando", name: "Muxaluando", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040301" },
+  { id: "ao-bengo-muxaluando-quixico", name: "Quixico", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040302" },
+  { id: "ao-bengo-muxaluando-cage-mazumbo", name: "Cage Mazumbo", level: "commune", parentId: "ao-bengo-muxaluando", officialCode: "AOBGO040303" },
+  { id: "ao-bengo-bula-atumba-bula-atumba", name: "Bula Atumba", level: "commune", parentId: "ao-bengo-bula-atumba", officialCode: "AOBGO040401" },
+  { id: "ao-bengo-bula-atumba-quiage", name: "Quiage", level: "commune", parentId: "ao-bengo-bula-atumba", officialCode: "AOBGO040402" },
+  { id: "ao-bengo-ambriz-ambriz", name: "Ambriz", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040501" },
+  { id: "ao-bengo-ambriz-bela-vista", name: "Bela Vista", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040502" },
+  { id: "ao-bengo-ambriz-tabi", name: "Tabi", level: "commune", parentId: "ao-bengo-ambriz", officialCode: "AOBGO040503" },
+  { id: "ao-bengo-pango-aluquem-pango-aluquem", name: "Pango Aluquém", level: "commune", parentId: "ao-bengo-pango-aluquem", officialCode: "AOBGO040601" },
+  { id: "ao-bengo-pango-aluquem-cazuangongo", name: "Cazuangongo", level: "commune", parentId: "ao-bengo-pango-aluquem", officialCode: "AOBGO040602" },
+  { id: "ao-bengo-nambuangongo-gombe", name: "Gombe", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041001" },
+  { id: "ao-bengo-nambuangongo-canacassala", name: "Canacassala", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041002" },
+  { id: "ao-bengo-nambuangongo-zala", name: "Zala", level: "commune", parentId: "ao-bengo-nambuangongo", officialCode: "AOBGO041003" },
+];
+
+
+export const cuanzaNorteMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-cuanza-norte-cazengo", name: "Cazengo", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0701" },
+  { id: "ao-cuanza-norte-golungo-alto", name: "Golungo Alto", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0702" },
+  { id: "ao-cuanza-norte-cambambe", name: "Cambambe", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0703" },
+  { id: "ao-cuanza-norte-samba-caju", name: "Samba Cajú", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0704" },
+  { id: "ao-cuanza-norte-ambaca", name: "Ambaca", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0705" },
+  { id: "ao-cuanza-norte-lucala", name: "Lucala", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0706" },
+  { id: "ao-cuanza-norte-banga", name: "Banga", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0707" },
+  { id: "ao-cuanza-norte-bolongongo", name: "Bolongongo", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0708" },
+  { id: "ao-cuanza-norte-quiculungo", name: "Quiculungo", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0709" },
+  { id: "ao-cuanza-norte-ngonguembo", name: "Ngonguembo", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0710" },
+  { id: "ao-cuanza-norte-massangano", name: "Massangano", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0711" },
+  { id: "ao-cuanza-norte-ceca", name: "Cêca", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0712" },
+  { id: "ao-cuanza-norte-tango", name: "Tango", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0713" },
+  { id: "ao-cuanza-norte-terreiro", name: "Terreiro", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0714" },
+  { id: "ao-cuanza-norte-aldeia-nova", name: "Aldeia Nova", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0715" },
+  { id: "ao-cuanza-norte-caculo-cabaca", name: "Caculo Cabaça", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0716" },
+  { id: "ao-cuanza-norte-luinga", name: "Luinga", level: "municipality", parentId: "ao-cuanza-norte", officialCode: "AOCNO0717" },
+];
+
+export const cuanzaNorteCommunes: AdministrativeUnit[] = [
+  { id: "ao-cuanza-norte-cazengo-ndalatando", name: "Ndalatando", level: "commune", parentId: "ao-cuanza-norte-cazengo", officialCode: "AOCNO070101" },
+  { id: "ao-cuanza-norte-cazengo-caculo-camuiza", name: "Caculo Camuiza", level: "commune", parentId: "ao-cuanza-norte-cazengo", officialCode: "AOCNO070102" },
+  { id: "ao-cuanza-norte-golungo-alto-golungo-alto", name: "Golungo Alto", level: "commune", parentId: "ao-cuanza-norte-golungo-alto", officialCode: "AOCNO070201" },
+  { id: "ao-cuanza-norte-golungo-alto-cambondo", name: "Cambondo", level: "commune", parentId: "ao-cuanza-norte-golungo-alto", officialCode: "AOCNO070202" },
+  { id: "ao-cuanza-norte-golungo-alto-quilombo-quia-puto", name: "Quilombo quía Puto", level: "commune", parentId: "ao-cuanza-norte-golungo-alto", officialCode: "AOCNO070203" },
+  { id: "ao-cuanza-norte-cambambe-dondo", name: "Dondo", level: "commune", parentId: "ao-cuanza-norte-cambambe", officialCode: "AOCNO070301" },
+  { id: "ao-cuanza-norte-cambambe-dange-ya-menha", name: "Dange ya Menha", level: "commune", parentId: "ao-cuanza-norte-cambambe", officialCode: "AOCNO070302" },
+  { id: "ao-cuanza-norte-cambambe-sao-pedro-da-quilemba", name: "São Pedro da Quilemba", level: "commune", parentId: "ao-cuanza-norte-cambambe", officialCode: "AOCNO070303" },
+  { id: "ao-cuanza-norte-samba-caju-samba-caju", name: "Samba Cajú", level: "commune", parentId: "ao-cuanza-norte-samba-caju", officialCode: "AOCNO070401" },
+  { id: "ao-cuanza-norte-samba-caju-samba-lucala", name: "Samba Lucala", level: "commune", parentId: "ao-cuanza-norte-samba-caju", officialCode: "AOCNO070402" },
+  { id: "ao-cuanza-norte-ambaca-camabatela", name: "Camabatela", level: "commune", parentId: "ao-cuanza-norte-ambaca", officialCode: "AOCNO070501" },
+  { id: "ao-cuanza-norte-ambaca-mua", name: "Múa", level: "commune", parentId: "ao-cuanza-norte-ambaca", officialCode: "AOCNO070502" },
+  { id: "ao-cuanza-norte-ambaca-bindo", name: "Bindo", level: "commune", parentId: "ao-cuanza-norte-ambaca", officialCode: "AOCNO070503" },
+  { id: "ao-cuanza-norte-lucala-lucala", name: "Lucala", level: "commune", parentId: "ao-cuanza-norte-lucala", officialCode: "AOCNO070601" },
+  { id: "ao-cuanza-norte-lucala-quiangombe", name: "Quiangombe", level: "commune", parentId: "ao-cuanza-norte-lucala", officialCode: "AOCNO070602" },
+  { id: "ao-cuanza-norte-banga-banga", name: "Banga", level: "commune", parentId: "ao-cuanza-norte-banga", officialCode: "AOCNO070701" },
+  { id: "ao-cuanza-norte-banga-cariamba", name: "Cariamba", level: "commune", parentId: "ao-cuanza-norte-banga", officialCode: "AOCNO070702" },
+  { id: "ao-cuanza-norte-ngonguembo-quilombo-dos-dembos", name: "Quilombo dos Dembos", level: "commune", parentId: "ao-cuanza-norte-ngonguembo", officialCode: "AOCNO071001" },
+  { id: "ao-cuanza-norte-ngonguembo-camame", name: "Camame", level: "commune", parentId: "ao-cuanza-norte-ngonguembo", officialCode: "AOCNO071002" },
+  { id: "ao-cuanza-norte-ngonguembo-cavunga", name: "Cavunga", level: "commune", parentId: "ao-cuanza-norte-ngonguembo", officialCode: "AOCNO071003" },
+  { id: "ao-cuanza-norte-massangano-massangano", name: "Massangano", level: "commune", parentId: "ao-cuanza-norte-massangano", officialCode: "AOCNO071101" },
+  { id: "ao-cuanza-norte-massangano-zenza-do-itombe", name: "Zenza do Itombe", level: "commune", parentId: "ao-cuanza-norte-massangano", officialCode: "AOCNO071102" },
+  { id: "ao-cuanza-norte-terreiro-terreiro", name: "Terreiro", level: "commune", parentId: "ao-cuanza-norte-terreiro", officialCode: "AOCNO071401" },
+  { id: "ao-cuanza-norte-terreiro-quiquiemba", name: "Quiquiemba", level: "commune", parentId: "ao-cuanza-norte-terreiro", officialCode: "AOCNO071402" },
+];
+
+export const cuanzaSulMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-cuanza-sul-sumbe", name: "Sumbe", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0801" },
+  { id: "ao-cuanza-sul-calulo", name: "Calulo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0802" },
+  { id: "ao-cuanza-sul-gabela", name: "Gabela", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0803" },
+  { id: "ao-cuanza-sul-cassongue", name: "Cassongue", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0804" },
+  { id: "ao-cuanza-sul-porto-amboim", name: "Porto Amboim", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0805" },
+  { id: "ao-cuanza-sul-quibala", name: "Quibala", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0806" },
+  { id: "ao-cuanza-sul-seles", name: "Seles", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0807" },
+  { id: "ao-cuanza-sul-waku-kungo", name: "Waku Kungo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0808" },
+  { id: "ao-cuanza-sul-mussende", name: "Mussende", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0809" },
+  { id: "ao-cuanza-sul-quilenda", name: "Quilenda", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0810" },
+  { id: "ao-cuanza-sul-ebo", name: "Ebo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0811" },
+  { id: "ao-cuanza-sul-conda", name: "Conda", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0812" },
+  { id: "ao-cuanza-sul-quirimbo", name: "Quirimbo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0813" },
+  { id: "ao-cuanza-sul-munenga", name: "Munenga", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0814" },
+  { id: "ao-cuanza-sul-quissongo", name: "Quissongo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0815" },
+  { id: "ao-cuanza-sul-gungo", name: "Gungo", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0816" },
+  { id: "ao-cuanza-sul-sanga", name: "Sanga", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0817" },
+  { id: "ao-cuanza-sul-gangula", name: "Gangula", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0818" },
+  { id: "ao-cuanza-sul-pambangala", name: "Pambangala", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0819" },
+  { id: "ao-cuanza-sul-conde", name: "Condé", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0820" },
+  { id: "ao-cuanza-sul-amboiva", name: "Amboiva", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0821" },
+  { id: "ao-cuanza-sul-lonhe", name: "Lonhe", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0822" },
+  { id: "ao-cuanza-sul-quenha", name: "Quenha", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0823" },
+  { id: "ao-cuanza-sul-boa-entrada", name: "Boa Entrada", level: "municipality", parentId: "ao-cuanza-sul", officialCode: "AOCSU0824" },
+];
+
+export const cuanzaSulCommunes: AdministrativeUnit[] = [
+  { id: "ao-cuanza-sul-sumbe-sumbe", name: "Sumbe", level: "commune", parentId: "ao-cuanza-sul-sumbe", officialCode: "AOCSU080101" },
+  { id: "ao-cuanza-sul-sumbe-quicombo", name: "Quicombo", level: "commune", parentId: "ao-cuanza-sul-sumbe", officialCode: "AOCSU080102" },
+  { id: "ao-cuanza-sul-calulo-calulo", name: "Calulo", level: "commune", parentId: "ao-cuanza-sul-calulo", officialCode: "AOCSU080201" },
+  { id: "ao-cuanza-sul-calulo-cabuta", name: "Cabuta", level: "commune", parentId: "ao-cuanza-sul-calulo", officialCode: "AOCSU080202" },
+  { id: "ao-cuanza-sul-gabela-gabela", name: "Gabela", level: "commune", parentId: "ao-cuanza-sul-gabela", officialCode: "AOCSU080301" },
+  { id: "ao-cuanza-sul-gabela-assango", name: "Assango", level: "commune", parentId: "ao-cuanza-sul-gabela", officialCode: "AOCSU080302" },
+  { id: "ao-cuanza-sul-cassongue-cassongue", name: "Cassongue", level: "commune", parentId: "ao-cuanza-sul-cassongue", officialCode: "AOCSU080401" },
+  { id: "ao-cuanza-sul-cassongue-atome", name: "Atóme", level: "commune", parentId: "ao-cuanza-sul-cassongue", officialCode: "AOCSU080402" },
+  { id: "ao-cuanza-sul-cassongue-dumbi", name: "Dumbi", level: "commune", parentId: "ao-cuanza-sul-cassongue", officialCode: "AOCSU080403" },
+  { id: "ao-cuanza-sul-porto-amboim-porto-amboim", name: "Porto Amboim", level: "commune", parentId: "ao-cuanza-sul-porto-amboim", officialCode: "AOCSU080501" },
+  { id: "ao-cuanza-sul-porto-amboim-capolo", name: "Capolo", level: "commune", parentId: "ao-cuanza-sul-porto-amboim", officialCode: "AOCSU080502" },
+  { id: "ao-cuanza-sul-quibala-quibala", name: "Quibala", level: "commune", parentId: "ao-cuanza-sul-quibala", officialCode: "AOCSU080601" },
+  { id: "ao-cuanza-sul-quibala-dala-cachibo", name: "Dala Cachibo", level: "commune", parentId: "ao-cuanza-sul-quibala", officialCode: "AOCSU080602" },
+  { id: "ao-cuanza-sul-seles-seles", name: "Seles", level: "commune", parentId: "ao-cuanza-sul-seles", officialCode: "AOCSU080701" },
+  { id: "ao-cuanza-sul-seles-botera", name: "Botera", level: "commune", parentId: "ao-cuanza-sul-seles", officialCode: "AOCSU080702" },
+  { id: "ao-cuanza-sul-mussende-mussende", name: "Mussende", level: "commune", parentId: "ao-cuanza-sul-mussende", officialCode: "AOCSU080901" },
+  { id: "ao-cuanza-sul-mussende-quipaxi", name: "Quipaxi", level: "commune", parentId: "ao-cuanza-sul-mussende", officialCode: "AOCSU080902" },
+  { id: "ao-cuanza-sul-ebo-ebo", name: "Ebo", level: "commune", parentId: "ao-cuanza-sul-ebo", officialCode: "AOCSU081101" },
+  { id: "ao-cuanza-sul-ebo-cassanje", name: "Cassanje", level: "commune", parentId: "ao-cuanza-sul-ebo", officialCode: "AOCSU081102" },
+  { id: "ao-cuanza-sul-conda-conda", name: "Conda", level: "commune", parentId: "ao-cuanza-sul-conda", officialCode: "AOCSU081201" },
+  { id: "ao-cuanza-sul-conda-cunjo", name: "Cunjo", level: "commune", parentId: "ao-cuanza-sul-conda", officialCode: "AOCSU081202" },
+  { id: "ao-cuanza-sul-lonhe-lonhe", name: "Lonhe", level: "commune", parentId: "ao-cuanza-sul-lonhe", officialCode: "AOCSU082201" },
+  { id: "ao-cuanza-sul-lonhe-cariango", name: "Cariango", level: "commune", parentId: "ao-cuanza-sul-lonhe", officialCode: "AOCSU082202" },
 ];

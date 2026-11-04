@@ -7,6 +7,12 @@ import {
   zaireMunicipalities,
   uigeCommunes,
   uigeMunicipalities,
+  bengoCommunes,
+  bengoMunicipalities,
+  cuanzaNorteCommunes,
+  cuanzaNorteMunicipalities,
+  cuanzaSulCommunes,
+  cuanzaSulMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -175,6 +181,209 @@ describe("Angola administrative hierarchy — Uíge tranche", () => {
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
       ...uigeMunicipalities, ...uigeCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Bengo tranche", () => {
+  it("contains the twelve municipalities in the legal annex order", () => {
+    expect(bengoMunicipalities).toHaveLength(12);
+    expect(bengoMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 12 }, (_, index) => `AOBGO04${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(bengoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Dande", "Quibaxe", "Muxaluando", "Bula Atumba", "Ambriz",
+      "Pango Aluquém", "Barra do Dande", "Piri", "Quicunzo",
+      "Nambuangongo", "Úcua", "Panguila",
+    ]);
+  });
+
+  it("links all Bengo municipalities to the Bengo province", () => {
+    const bengo = angolaProvinces.find((province) => province.id === "ao-bengo");
+    expect(bengo).toBeDefined();
+    expect(bengoMunicipalities.every((unit) => unit.parentId === bengo?.id)).toBe(true);
+    expect(bengoMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the nineteen communes explicitly listed in the legal annex", () => {
+    expect(bengoCommunes).toHaveLength(19);
+    expect(bengoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOBGO040101", "AOBGO040102", "AOBGO040103",
+      "AOBGO040201", "AOBGO040202", "AOBGO040203",
+      "AOBGO040301", "AOBGO040302", "AOBGO040303",
+      "AOBGO040401", "AOBGO040402",
+      "AOBGO040501", "AOBGO040502", "AOBGO040503",
+      "AOBGO040601", "AOBGO040602",
+      "AOBGO041001", "AOBGO041002", "AOBGO041003",
+    ]);
+    expect(bengoCommunes.map((unit) => unit.name)).toEqual([
+      "Caxito", "Mabubas", "Quicabo",
+      "Quibaxe", "Paredes", "Coxe",
+      "Muxaluando", "Quixico", "Cage Mazumbo",
+      "Bula Atumba", "Quiage",
+      "Ambriz", "Bela Vista", "Tabi",
+      "Pango Aluquém", "Cazuangongo",
+      "Gombe", "Canacassala", "Zala",
+    ]);
+  });
+
+  it("links every Bengo commune to an existing municipality", () => {
+    const municipalityIds = new Set(bengoMunicipalities.map((unit) => unit.id));
+    expect(bengoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(bengoCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("does not create communes for the five municipality rows marked 00", () => {
+    const communeParentIds = new Set(bengoCommunes.map((unit) => unit.parentId));
+    const municipalitiesWithoutCommunes = bengoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalitiesWithoutCommunes.map((unit) => unit.name)).toEqual([
+      "Barra do Dande", "Piri", "Quicunzo", "Úcua", "Panguila",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all four verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Cuanza-Norte tranche", () => {
+  it("contains the seventeen municipalities in the legal annex order", () => {
+    expect(cuanzaNorteMunicipalities).toHaveLength(17);
+    expect(cuanzaNorteMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 17 }, (_, index) => `AOCNO07${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(cuanzaNorteMunicipalities.map((unit) => unit.name)).toEqual([
+      "Cazengo", "Golungo Alto", "Cambambe", "Samba Cajú", "Ambaca",
+      "Lucala", "Banga", "Bolongongo", "Quiculungo", "Ngonguembo",
+      "Massangano", "Cêca", "Tango", "Terreiro", "Aldeia Nova",
+      "Caculo Cabaça", "Luinga",
+    ]);
+  });
+
+  it("links all Cuanza-Norte municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cuanza-norte");
+    expect(province).toBeDefined();
+    expect(cuanzaNorteMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cuanzaNorteMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the twenty-four communes and preserves their official codes", () => {
+    expect(cuanzaNorteCommunes).toHaveLength(24);
+    expect(cuanzaNorteCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOCNO070101", "AOCNO070102",
+      "AOCNO070201", "AOCNO070202", "AOCNO070203",
+      "AOCNO070301", "AOCNO070302", "AOCNO070303",
+      "AOCNO070401", "AOCNO070402",
+      "AOCNO070501", "AOCNO070502", "AOCNO070503",
+      "AOCNO070601", "AOCNO070602",
+      "AOCNO070701", "AOCNO070702",
+      "AOCNO071001", "AOCNO071002", "AOCNO071003",
+      "AOCNO071101", "AOCNO071102",
+      "AOCNO071401", "AOCNO071402",
+    ]);
+    expect(cuanzaNorteCommunes.map((unit) => unit.name)).toEqual([
+      "Ndalatando", "Caculo Camuiza",
+      "Golungo Alto", "Cambondo", "Quilombo quía Puto",
+      "Dondo", "Dange ya Menha", "São Pedro da Quilemba",
+      "Samba Cajú", "Samba Lucala",
+      "Camabatela", "Múa", "Bindo",
+      "Lucala", "Quiangombe",
+      "Banga", "Cariamba",
+      "Quilombo dos Dembos", "Camame", "Cavunga",
+      "Massangano", "Zenza do Itombe",
+      "Terreiro", "Quiquiemba",
+    ]);
+  });
+
+  it("links every Cuanza-Norte commune to an existing municipality", () => {
+    const municipalityIds = new Set(cuanzaNorteMunicipalities.map((unit) => unit.id));
+    expect(cuanzaNorteCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cuanzaNorteCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the seven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cuanzaNorteCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = cuanzaNorteMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Bolongongo", "Quiculungo", "Cêca", "Tango", "Aldeia Nova",
+      "Caculo Cabaça", "Luinga",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all five verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Cuanza-Sul tranche", () => {
+  it("contains the 24 municipalities in the legal annex order", () => {
+    expect(cuanzaSulMunicipalities).toHaveLength(24);
+    expect(cuanzaSulMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 24 }, (_, index) => `AOCSU08${String(index + 1).padStart(2, "0")}`),
+    );
+    expect(cuanzaSulMunicipalities.map((unit) => unit.name)).toEqual(["Sumbe","Calulo","Gabela","Cassongue","Porto Amboim","Quibala","Seles","Waku Kungo","Mussende","Quilenda","Ebo","Conda","Quirimbo","Munenga","Quissongo","Gungo","Sanga","Gangula","Pambangala","Condé","Amboiva","Lonhe","Quenha","Boa Entrada"]);
+  });
+
+  it("links all Cuanza-Sul municipalities to the correct province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cuanza-sul");
+    expect(province).toBeDefined();
+    expect(cuanzaSulMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cuanzaSulMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the 23 communes explicitly listed in the legal annex with exact codes", () => {
+    expect(cuanzaSulCommunes).toHaveLength(23);
+    expect(cuanzaSulCommunes.map((unit) => unit.officialCode)).toEqual(["AOCSU080101","AOCSU080102","AOCSU080201","AOCSU080202","AOCSU080301","AOCSU080302","AOCSU080401","AOCSU080402","AOCSU080403","AOCSU080501","AOCSU080502","AOCSU080601","AOCSU080602","AOCSU080701","AOCSU080702","AOCSU080901","AOCSU080902","AOCSU081101","AOCSU081102","AOCSU081201","AOCSU081202","AOCSU082201","AOCSU082202"]);
+    expect(cuanzaSulCommunes.map((unit) => unit.name)).toEqual(["Sumbe","Quicombo","Calulo","Cabuta","Gabela","Assango","Cassongue","Atóme","Dumbi","Porto Amboim","Capolo","Quibala","Dala Cachibo","Seles","Botera","Mussende","Quipaxi","Ebo","Cassanje","Conda","Cunjo","Lonhe","Cariango"]);
+  });
+
+  it("links every Cuanza-Sul commune to its correct municipality", () => {
+    const municipalityIds = new Set(cuanzaSulMunicipalities.map((unit) => unit.id));
+    expect(cuanzaSulCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cuanzaSulCommunes.every((unit) => unit.level === "commune")).toBe(true);
+    expect(cuanzaSulCommunes.map((unit) => unit.parentId)).toEqual(["ao-cuanza-sul-sumbe","ao-cuanza-sul-sumbe","ao-cuanza-sul-calulo","ao-cuanza-sul-calulo","ao-cuanza-sul-gabela","ao-cuanza-sul-gabela","ao-cuanza-sul-cassongue","ao-cuanza-sul-cassongue","ao-cuanza-sul-cassongue","ao-cuanza-sul-porto-amboim","ao-cuanza-sul-porto-amboim","ao-cuanza-sul-quibala","ao-cuanza-sul-quibala","ao-cuanza-sul-seles","ao-cuanza-sul-seles","ao-cuanza-sul-mussende","ao-cuanza-sul-mussende","ao-cuanza-sul-ebo","ao-cuanza-sul-ebo","ao-cuanza-sul-conda","ao-cuanza-sul-conda","ao-cuanza-sul-lonhe","ao-cuanza-sul-lonhe"]);
+  });
+
+  it("keeps the thirteen municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cuanzaSulCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = cuanzaSulMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual(["Waku Kungo","Quilenda","Quirimbo","Munenga","Quissongo","Gungo","Sanga","Gangula","Pambangala","Condé","Amboiva","Quenha","Boa Entrada"]);
+  });
+
+  it("keeps IDs and official codes unique across all six verified tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
