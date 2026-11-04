@@ -11,8 +11,8 @@ A divisão de referência, em vigor desde 1 de Janeiro de 2025, compreende:
 
 A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. As tranches detalhadas actualmente transcritas são:
 - Cabinda: 10 municípios e 8 comunas;
-- Zaire: 11 municípios e 18 comunas.
-- Uíge: 23 municípios e 44 comunas.
+- Zaire: 11 municípios e 18 comunas;
+- Uíge: 23 municípios e 44 comunas;
 - Bengo: 12 municípios e 19 comunas.
 
 Total actualmente registado: 56 municípios e 89 comunas, distribuídos por quatro províncias. Estes totais não representam a cobertura nacional.
