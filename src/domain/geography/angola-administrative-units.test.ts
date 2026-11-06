@@ -29,6 +29,8 @@ import {
   huamboMunicipalities,
   benguelaCommunes,
   benguelaMunicipalities,
+  namibeCommunes,
+  namibeMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1020,6 +1022,83 @@ describe("Angola administrative hierarchy — Benguela tranche", () => {
       ...bieMunicipalities, ...bieCommunes,
       ...huamboMunicipalities, ...huamboCommunes,
       ...benguelaMunicipalities, ...benguelaCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Namibe tranche", () => {
+  it("contains the nine municipalities in the legal annex order", () => {
+    expect(namibeMunicipalities).toHaveLength(9);
+    expect(namibeMunicipalities.map((unit) => unit.name)).toEqual([
+      "Moçâmedes", "Tômbwa", "Bibala", "Virei", "Camucuio",
+      "Lucira", "Iona", "Sacomar", "Cacimbas",
+    ]);
+    expect(namibeMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 9 }, (_, index) => `AONBE17${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links all municipalities to Namibe province and its official code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-namibe");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AONBE17");
+    expect(province?.administrativeSeat).toBe("Moçâmedes");
+    expect(namibeMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(namibeMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the twelve communes explicitly listed in the legal annex", () => {
+    expect(namibeCommunes).toHaveLength(11);
+    expect(namibeCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AONBE170301", "AONBE170302", "AONBE170303", "AONBE170304",
+      "AONBE170401", "AONBE170402",
+      "AONBE170501", "AONBE170502", "AONBE170503",
+      "AONBE170601", "AONBE170602",
+    ]);
+    expect(namibeCommunes.map((unit) => unit.name)).toEqual([
+      "Bibala", "Capangombe", "Caitou", "Lola",
+      "Virei", "Cainde",
+      "Camucuio", "Mamue", "Chingo",
+      "Lucira", "Bentiaba",
+    ]);
+  });
+
+  it("links every commune to an existing Namibe municipality", () => {
+    const municipalityIds = new Set(namibeMunicipalities.map((unit) => unit.id));
+    expect(namibeCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(namibeCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the five municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(namibeCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = namibeMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Moçâmedes", "Tômbwa", "Iona", "Sacomar", "Cacimbas",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all fifteen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
+      ...namibeMunicipalities, ...namibeCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
