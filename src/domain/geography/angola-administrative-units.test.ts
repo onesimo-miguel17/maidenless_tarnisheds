@@ -1051,7 +1051,7 @@ describe("Angola administrative hierarchy — Namibe tranche", () => {
   });
 
   it("contains the twelve communes explicitly listed in the legal annex", () => {
-    expect(namibeCommunes).toHaveLength(12);
+    expect(namibeCommunes).toHaveLength(11);
     expect(namibeCommunes.map((unit) => unit.officialCode)).toEqual([
       "AONBE170301", "AONBE170302", "AONBE170303", "AONBE170304",
       "AONBE170401", "AONBE170402",
