@@ -27,6 +27,8 @@ import {
   bieMunicipalities,
   huamboCommunes,
   huamboMunicipalities,
+  benguelaCommunes,
+  benguelaMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -844,6 +846,7 @@ describe("Angola administrative hierarchy — Bié tranche", () => {
       ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
       ...bieMunicipalities, ...bieCommunes,
       ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
@@ -917,7 +920,7 @@ describe("Angola administrative hierarchy — Huambo tranche", () => {
     ]);
   });
 
-  it("keeps IDs and official codes unique across all thirteen imported tranches", () => {
+  it("keeps IDs and official codes unique across all fourteen imported tranches", () => {
     const units = [
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
@@ -932,6 +935,90 @@ describe("Angola administrative hierarchy — Huambo tranche", () => {
       ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
       ...bieMunicipalities, ...bieCommunes,
       ...huamboMunicipalities, ...huamboCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Benguela tranche", () => {
+  it("contains the 23 municipalities in the legal annex order", () => {
+    expect(benguelaMunicipalities).toHaveLength(23);
+    expect(benguelaMunicipalities.map((unit) => unit.name)).toEqual([
+      "Benguela", "Ganda", "Lobito", "Catumbela", "Bocoio", "Balombo",
+      "Cubal", "Baia Farta", "Caimbambo", "Chongoroi", "Egito Praia",
+      "Chindumbo", "Dombe Grande", "Capupa", "Biópio", "Chila", "Chicuma",
+      "Babaera", "Iambala", "Catengue", "Bolonguera", "Canhamela",
+      "Navegantes",
+    ]);
+    expect(benguelaMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 23 }, (_, index) => `AOBLA16${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links all municipalities to Benguela province and its official code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-benguela");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOBLA16");
+    expect(province?.administrativeSeat).toBe("Benguela");
+    expect(benguelaMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(benguelaMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the twelve communes explicitly listed in the legal annex", () => {
+    expect(benguelaCommunes).toHaveLength(12);
+    expect(benguelaCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOBLA160501", "AOBLA160502", "AOBLA160503",
+      "AOBLA160601", "AOBLA160602",
+      "AOBLA160901", "AOBLA160902", "AOBLA160903",
+      "AOBLA161001", "AOBLA161002",
+      "AOBLA161101", "AOBLA161102",
+    ]);
+    expect(benguelaCommunes.map((unit) => unit.name)).toEqual([
+      "Bocoio", "Cubal do Lumbo", "Monte Belo",
+      "Balombo", "Maca Mombolo",
+      "Caimbambo", "Caivave", "Viangombe",
+      "Chongoroi", "Camuine",
+      "Egito Praia", "Canjala",
+    ]);
+  });
+
+  it("links every commune to an existing Benguela municipality", () => {
+    const municipalityIds = new Set(benguelaMunicipalities.map((unit) => unit.id));
+    expect(benguelaCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(benguelaCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the eighteen municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(benguelaCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = benguelaMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Benguela", "Ganda", "Lobito", "Catumbela", "Cubal", "Baia Farta",
+      "Chindumbo", "Dombe Grande", "Capupa", "Biópio", "Chila", "Chicuma",
+      "Babaera", "Iambala", "Catengue", "Bolonguera", "Canhamela",
+      "Navegantes",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all fourteen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
