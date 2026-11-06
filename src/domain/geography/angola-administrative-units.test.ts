@@ -935,6 +935,7 @@ describe("Angola administrative hierarchy — Huambo tranche", () => {
       ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
       ...bieMunicipalities, ...bieCommunes,
       ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
