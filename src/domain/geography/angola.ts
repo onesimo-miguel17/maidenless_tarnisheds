@@ -5,7 +5,8 @@ import type { AdministrativeUnit, GeographicDatasetMetadata } from "./types";
  * territorial codes published in the annex to Law 8/25.
  *
  * Internal IDs are application identifiers, not legal territorial codes.
- * Municipality and commune records are maintained in the companion\n * angola-administrative-units.ts module and are not duplicated here.
+ * Municipality and commune records are maintained in the companion
+ * angola-administrative-units.ts module and are not duplicated here.
  */
 export const angolaGeographyMetadata: GeographicDatasetMetadata = {
   countryCode: "AO",
@@ -46,7 +47,7 @@ export const angolaGeographyMetadata: GeographicDatasetMetadata = {
   ],
   limitations: [
     "Este registo contém as 21 províncias e as respectivas sedes indicadas na Lei n.º 14/24.",
-    "Os registos individuais dos 326 municípios e 378 comunas estão em angola-administrative-units.ts, organizados pelas 21 tranches provinciais.",\n    "A cobertura é tabular: este conjunto não inclui polígonos, centroides, coordenadas ou limites territoriais.",
+    "Os registos individuais dos 326 municípios e 378 comunas estão em angola-administrative-units.ts, organizados pelas 21 tranches provinciais.",
     "Os IDs internos não substituem os códigos territoriais oficiais definidos pela Lei n.º 8/25.",
     "Não são incluídos polígonos, centroides, coordenadas, limites ou áreas territoriais sem uma fonte geoespacial verificável.",
     "A divisão administrativa não representa zonas agroecológicas; estas serão modeladas num domínio separado.",
