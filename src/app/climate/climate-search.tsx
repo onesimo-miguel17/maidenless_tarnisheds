@@ -15,6 +15,7 @@ import type { ClimateDataset } from "@/lib/nasa-power";
 import { cropCatalog } from "@/domain/crops/catalog";
 import { assessCropAgainstSoil } from "@/domain/crops/recommendation";
 import { assessCropAgainstClimate } from "@/domain/crops/climate-assessment";
+import { assessCropAtPlot } from "@/domain/crops/integrated-assessment";
 import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonality";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
@@ -136,6 +137,9 @@ export default function ClimateSearch() {
   const climateCropAssessment = dataset && selectedCrop
     ? assessCropAgainstClimate(dataset, selectedCrop)
     : null;
+  const integratedAssessment = dataset && selectedCrop
+    ? assessCropAtPlot(soilProfile, dataset, selectedCrop)
+    : null;
 
   const maximumMonthlyRain = dataset
     ? Math.max(1, ...dataset.monthly.map((month) => month.precipitationTotalMm ?? 0))
@@ -209,6 +213,50 @@ export default function ClimateSearch() {
           {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         </div>
       </form>
+
+      {integratedAssessment && (
+        <section className="rounded-3xl border-2 border-[var(--green)] bg-white p-6 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Avaliação agrícola integrada</span>
+              <h2 className="mt-2 text-xl font-semibold">{integratedAssessment.cropName}</h2>
+              <p className="mt-1 text-sm text-[var(--muted)]">Solo registado + clima NASA POWER · {integratedAssessment.climatePeriod.start} a {integratedAssessment.climatePeriod.end}</p>
+            </div>
+            <span className="rounded-full bg-[var(--background)] px-3 py-1.5 text-xs font-semibold">Triagem explicável · sem pontuação</span>
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl bg-[var(--background)] p-4">
+              <p className="text-xs text-[var(--muted)]">Dentro da referência</p>
+              <p className="mt-1 text-2xl font-semibold tabular-nums">{integratedAssessment.interpretation.factorsWithinReference}</p>
+            </div>
+            <div className="rounded-2xl bg-[var(--background)] p-4">
+              <p className="text-xs text-[var(--muted)]">Fora da referência</p>
+              <p className="mt-1 text-2xl font-semibold tabular-nums">{integratedAssessment.interpretation.factorsOutsideReference}</p>
+            </div>
+            <div className="rounded-2xl bg-[var(--background)] p-4">
+              <p className="text-xs text-[var(--muted)]">Sem dados suficientes</p>
+              <p className="mt-1 text-2xl font-semibold tabular-nums">{integratedAssessment.interpretation.factorsInsufficientData}</p>
+            </div>
+          </div>
+          <div className="mt-5 space-y-3">
+            {integratedAssessment.soil.assessedFactors.map((factor) => (
+              <div key={`soil-${factor.factor}`} className="rounded-xl border border-[var(--border)] p-4">
+                <p className="text-xs font-semibold text-[var(--muted)]">Solo · pH</p>
+                <p className="mt-1 text-sm">{factor.explanation}</p>
+              </div>
+            ))}
+            {integratedAssessment.climate.factors.map((factor) => (
+              <div key={factor.factor} className="rounded-xl border border-[var(--border)] p-4">
+                <p className="text-xs font-semibold text-[var(--muted)]">{factor.factor === "period-temperature" ? "Clima · temperatura" : "Clima · precipitação anual"}</p>
+                <p className="mt-1 text-sm">{factor.explanation}</p>
+                <p className="mt-1 text-[11px] text-[var(--muted)]">Observações válidas: {factor.validObservations}/{factor.totalObservations}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-xs leading-5 text-[var(--muted)]">{integratedAssessment.interpretation.statement}</p>
+          <p className="mt-2 text-[11px] text-[var(--muted)]">NASA POWER · {integratedAssessment.location.latitude}, {integratedAssessment.location.longitude} · Consulta: {new Date(integratedAssessment.evidence.climateRetrievedAt).toLocaleString("pt-PT")} · Estado de validação da cultura: {integratedAssessment.evidence.cropValidationStatus}</p>
+        </section>
+      )}
 
       {cropAssessment && selectedCrop && (
         <section className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm">
