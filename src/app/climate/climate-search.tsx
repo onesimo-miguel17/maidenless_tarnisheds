@@ -11,6 +11,9 @@ import {
   ThermometerSun,
 } from "lucide-react";
 import type { ClimateDataset } from "@/lib/nasa-power";
+import { cropCatalog } from "@/domain/crops/catalog";
+import { assessCropAgainstSoil } from "@/domain/crops/recommendation";
+import { soilProfileSchema } from "@/domain/soil/schema";
 
 function formatDateInput(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -43,6 +46,8 @@ export default function ClimateSearch() {
   const defaultPeriod = useMemo(getDefaultPeriod, []);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [cropId, setCropId] = useState("");
+  const [soilPh, setSoilPh] = useState("");
   const [start, setStart] = useState(defaultPeriod.start);
   const [end, setEnd] = useState(defaultPeriod.end);
   const [dataset, setDataset] = useState<ClimateDataset | null>(null);
@@ -74,6 +79,14 @@ export default function ClimateSearch() {
     }
   }
 
+  const selectedCrop = cropCatalog.find((crop) => crop.id === cropId);
+  const soilProfile = soilProfileSchema.parse({
+    ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
+  });
+  const cropAssessment = selectedCrop
+    ? assessCropAgainstSoil(soilProfile, selectedCrop)
+    : null;
+
   const maximumMonthlyRain = dataset
     ? Math.max(1, ...dataset.monthly.map((month) => month.precipitationTotalMm ?? 0))
     : 1;
@@ -94,6 +107,18 @@ export default function ClimateSearch() {
           <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => setLongitude(event.target.value)} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div>
+          <label className="block text-sm font-medium" htmlFor="crop">Cultura a avaliar</label>
+          <select id="crop" value={cropId} onChange={(event) => setCropId(event.target.value)} className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]">
+            <option value="">Seleccionar cultura (opcional)</option>
+            {cropCatalog.map((crop) => <option key={crop.id} value={crop.id}>{crop.commonName}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium" htmlFor="soil-ph">pH medido do solo (opcional)</label>
+          <input id="soil-ph" type="number" min="0" max="14" step="0.1" value={soilPh} onChange={(event) => setSoilPh(event.target.value)} placeholder="Ex.: 6.2" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <p className="mt-1 text-xs text-[var(--muted)]">Introduza apenas um valor obtido por medição do solo.</p>
+        </div>
+        <div>
           <label className="block text-sm font-medium" htmlFor="start"><CalendarDays size={14} className="mr-1 inline" /> Data inicial</label>
           <input id="start" type="date" required value={start} max={end} onChange={(event) => setStart(event.target.value)} className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
@@ -108,6 +133,29 @@ export default function ClimateSearch() {
           {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         </div>
       </form>
+
+      {cropAssessment && selectedCrop && (
+        <section className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Avaliação do solo</span>
+              <h2 className="mt-2 text-xl font-semibold">{selectedCrop.commonName}</h2>
+              <p className="mt-1 text-sm text-[var(--muted)]">Comparação do pH medido com a referência geral disponível para esta cultura.</p>
+            </div>
+            <span className="rounded-full bg-[var(--background)] px-3 py-1.5 text-xs font-semibold">{cropAssessment.status === "provisional-match" ? "pH dentro da referência" : cropAssessment.status === "review-required" ? "Requer revisão" : "Dados insuficientes"}</span>
+          </div>
+          {cropAssessment.assessedFactors.map((factor) => (
+            <div key={factor.factor} className="mt-5 rounded-2xl bg-[var(--background)] p-4">
+              <p className="text-sm font-medium">{factor.explanation}</p>
+              {factor.expectedRange && <p className="mt-2 text-xs text-[var(--muted)]">Intervalo de referência: {factor.expectedRange.min}–{factor.expectedRange.max} pH · Evidência: {factor.evidence}</p>}
+            </div>
+          ))}
+          <ul className="mt-4 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--muted)]">
+            {cropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
+          </ul>
+          {selectedCrop.phRange?.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold text-[var(--green)] underline">Consultar fonte: {source.organization}</a>)}
+        </section>
+      )}
 
       {!dataset && !loading && (
         <section className="flex min-h-64 flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--border)] bg-white p-8 text-center">
