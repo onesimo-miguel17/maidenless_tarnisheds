@@ -45,7 +45,7 @@ Os IDs como `ao-zaire-mbanza-kongo` são identificadores internos estáveis do P
 
 ### Marcador de comuna 00
 
-O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna para determinado município. Esse marcador aparece no código alfanumérico da linha do município, mas **não representa uma comuna autónoma**. A aplicação não cria registos de comuna para esses marcadores. Na tranche do Cuando, sete municípios têm código de comuna `00` e permanecem apenas como registos municipais.
+O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna para determinado município. Esse marcador aparece no código alfanumérico da linha do município, mas **não representa uma comuna autónoma**. A aplicação não cria registos de comuna para esses marcadores. Na tranche do Cuando, seis municípios têm código de comuna `00` e permanecem apenas como registos municipais.
 
 ### Importação por tranches
 
