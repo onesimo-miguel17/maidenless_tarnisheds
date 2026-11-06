@@ -1371,7 +1371,7 @@ describe("Angola administrative hierarchy — Cuando tranche", () => {
 
   it("keeps the seven municipalities with commune code 00 as municipality-only records", () => {
     const communeParentIds = new Set(cuandoCommunes.map((unit) => unit.parentId));
-    const municipalityOnly = quandoMunicipalities.filter(
+    const municipalityOnly = cuandoMunicipalities.filter(
       (unit) => !communeParentIds.has(unit.id),
     );
     expect(municipalityOnly.map((unit) => unit.name)).toEqual([
