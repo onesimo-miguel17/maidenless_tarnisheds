@@ -41,6 +41,8 @@ import {
   cuandoMunicipalities,
   luandaCommunes,
   luandaMunicipalities,
+  icoloEBengoCommunes,
+  icoloEBengoMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1382,7 +1384,7 @@ describe("Angola administrative hierarchy — Cuando tranche", () => {
     expect(municipalityOnly).toHaveLength(6);
   });
 
-  it("keeps IDs and official codes unique across all twenty imported tranches", () => {
+  it("keeps IDs and official codes unique across all twenty-one imported tranches", () => {
     const units = [
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
@@ -1404,6 +1406,7 @@ describe("Angola administrative hierarchy — Cuando tranche", () => {
       ...cubangoMunicipalities, ...cubangoCommunes,
       ...cuandoMunicipalities, ...cuandoCommunes,
       ...luandaMunicipalities, ...luandaCommunes,
+      ...icoloEBengoMunicipalities, ...icoloEBengoCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
@@ -1461,5 +1464,55 @@ describe("Angola administrative hierarchy — Luanda tranche", () => {
       "Samba", "Camama", "Mulenvos", "Hoji ya Henda",
     ]);
     expect(municipalityOnly).toHaveLength(10);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Icolo e Bengo tranche", () => {
+  it("contains the seven municipalities in the legal coding annex order", () => {
+    expect(icoloEBengoMunicipalities).toHaveLength(7);
+    expect(icoloEBengoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Catete", "Quicama", "Calumbo", "Cabiri", "Cabo Ledo", "Bom Jesus", "Sequele",
+    ]);
+    expect(icoloEBengoMunicipalities.map((unit) => unit.officialCode)).toEqual([
+      "AOIBE0601", "AOIBE0602", "AOIBE0603", "AOIBE0604",
+      "AOIBE0605", "AOIBE0606", "AOIBE0607",
+    ]);
+  });
+
+  it("links all Icolo e Bengo municipalities to the province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-icolo-e-bengo");
+    expect(province?.officialCode).toBe("AOIBE06");
+    expect(province?.administrativeSeat).toBe("Catete");
+    expect(icoloEBengoMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+  });
+
+  it("contains the eleven communes and exact official codes", () => {
+    expect(icoloEBengoCommunes).toHaveLength(11);
+    expect(icoloEBengoCommunes.map((unit) => unit.name)).toEqual([
+      "Catete", "Cassoneca", "Caculo Cahanga", "Caxicane", "Muxima", "Quixinge",
+      "Dembo Chio", "Mumbondo", "Funda", "Quifangondo", "Sequele",
+    ]);
+    expect(icoloEBengoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOIBE060101", "AOIBE060102", "AOIBE060103", "AOIBE060104",
+      "AOIBE060201", "AOIBE060202", "AOIBE060203", "AOIBE060204",
+      "AOIBE060701", "AOIBE060702", "AOIBE060703",
+    ]);
+  });
+
+  it("links every Icolo e Bengo commune to an existing municipality", () => {
+    const municipalityIds = new Set(icoloEBengoMunicipalities.map((unit) => unit.id));
+    expect(icoloEBengoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+  });
+
+  it("keeps the four municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(icoloEBengoCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = icoloEBengoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Calumbo", "Cabiri", "Cabo Ledo", "Bom Jesus",
+    ]);
+    expect(municipalityOnly).toHaveLength(4);
   });
 });
