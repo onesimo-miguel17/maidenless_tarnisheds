@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const NASA_POWER_BASE_URL = "https://power.larc.nasa.gov/api/temporal/daily/point";
 
 export const NASA_POWER_PARAMETERS = [
@@ -19,17 +21,31 @@ export interface DailyClimateRecord {
   relativeHumidityPct: number | null;
 }
 
+export interface MonthlyClimateRecord {
+  month: string;
+  precipitationTotalMm: number | null;
+  meanTemperatureC: number | null;
+  meanRelativeHumidityPct: number | null;
+  validPrecipitationDays: number;
+  validTemperatureDays: number;
+}
+
 export interface ClimateSummary {
   precipitationTotalMm: number | null;
   precipitationDays: number;
   meanTemperatureC: number | null;
   meanRelativeHumidityPct: number | null;
+  validPrecipitationDays: number;
+  validTemperatureDays: number;
+  missingPrecipitationDays: number;
+  longestDrySpellDays: number | null;
 }
 
 export interface ClimateDataset {
   source: "NASA POWER";
   community: "AG";
   timeStandard: "UTC";
+  retrievedAt: string;
   coordinates: { latitude: number; longitude: number };
   period: { start: string; end: string };
   units: {
@@ -38,14 +54,24 @@ export interface ClimateDataset {
     relativeHumidity: "%";
   };
   daily: DailyClimateRecord[];
+  monthly: MonthlyClimateRecord[];
   summary: ClimateSummary;
 }
 
-interface PowerApiResponse {
-  properties?: {
-    parameter?: Partial<Record<ClimateParameter, Record<string, number>>>;
-  };
-}
+const parameterRecordSchema = z.record(z.string(), z.number());
+const powerResponseSchema = z.object({
+  properties: z.object({
+    parameter: z.object({
+      PRECTOTCORR: parameterRecordSchema.optional(),
+      T2M: parameterRecordSchema.optional(),
+      T2M_MAX: parameterRecordSchema.optional(),
+      T2M_MIN: parameterRecordSchema.optional(),
+      RH2M: parameterRecordSchema.optional(),
+    }),
+  }),
+});
+
+type PowerApiResponse = z.infer<typeof powerResponseSchema>;
 
 function numericValue(value: number | undefined): number | null {
   if (value === undefined || !Number.isFinite(value) || value <= -900) {
@@ -60,18 +86,73 @@ function average(values: Array<number | null>): number | null {
   return valid.reduce((sum, value) => sum + value, 0) / valid.length;
 }
 
+function longestDrySpell(records: DailyClimateRecord[]): number | null {
+  let current = 0;
+  let longest = 0;
+  let observedDays = 0;
+
+  for (const record of records) {
+    if (record.precipitationMm === null) {
+      current = 0;
+      continue;
+    }
+    observedDays += 1;
+    current = record.precipitationMm < 1 ? current + 1 : 0;
+    longest = Math.max(longest, current);
+  }
+
+  return observedDays > 0 ? longest : null;
+}
+
+function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
+  const grouped = new Map<string, DailyClimateRecord[]>();
+
+  for (const record of records) {
+    const month = record.date.slice(0, 7);
+    const bucket = grouped.get(month) ?? [];
+    bucket.push(record);
+    grouped.set(month, bucket);
+  }
+
+  return [...grouped.entries()].sort(([a], [b]) => a.localeCompare(b)).map(
+    ([month, bucket]): MonthlyClimateRecord => {
+      const precipitation = bucket.map((record) => record.precipitationMm);
+      const validPrecipitation = precipitation.filter(
+        (value): value is number => value !== null,
+      );
+      return {
+        month,
+        precipitationTotalMm:
+          validPrecipitation.length > 0
+            ? validPrecipitation.reduce((sum, value) => sum + value, 0)
+            : null,
+        meanTemperatureC: average(bucket.map((record) => record.meanTemperatureC)),
+        meanRelativeHumidityPct: average(
+          bucket.map((record) => record.relativeHumidityPct),
+        ),
+        validPrecipitationDays: validPrecipitation.length,
+        validTemperatureDays: bucket.filter(
+          (record) => record.meanTemperatureC !== null,
+        ).length,
+      };
+    },
+  );
+}
+
 export function normalizePowerResponse(
-  payload: PowerApiResponse,
+  rawPayload: unknown,
   latitude: number,
   longitude: number,
   start: string,
   end: string,
+  retrievedAt: string = new Date().toISOString(),
 ): ClimateDataset {
-  const parameters = payload.properties?.parameter;
-  if (!parameters) {
-    throw new Error("A resposta da NASA POWER não contém dados de parâmetros.");
+  const parsed = powerResponseSchema.safeParse(rawPayload);
+  if (!parsed.success) {
+    throw new Error("A resposta da NASA POWER tem uma estrutura inesperada ou não contém parâmetros.");
   }
 
+  const parameters = parsed.data.properties.parameter;
   const dateKeys = [
     ...new Set(
       NASA_POWER_PARAMETERS.flatMap((parameter) =>
@@ -101,6 +182,7 @@ export function normalizePowerResponse(
     source: "NASA POWER",
     community: "AG",
     timeStandard: "UTC",
+    retrievedAt,
     coordinates: { latitude, longitude },
     period: { start, end },
     units: {
@@ -109,6 +191,7 @@ export function normalizePowerResponse(
       relativeHumidity: "%",
     },
     daily,
+    monthly: buildMonthly(daily),
     summary: {
       precipitationTotalMm:
         precipitation.length > 0
@@ -119,6 +202,12 @@ export function normalizePowerResponse(
       meanRelativeHumidityPct: average(
         daily.map((record) => record.relativeHumidityPct),
       ),
+      validPrecipitationDays: precipitation.length,
+      validTemperatureDays: daily.filter(
+        (record) => record.meanTemperatureC !== null,
+      ).length,
+      missingPrecipitationDays: daily.length - precipitation.length,
+      longestDrySpellDays: longestDrySpell(daily),
     },
   };
 }
@@ -142,7 +231,7 @@ export async function fetchPowerDaily(
   const response = await fetch(url, {
     headers: { Accept: "application/json" },
     signal: AbortSignal.timeout(20_000),
-    next: { revalidate: 86_400 },
+    next: { revalidate: 21_600 },
   });
 
   if (!response.ok) {
@@ -151,7 +240,7 @@ export async function fetchPowerDaily(
 
   const payload: unknown = await response.json();
   return normalizePowerResponse(
-    payload as PowerApiResponse,
+    payload,
     latitude,
     longitude,
     start,
