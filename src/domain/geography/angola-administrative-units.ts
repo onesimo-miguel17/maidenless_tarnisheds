@@ -21,6 +21,7 @@ import type { AdministrativeUnit } from "./types";
  * - Namibe: pages 20328–20329.
  * - Huíla: pages 20329–20330.
  * - Cunene: page 20330.
+ * - Cubango: page 20330.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -753,4 +754,33 @@ export const cuneneCommunes: AdministrativeUnit[] = [
   { id: "ao-cunene-nehone-evale", name: "Evale", level: "commune", parentId: "ao-cunene-nehone", officialCode: "AOCNE190802" },
   { id: "ao-cunene-humbe-mucupe", name: "Mucupe", level: "commune", parentId: "ao-cunene-humbe", officialCode: "AOCNE190901" },
   { id: "ao-cunene-humbe-humbe", name: "Humbe", level: "commune", parentId: "ao-cunene-humbe", officialCode: "AOCNE190902" },
+];
+
+export const cubangoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-cubango-menongue", name: "Menongue", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2001" },
+  { id: "ao-cubango-cuchi", name: "Cuchi", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2002" },
+  { id: "ao-cubango-calai", name: "Calai", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2003" },
+  { id: "ao-cubango-nancova", name: "Nancova", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2004" },
+  { id: "ao-cubango-cuangar", name: "Cuangar", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2005" },
+  { id: "ao-cubango-savate", name: "Savate", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2006" },
+  { id: "ao-cubango-caiundo", name: "Caiundo", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2007" },
+  { id: "ao-cubango-longa", name: "Longa", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2008" },
+  { id: "ao-cubango-cutato", name: "Cutato", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2009" },
+  { id: "ao-cubango-chinguanja", name: "Chinguanja", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2010" },
+  { id: "ao-cubango-mavingue", name: "Mavingue", level: "municipality", parentId: "ao-cubango", officialCode: "AOCGO2011" },
+];
+
+export const cubangoCommunes: AdministrativeUnit[] = [
+  { id: "ao-cubango-nancova-nancova", name: "Nancova", level: "commune", parentId: "ao-cubango-nancova", officialCode: "AOCGO200401" },
+  { id: "ao-cubango-nancova-rito", name: "Rito", level: "commune", parentId: "ao-cubango-nancova", officialCode: "AOCGO200402" },
+  { id: "ao-cubango-savate-savate", name: "Savate", level: "commune", parentId: "ao-cubango-savate", officialCode: "AOCGO200601" },
+  { id: "ao-cubango-savate-bondo-caila", name: "Bondo Caíla", level: "commune", parentId: "ao-cubango-savate", officialCode: "AOCGO200602" },
+  { id: "ao-cubango-caiundo-caiundo", name: "Caiundo", level: "commune", parentId: "ao-cubango-caiundo", officialCode: "AOCGO200701" },
+  { id: "ao-cubango-caiundo-jamba-cuio", name: "Jamba Cuio", level: "commune", parentId: "ao-cubango-caiundo", officialCode: "AOCGO200702" },
+  { id: "ao-cubango-longa-longa", name: "Longa", level: "commune", parentId: "ao-cubango-longa", officialCode: "AOCGO200801" },
+  { id: "ao-cubango-longa-baixo-longa", name: "Baixo Longa", level: "commune", parentId: "ao-cubango-longa", officialCode: "AOCGO200802" },
+  { id: "ao-cubango-cutato-cutato", name: "Cutato", level: "commune", parentId: "ao-cubango-cutato", officialCode: "AOCGO200901" },
+  { id: "ao-cubango-cutato-vissati", name: "Vissati", level: "commune", parentId: "ao-cubango-cutato", officialCode: "AOCGO200902" },
+  { id: "ao-cubango-mavingue-mavingue", name: "Mavingue", level: "commune", parentId: "ao-cubango-mavingue", officialCode: "AOCGO201101" },
+  { id: "ao-cubango-mavingue-mue", name: "Mué", level: "commune", parentId: "ao-cubango-mavingue", officialCode: "AOCGO201102" },
 ];
