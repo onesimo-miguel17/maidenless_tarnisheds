@@ -51,6 +51,11 @@ export default function ClimateSearch() {
   const [longitude, setLongitude] = useState("");
   const [cropId, setCropId] = useState("");
   const [soilPh, setSoilPh] = useState("");
+  const [soilTexture, setSoilTexture] = useState<"unknown" | "sandy" | "clayey" | "loamy">("unknown");
+  const [soilMoisture, setSoilMoisture] = useState<"unknown" | "dry" | "normal" | "wet">("unknown");
+  const [soilDrainage, setSoilDrainage] = useState<"unknown" | "poor" | "moderate" | "good">("unknown");
+  const [soilFertility, setSoilFertility] = useState<"unknown" | "low" | "medium" | "high">("unknown");
+  const [soilOrganicMatter, setSoilOrganicMatter] = useState<"unknown" | "low" | "medium" | "high">("unknown");
   const [start, setStart] = useState(defaultPeriod.start);
   const [end, setEnd] = useState(defaultPeriod.end);
   const [dataset, setDataset] = useState<ClimateDataset | null>(null);
@@ -118,6 +123,11 @@ export default function ClimateSearch() {
 
   const selectedCrop = cropCatalog.find((crop) => crop.id === cropId);
   const soilProfile = soilProfileSchema.parse({
+    texture: soilTexture,
+    moisture: soilMoisture,
+    drainage: soilDrainage,
+    fertility: soilFertility,
+    organicMatter: soilOrganicMatter,
     ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
   });
   const cropAssessment = selectedCrop
@@ -169,6 +179,20 @@ export default function ClimateSearch() {
           <label className="block text-sm font-medium" htmlFor="soil-ph">pH medido do solo (opcional)</label>
           <input id="soil-ph" type="number" min="0" max="14" step="0.1" value={soilPh} onChange={(event) => setSoilPh(event.target.value)} placeholder="Ex.: 6.2" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
           <p className="mt-1 text-xs text-[var(--muted)]">Introduza apenas um valor obtido por medição do solo.</p>
+        </div>
+        <div className="lg:col-span-2 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold">Caracterização observada do solo</h3>
+            <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Registe apenas características que conhece por observação ou análise. Estes campos descrevem o terreno; ainda não são convertidos em pontuações de adequação da cultura.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <SoilSelect id="soil-texture" label="Textura" value={soilTexture} onChange={setSoilTexture} options={[["unknown", "Não sei"], ["sandy", "Arenoso"], ["clayey", "Argiloso"], ["loamy", "Franco"]]} />
+            <SoilSelect id="soil-moisture" label="Humidade observada" value={soilMoisture} onChange={setSoilMoisture} options={[["unknown", "Não sei"], ["dry", "Seco"], ["normal", "Húmido / normal"], ["wet", "Encharcado / muito húmido"]]} />
+            <SoilSelect id="soil-drainage" label="Drenagem observada" value={soilDrainage} onChange={setSoilDrainage} options={[["unknown", "Não sei"], ["poor", "Má"], ["moderate", "Moderada"], ["good", "Boa"]]} />
+            <SoilSelect id="soil-fertility" label="Fertilidade percebida" value={soilFertility} onChange={setSoilFertility} options={[["unknown", "Não avaliada"], ["low", "Baixa"], ["medium", "Média"], ["high", "Alta"]]} />
+            <SoilSelect id="soil-organic-matter" label="Matéria orgânica percebida" value={soilOrganicMatter} onChange={setSoilOrganicMatter} options={[["unknown", "Não avaliada"], ["low", "Baixa"], ["medium", "Média"], ["high", "Alta"]]} />
+          </div>
+          <p className="mt-3 text-[11px] leading-5 text-[var(--muted)]">Fertilidade e matéria orgânica percebidas não substituem análises laboratoriais. A interpretação destes atributos exige medições e referências locais validadas.</p>
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="start"><CalendarDays size={14} className="mr-1 inline" /> Data inicial</label>
