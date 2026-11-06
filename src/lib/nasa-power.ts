@@ -72,7 +72,14 @@ export function normalizePowerResponse(
     throw new Error("A resposta da NASA POWER não contém dados de parâmetros.");
   }
 
-  const dateKeys = Object.keys(parameters.T2M ?? parameters.PRECTOTCORR ?? {}).sort();
+  const dateKeys = [
+    ...new Set(
+      NASA_POWER_PARAMETERS.flatMap((parameter) =>
+        Object.keys(parameters[parameter] ?? {}),
+      ),
+    ),
+  ].sort();
+
   if (dateKeys.length === 0) {
     throw new Error("A NASA POWER não devolveu observações para este período.");
   }
