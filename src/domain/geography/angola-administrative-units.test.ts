@@ -37,6 +37,8 @@ import {
   cuneneMunicipalities,
   cubangoCommunes,
   cubangoMunicipalities,
+  cuandoCommunes,
+  cuandoMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1322,6 +1324,83 @@ describe("Angola administrative hierarchy — Cubango tranche", () => {
       ...huilaMunicipalities, ...huilaCommunes,
       ...cuneneMunicipalities, ...cuneneCommunes,
       ...cubangoMunicipalities, ...cubangoCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Cuando tranche", () => {
+  it("contains the nine municipalities in the legal coding annex order", () => {
+    expect(cuandoMunicipalities).toHaveLength(9);
+    expect(cuandoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Cuito Cuanavale", "Dirico", "Mavinga", "Rivungo", "Xipundo", "Dima",
+      "Luiana", "Mucusso", "Luengue",
+    ]);
+    expect(cuandoMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 9 }, (_, index) => `AOCDO21${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links municipalities to Cuando province and its official code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cuando");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOCDO21");
+    expect(province?.administrativeSeat).toBe("Mavinga");
+    expect(cuandoMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cuandoMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the six communes and exact codes from the coding annex", () => {
+    expect(cuandoCommunes).toHaveLength(6);
+    expect(cuandoCommunes.map((unit) => unit.name)).toEqual([
+      "Cuito Cuanavale", "Lupire", "Dirico", "Xamavera", "Cunjamba", "Cutile",
+    ]);
+    expect(cuandoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOCDO210101", "AOCDO210102", "AOCDO210201", "AOCDO210202",
+      "AOCDO210601", "AOCDO210602",
+    ]);
+  });
+
+  it("links every commune to an existing Cuando municipality", () => {
+    const municipalityIds = new Set(cuandoMunicipalities.map((unit) => unit.id));
+    expect(cuandoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cuandoCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the seven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cuandoCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = quandoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Mavinga", "Rivungo", "Xipundo", "Luiana", "Mucusso", "Luengue",
+    ]);
+    expect(municipalityOnly).toHaveLength(6);
+  });
+
+  it("keeps IDs and official codes unique across all nineteen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
+      ...namibeMunicipalities, ...namibeCommunes,
+      ...huilaMunicipalities, ...huilaCommunes,
+      ...cuneneMunicipalities, ...cuneneCommunes,
+      ...cubangoMunicipalities, ...cubangoCommunes,
+      ...cuandoMunicipalities, ...cuandoCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
