@@ -28,4 +28,23 @@ describe("soilProfileSchema", () => {
     });
     expect(result.success).toBe(false);
   });
+  
+  it("preserves observed soil characteristics without inferring missing values", () => {
+    const result = soilProfileSchema.safeParse({
+      texture: "clayey",
+      moisture: "wet",
+      drainage: "poor",
+      fertility: "medium",
+      organicMatter: "low",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.texture).toBe("clayey");
+      expect(result.data.moisture).toBe("wet");
+      expect(result.data.drainage).toBe("poor");
+      expect(result.data.fertility).toBe("medium");
+      expect(result.data.organicMatter).toBe("low");
+      expect(result.data.ph).toBeNull();
+    }
+  });
 });
