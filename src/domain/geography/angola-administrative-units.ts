@@ -20,6 +20,7 @@ import type { AdministrativeUnit } from "./types";
  * - Benguela: pages 20327–20328.
  * - Namibe: pages 20328–20329.
  * - Huíla: pages 20329–20330.
+ * - Cunene: page 20330.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -722,4 +723,34 @@ export const huilaCommunes: AdministrativeUnit[] = [
   { id: "ao-huila-capelongo-mulondo", name: "Mulondo", level: "commune", parentId: "ao-huila-capelongo", officialCode: "AOHLA181702" },
   { id: "ao-huila-capunda-cavilongo-capunda-cavilongo", name: "Capunda Cavilongo", level: "commune", parentId: "ao-huila-capunda-cavilongo", officialCode: "AOHLA181901" },
   { id: "ao-huila-capunda-cavilongo-quihita", name: "Quihita", level: "commune", parentId: "ao-huila-capunda-cavilongo", officialCode: "AOHLA181902" },
+];
+
+export const cuneneMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-cunene-ombadja", name: "Ombadja", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1901" },
+  { id: "ao-cunene-cuanhama", name: "Cuanhama", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1902" },
+  { id: "ao-cunene-curoca", name: "Curoca", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1903" },
+  { id: "ao-cunene-cahama", name: "Cahama", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1904" },
+  { id: "ao-cunene-cuvelai", name: "Cuvelai", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1905" },
+  { id: "ao-cunene-namacunde", name: "Namacunde", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1906" },
+  { id: "ao-cunene-chiede", name: "Chiéde", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1907" },
+  { id: "ao-cunene-nehone", name: "Nehone", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1908" },
+  { id: "ao-cunene-humbe", name: "Humbe", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1909" },
+  { id: "ao-cunene-mupa", name: "Mupa", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1910" },
+  { id: "ao-cunene-naulila", name: "Naulila", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1911" },
+  { id: "ao-cunene-chitado", name: "Chitado", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1912" },
+  { id: "ao-cunene-cafima", name: "Cafima", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1913" },
+  { id: "ao-cunene-chissuata", name: "Chissuata", level: "municipality", parentId: "ao-cunene", officialCode: "AOCNE1914" },
+];
+
+export const cuneneCommunes: AdministrativeUnit[] = [
+  { id: "ao-cunene-ombadja-xangongo", name: "Xangongo", level: "commune", parentId: "ao-cunene-ombadja", officialCode: "AOCNE190101" },
+  { id: "ao-cunene-ombadja-ombala-yo-mungo", name: "Ombala yo Mungo", level: "commune", parentId: "ao-cunene-ombadja", officialCode: "AOCNE190102" },
+  { id: "ao-cunene-cuanhama-ondjiva", name: "Ondjiva", level: "commune", parentId: "ao-cunene-cuanhama", officialCode: "AOCNE190201" },
+  { id: "ao-cunene-cuanhama-mongua", name: "Môngua", level: "commune", parentId: "ao-cunene-cuanhama", officialCode: "AOCNE190202" },
+  { id: "ao-cunene-cahama-cahama", name: "Cahama", level: "commune", parentId: "ao-cunene-cahama", officialCode: "AOCNE190401" },
+  { id: "ao-cunene-cahama-otchinjau", name: "Otchinjau", level: "commune", parentId: "ao-cunene-cahama", officialCode: "AOCNE190402" },
+  { id: "ao-cunene-nehone-nehone", name: "Nehone", level: "commune", parentId: "ao-cunene-nehone", officialCode: "AOCNE190801" },
+  { id: "ao-cunene-nehone-evale", name: "Evale", level: "commune", parentId: "ao-cunene-nehone", officialCode: "AOCNE190802" },
+  { id: "ao-cunene-humbe-mucupe", name: "Mucupe", level: "commune", parentId: "ao-cunene-humbe", officialCode: "AOCNE190901" },
+  { id: "ao-cunene-humbe-humbe", name: "Humbe", level: "commune", parentId: "ao-cunene-humbe", officialCode: "AOCNE190902" },
 ];
