@@ -443,3 +443,35 @@ function Coverage({ label, valid, missing }: { label: string; valid: number; mis
     </div>
   );
 }
+
+type SoilOption<T extends string> = readonly [T, string];
+
+function SoilSelect<T extends string>({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  id: string;
+  label: string;
+  value: T;
+  onChange: (value: T) => void;
+  options: readonly SoilOption<T>[];
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-medium" htmlFor={id}>{label}</label>
+      <select
+        id={id}
+        value={value}
+        onChange={(event) => onChange(event.target.value as T)}
+        className="mt-2 w-full rounded-xl border border-[var(--border)] bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--green)]"
+      >
+        {options.map(([optionValue, optionLabel]) => (
+          <option key={optionValue} value={optionValue}>{optionLabel}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
