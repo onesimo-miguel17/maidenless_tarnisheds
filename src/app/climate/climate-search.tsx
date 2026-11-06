@@ -7,6 +7,7 @@ import {
   CloudRain,
   Droplets,
   LoaderCircle,
+  LocateFixed,
   MapPin,
   ThermometerSun,
 } from "lucide-react";
@@ -53,6 +54,40 @@ export default function ClimateSearch() {
   const [dataset, setDataset] = useState<ClimateDataset | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [locationMessage, setLocationMessage] = useState<string | null>(null);
+  const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
+
+  function handleUseCurrentLocation() {
+    setLocationMessage(null);
+    setLocationAccuracy(null);
+
+    if (!("geolocation" in navigator)) {
+      setLocationMessage("Este navegador não disponibiliza geolocalização. Introduza as coordenadas manualmente.");
+      return;
+    }
+
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude.toFixed(6));
+        setLongitude(position.coords.longitude.toFixed(6));
+        setLocationAccuracy(position.coords.accuracy);
+        setLocationMessage("Coordenadas obtidas pelo dispositivo. Confirme que o ponto corresponde à parcela agrícola.");
+        setLocating(false);
+      },
+      (cause) => {
+        const message = cause.code === cause.PERMISSION_DENIED
+          ? "A permissão de localização foi recusada. Autorize o acesso no navegador ou introduza as coordenadas manualmente."
+          : cause.code === cause.POSITION_UNAVAILABLE
+            ? "A localização não está disponível neste momento. Tente novamente ou introduza as coordenadas manualmente."
+            : "A localização demorou demasiado tempo. Tente novamente ou introduza as coordenadas manualmente.";
+        setLocationMessage(message);
+        setLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+    );
+  }
 
   async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -100,11 +135,18 @@ export default function ClimateSearch() {
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="latitude">Latitude decimal</label>
-          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => setLatitude(event.target.value)} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => { setLatitude(event.target.value); setLocationAccuracy(null); }} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="longitude">Longitude decimal</label>
-          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => setLongitude(event.target.value)} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => { setLongitude(event.target.value); setLocationAccuracy(null); }} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+        </div>
+        <div className="lg:col-span-2">
+          <button type="button" onClick={handleUseCurrentLocation} disabled={locating || loading} className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--green)] px-4 py-2.5 text-sm font-semibold text-[var(--green)] transition hover:bg-[#f5f8f1] disabled:cursor-not-allowed disabled:opacity-60">
+            {locating ? <><LoaderCircle size={16} className="animate-spin" /> A obter localização...</> : <><LocateFixed size={16} /> Usar localização do dispositivo</>}
+          </button>
+          {locationAccuracy !== null && <p className="mt-2 text-xs text-[var(--muted)]">Precisão indicada pelo dispositivo: ±{Math.round(locationAccuracy)} m. Isto não representa a resolução espacial dos dados NASA POWER.</p>}
+          {locationMessage && <p role="status" className="mt-2 text-xs leading-5 text-[var(--muted)]">{locationMessage}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="crop">Cultura a avaliar</label>
