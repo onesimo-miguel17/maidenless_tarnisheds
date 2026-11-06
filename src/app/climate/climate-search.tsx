@@ -129,7 +129,7 @@ export default function ClimateSearch() {
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? "Sem dados" : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.precipitationDays} dias com precipitação ≥ 1 mm não é assumido; conta dias > 0 mm.`} />
+            <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? "Sem dados" : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.precipitationDays} dias com precipitação > 0 mm`} />
             <Metric icon={<ThermometerSun size={18} />} label="Temperatura média" value={dataset.summary.meanTemperatureC === null ? "Sem dados" : `${formatNumber(dataset.summary.meanTemperatureC)} °C`} detail={`${dataset.summary.validTemperatureDays} observações válidas`} />
             <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail="Média das observações disponíveis" />
             <Metric icon={<Activity size={18} />} label="Maior sequência seca" value={dataset.summary.longestDrySpellDays === null ? "Sem dados" : `${dataset.summary.longestDrySpellDays} dias`} detail="Dias consecutivos com precipitação < 1 mm; lacunas interrompem a sequência." />
