@@ -16,7 +16,10 @@ export default function Home() {
           <span className="grid size-11 place-items-center rounded-2xl bg-[var(--green)] text-white"><Sprout size={23} /></span>
           <span><strong className="block text-xl tracking-tight">pambala</strong><span className="text-[10px] font-semibold uppercase tracking-[.22em] text-[var(--muted)]">Inteligência agrícola</span></span>
         </Link>
-        <span className="rounded-full border border-[var(--border)] bg-white px-4 py-2 text-xs font-semibold text-[var(--green)]">Angola · Versão inicial</span>
+        <nav className="flex items-center gap-3">
+          <Link href="/climate" className="rounded-full bg-[var(--green)] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar clima NASA <ArrowUpRight size={14} className="ml-1 inline" /></Link>
+          <span className="hidden rounded-full border border-[var(--border)] bg-white px-4 py-2 text-xs font-semibold text-[var(--green)] sm:inline-flex">Angola · Versão inicial</span>
+        </nav>
       </header>
 
       <section className="mx-auto grid max-w-7xl gap-12 px-6 pb-20 pt-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:px-10 lg:pb-28 lg:pt-20">
@@ -31,7 +34,7 @@ export default function Home() {
           <div className="relative rounded-[2rem] bg-[var(--green-dark)] p-7 text-white shadow-2xl sm:p-9">
             <div className="flex items-center justify-between"><span className="text-xs font-semibold uppercase tracking-[.2em] text-[#c6d7bd]">O ciclo da decisão</span><span className="rounded-full bg-white/10 px-3 py-1 text-[10px]">01 / 04</span></div>
             <div className="mt-10 space-y-4">
-              {[["01","Conhecer o terreno","Solo, água e localização"],["02","Avaliar as culturas","Exigências e compatibilidade"],["03","Planear a sucessão","Rotação e saúde do solo"],["04","Decidir com clareza","Vantagens, riscos e limitações"]].map(([n,t,d],i)=><div key={n} className={`flex items-center gap-4 rounded-2xl border p-4 ${i===0?"border-[#9fbd8e]/50 bg-white/10":"border-white/10 bg-white/[.035]"}`}><span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#d8e7b5] text-sm font-bold text-[var(--green-dark)]">{n}</span><span className="min-w-0 flex-1"><strong className="block text-sm">{t}</strong><span className="mt-1 block text-xs text-[#c6d7bd]">{d}</span></span><ArrowUpRight size={16} className="text-[#c6d7bd]" /></div>)}
+              {[[ "01", "Conhecer o terreno", "Solo, água e localização" ], [ "02", "Avaliar as culturas", "Exigências e compatibilidade" ], [ "03", "Planear a sucessão", "Rotação e saúde do solo" ], [ "04", "Decidir com clareza", "Vantagens, riscos e limitações" ]].map(([n,t,d],i)=><div key={n} className={`flex items-center gap-4 rounded-2xl border p-4 ${i===0?"border-[#9fbd8e]/50 bg-white/10":"border-white/10 bg-white/[.035]"}`}><span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#d8e7b5] text-sm font-bold text-[var(--green-dark)]">{n}</span><span className="min-w-0 flex-1"><strong className="block text-sm">{t}</strong><span className="mt-1 block text-xs text-[#c6d7bd]">{d}</span></span><ArrowUpRight size={16} className="text-[#c6d7bd]" /></div>)}
             </div>
             <div className="mt-8 flex items-center justify-between border-t border-white/15 pt-5 text-xs text-[#c6d7bd]"><span>Conhecimento antes da recomendação</span><Leaf size={18} /></div>
           </div>
