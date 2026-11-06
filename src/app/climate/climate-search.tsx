@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Activity, CloudRain, Droplets, LoaderCircle, ThermometerSun } from "lucide-react";
 import type { ClimateDataset } from "@/lib/nasa-power";
 
@@ -11,7 +11,7 @@ export default function ClimateSearch() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setError(null);
@@ -82,7 +82,7 @@ export default function ClimateSearch() {
   );
 }
 
-function Metric({ icon, label, value, detail }: { icon: React.ReactNode; label: string; value: string; detail: string }) {
+function Metric({ icon, label, value, detail }: { icon: ReactNode; label: string; value: string; detail: string }) {
   return (
     <article className="rounded-2xl border border-[var(--border)] p-4">
       <div className="flex items-center gap-2 text-[var(--green)]">{icon}<span className="text-xs font-medium text-[var(--muted)]">{label}</span></div>
