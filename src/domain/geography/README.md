@@ -71,7 +71,7 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo e Benguela, Namibe e Huíla; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe e Huíla; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
