@@ -35,6 +35,8 @@ import {
   huilaMunicipalities,
   cuneneCommunes,
   cuneneMunicipalities,
+  cubangoCommunes,
+  cubangoMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1244,6 +1246,82 @@ describe("Angola administrative hierarchy — Cunene tranche", () => {
       ...namibeMunicipalities, ...namibeCommunes,
       ...huilaMunicipalities, ...huilaCommunes,
       ...cuneneMunicipalities, ...cuneneCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+describe("Angola administrative hierarchy — Cubango tranche", () => {
+  it("contains the eleven municipalities in the legal coding annex order", () => {
+    expect(cubangoMunicipalities).toHaveLength(11);
+    expect(cubangoMunicipalities.map((unit) => unit.name)).toEqual([
+      "Menongue", "Cuchi", "Calai", "Nancova", "Cuangar", "Savate",
+      "Caiundo", "Longa", "Cutato", "Chinguanja", "Mavingue",
+    ]);
+    expect(cubangoMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 11 }, (_, index) => `AOCGO20${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links municipalities to Cubango province and its official code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cubango");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOCGO20");
+    expect(province?.administrativeSeat).toBe("Menongue");
+    expect(cubangoMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cubangoMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the twelve communes and exact codes from the coding annex", () => {
+    expect(cubangoCommunes).toHaveLength(12);
+    expect(cubangoCommunes.map((unit) => unit.name)).toEqual([
+      "Nancova", "Rito", "Savate", "Bondo Caíla", "Caiundo", "Jamba Cuio",
+      "Longa", "Baixo Longa", "Cutato", "Vissati", "Mavingue", "Mué",
+    ]);
+    expect(cubangoCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOCGO200401", "AOCGO200402", "AOCGO200601", "AOCGO200602",
+      "AOCGO200701", "AOCGO200702", "AOCGO200801", "AOCGO200802",
+      "AOCGO200901", "AOCGO200902", "AOCGO201101", "AOCGO201102",
+    ]);
+  });
+
+  it("links every commune to an existing Cubango municipality", () => {
+    const municipalityIds = new Set(cubangoMunicipalities.map((unit) => unit.id));
+    expect(cubangoCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cubangoCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the five municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cubangoCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = cubangoMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Menongue", "Cuchi", "Calai", "Cuangar", "Chinguanja",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all eighteen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
+      ...namibeMunicipalities, ...namibeCommunes,
+      ...huilaMunicipalities, ...huilaCommunes,
+      ...cuneneMunicipalities, ...cuneneCommunes,
+      ...cubangoMunicipalities, ...cubangoCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
