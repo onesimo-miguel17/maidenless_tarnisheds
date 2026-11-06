@@ -51,6 +51,11 @@ export default function ClimateSearch() {
   const [longitude, setLongitude] = useState("");
   const [cropId, setCropId] = useState("");
   const [soilPh, setSoilPh] = useState("");
+  const [soilTexture, setSoilTexture] = useState<"unknown" | "sandy" | "clayey" | "loamy">("unknown");
+  const [soilMoisture, setSoilMoisture] = useState<"unknown" | "dry" | "normal" | "wet">("unknown");
+  const [soilDrainage, setSoilDrainage] = useState<"unknown" | "poor" | "moderate" | "good">("unknown");
+  const [soilFertility, setSoilFertility] = useState<"unknown" | "low" | "medium" | "high">("unknown");
+  const [soilOrganicMatter, setSoilOrganicMatter] = useState<"unknown" | "low" | "medium" | "high">("unknown");
   const [start, setStart] = useState(defaultPeriod.start);
   const [end, setEnd] = useState(defaultPeriod.end);
   const [dataset, setDataset] = useState<ClimateDataset | null>(null);
@@ -118,6 +123,11 @@ export default function ClimateSearch() {
 
   const selectedCrop = cropCatalog.find((crop) => crop.id === cropId);
   const soilProfile = soilProfileSchema.parse({
+    texture: soilTexture,
+    moisture: soilMoisture,
+    drainage: soilDrainage,
+    fertility: soilFertility,
+    organicMatter: soilOrganicMatter,
     ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
   });
   const cropAssessment = selectedCrop
@@ -170,6 +180,20 @@ export default function ClimateSearch() {
           <input id="soil-ph" type="number" min="0" max="14" step="0.1" value={soilPh} onChange={(event) => setSoilPh(event.target.value)} placeholder="Ex.: 6.2" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
           <p className="mt-1 text-xs text-[var(--muted)]">Introduza apenas um valor obtido por medição do solo.</p>
         </div>
+        <div className="lg:col-span-2 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold">Caracterização observada do solo</h3>
+            <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Registe apenas características que conhece por observação ou análise. Estes campos descrevem o terreno; ainda não são convertidos em pontuações de adequação da cultura.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <SoilSelect id="soil-texture" label="Textura" value={soilTexture} onChange={setSoilTexture} options={[["unknown", "Não sei"], ["sandy", "Arenoso"], ["clayey", "Argiloso"], ["loamy", "Franco"]]} />
+            <SoilSelect id="soil-moisture" label="Humidade observada" value={soilMoisture} onChange={setSoilMoisture} options={[["unknown", "Não sei"], ["dry", "Seco"], ["normal", "Húmido / normal"], ["wet", "Encharcado / muito húmido"]]} />
+            <SoilSelect id="soil-drainage" label="Drenagem observada" value={soilDrainage} onChange={setSoilDrainage} options={[["unknown", "Não sei"], ["poor", "Má"], ["moderate", "Moderada"], ["good", "Boa"]]} />
+            <SoilSelect id="soil-fertility" label="Fertilidade percebida" value={soilFertility} onChange={setSoilFertility} options={[["unknown", "Não avaliada"], ["low", "Baixa"], ["medium", "Média"], ["high", "Alta"]]} />
+            <SoilSelect id="soil-organic-matter" label="Matéria orgânica percebida" value={soilOrganicMatter} onChange={setSoilOrganicMatter} options={[["unknown", "Não avaliada"], ["low", "Baixa"], ["medium", "Média"], ["high", "Alta"]]} />
+          </div>
+          <p className="mt-3 text-[11px] leading-5 text-[var(--muted)]">Fertilidade e matéria orgânica percebidas não substituem análises laboratoriais. A interpretação destes atributos exige medições e referências locais validadas.</p>
+        </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="start"><CalendarDays size={14} className="mr-1 inline" /> Data inicial</label>
           <input id="start" type="date" required value={start} max={end} onChange={(event) => setStart(event.target.value)} className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
@@ -202,6 +226,17 @@ export default function ClimateSearch() {
               {factor.expectedRange && <p className="mt-2 text-xs text-[var(--muted)]">Intervalo de referência: {factor.expectedRange.min}–{factor.expectedRange.max} pH · Evidência: {factor.evidence}</p>}
             </div>
           ))}
+          <div className="mt-5 rounded-2xl border border-[var(--border)] p-4">
+            <h3 className="text-sm font-semibold">Perfil registado nesta análise</h3>
+            <dl className="mt-3 grid gap-3 text-xs sm:grid-cols-2 lg:grid-cols-3">
+              <SoilFact label="Textura" value={{ sandy: "Arenoso", clayey: "Argiloso", loamy: "Franco", unknown: "Não registada" }[soilProfile.texture]} />
+              <SoilFact label="Humidade observada" value={{ dry: "Seco", normal: "Normal", wet: "Muito húmido", unknown: "Não registada" }[soilProfile.moisture]} />
+              <SoilFact label="Drenagem" value={{ poor: "Má", moderate: "Moderada", good: "Boa", unknown: "Não registada" }[soilProfile.drainage]} />
+              <SoilFact label="Fertilidade percebida" value={{ low: "Baixa", medium: "Média", high: "Alta", unknown: "Não avaliada" }[soilProfile.fertility]} />
+              <SoilFact label="Matéria orgânica percebida" value={{ low: "Baixa", medium: "Média", high: "Alta", unknown: "Não avaliada" }[soilProfile.organicMatter]} />
+            </dl>
+            <p className="mt-3 text-[11px] leading-5 text-[var(--muted)]">Apenas o pH é comparado com uma referência de cultura nesta versão. Os restantes atributos ficam registados como contexto, sem pontuação nem inferência de adequação.</p>
+          </div>
           <ul className="mt-4 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--muted)]">
             {cropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
           </ul>
@@ -416,6 +451,47 @@ function Coverage({ label, valid, missing }: { label: string; valid: number; mis
       <div className="flex items-center justify-between gap-3 text-xs"><strong>{label}</strong><span className="tabular-nums text-[var(--muted)]">{valid}/{total} dias válidos · {percentage.toFixed(1)}%</span></div>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-[var(--background)]"><div className="h-full rounded-full bg-[var(--green)]" style={{ width: `${percentage}%` }} /></div>
       <p className="mt-1 text-[11px] text-[var(--muted)]">{missing} dias sem valor utilizável</p>
+    </div>
+  );
+}
+
+type SoilOption<T extends string> = readonly [T, string];
+
+function SoilSelect<T extends string>({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  id: string;
+  label: string;
+  value: T;
+  onChange: (value: T) => void;
+  options: readonly SoilOption<T>[];
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-medium" htmlFor={id}>{label}</label>
+      <select
+        id={id}
+        value={value}
+        onChange={(event) => onChange(event.target.value as T)}
+        className="mt-2 w-full rounded-xl border border-[var(--border)] bg-white px-3 py-2.5 text-sm outline-none focus:border-[var(--green)]"
+      >
+        {options.map(([optionValue, optionLabel]) => (
+          <option key={optionValue} value={optionValue}>{optionLabel}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function SoilFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-[var(--muted)]">{label}</dt>
+      <dd className="mt-1 font-semibold">{value}</dd>
     </div>
   );
 }
