@@ -83,6 +83,31 @@ describe("normalizePowerResponse", () => {
     expect(result.summary.longestDrySpellDays).toBe(3);
   });
 
+  it("fills requested calendar dates missing entirely from the NASA response", () => {
+    const result = normalizePowerResponse(
+      {
+        properties: {
+          parameter: {
+            PRECTOTCORR: { "2026010100": 0, "2026010300": 4 },
+          },
+        },
+      },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-03",
+    );
+
+    expect(result.daily.map((record) => record.date)).toEqual([
+      "2026-01-01",
+      "2026-01-02",
+      "2026-01-03",
+    ]);
+    expect(result.daily[1].precipitationMm).toBeNull();
+    expect(result.summary.missingPrecipitationDays).toBe(1);
+    expect(result.summary.longestDrySpellDays).toBe(1);
+  });
+
   it("rejects malformed responses and empty time series", () => {
     expect(() =>
       normalizePowerResponse({}, 0, 0, "2026-01-01", "2026-01-03"),
