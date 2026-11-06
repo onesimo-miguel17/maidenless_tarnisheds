@@ -31,6 +31,8 @@ import {
   benguelaMunicipalities,
   namibeCommunes,
   namibeMunicipalities,
+  huilaCommunes,
+  huilaMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1099,6 +1101,69 @@ describe("Angola administrative hierarchy — Namibe tranche", () => {
       ...huamboMunicipalities, ...huamboCommunes,
       ...benguelaMunicipalities, ...benguelaCommunes,
       ...namibeMunicipalities, ...namibeCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Huíla tranche", () => {
+  it("contains the 23 municipalities in the legal annex order", () => {
+    expect(huilaMunicipalities).toHaveLength(23);
+    expect(huilaMunicipalities.map((unit) => unit.name)).toEqual(["Caconda","Gambos","Humpata","Lubango","Cuvango","Quipungo","Chibia","Quilengues","Caluquembe","Matala","Jamba Mineira","Chipindo","Chicomba","Cacula","Dongo","Hoque","Capelongo","Chituto","Capunda Cavilongo","Viti Vivali","Galangue","Palanca","Chicungo"]);
+    expect(huilaMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 23 }, (_, index) => `AOHLA18${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links all municipalities to the Huíla province and official province code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-huila");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOHLA18");
+    expect(province?.administrativeSeat).toBe("Lubango");
+    expect(huilaMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(huilaMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the 26 communes and their official codes", () => {
+    expect(huilaCommunes).toHaveLength(26);
+    expect(huilaCommunes.map((unit) => unit.name)).toEqual(["Caconda","Cungue","Uaba","Ousse","Chiange","Chimbemba","Lubango","Huíla","Chibia","Jau","Quilengues","Impulo","Dinde","Caluquembe","Calepi","Negola","Jamba Mineira","Cassinga","Chipindo","Bambi","Chicomba","Cutenda","Cacula","Tchicuqueia","Capelongo","Mulondo","Capunda Cavilongo","Quihita"]);
+    expect(huilaCommunes.map((unit) => unit.officialCode)).toEqual(["AOHLA180101","AOHLA180102","AOHLA180103","AOHLA180104","AOHLA180201","AOHLA180202","AOHLA180401","AOHLA180402","AOHLA180701","AOHLA180702","AOHLA180801","AOHLA180802","AOHLA180803","AOHLA180901","AOHLA180902","AOHLA180903","AOHLA181101","AOHLA181102","AOHLA181201","AOHLA181202","AOHLA181301","AOHLA181302","AOHLA181401","AOHLA181402","AOHLA181701","AOHLA181702","AOHLA181901","AOHLA181902"]);
+  });
+
+  it("links every commune to an existing municipality in Huíla", () => {
+    const municipalityIds = new Set(huilaMunicipalities.map((unit) => unit.id));
+    expect(huilaCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(huilaCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the eleven municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(huilaCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = huilaMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual(["Humpata","Cuvango","Quipungo","Matala","Dongo","Hoque","Chituto","Viti Vivali","Galangue","Palanca","Chicungo"]);
+  });
+
+  it("keeps IDs and official codes unique across all sixteen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
+      ...namibeMunicipalities, ...namibeCommunes,
+      ...huilaMunicipalities, ...huilaCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
