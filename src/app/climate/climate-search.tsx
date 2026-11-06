@@ -135,11 +135,11 @@ export default function ClimateSearch() {
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="latitude">Latitude decimal</label>
-          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => { setLatitude(event.target.value); setLocationAccuracy(null); }} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => { setLatitude(event.target.value); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="longitude">Longitude decimal</label>
-          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => { setLongitude(event.target.value); setLocationAccuracy(null); }} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => { setLongitude(event.target.value); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div className="lg:col-span-2">
           <button type="button" onClick={handleUseCurrentLocation} disabled={locating || loading} className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--green)] px-4 py-2.5 text-sm font-semibold text-[var(--green)] transition hover:bg-[#f5f8f1] disabled:cursor-not-allowed disabled:opacity-60">
