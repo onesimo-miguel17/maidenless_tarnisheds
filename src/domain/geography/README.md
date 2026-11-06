@@ -32,7 +32,7 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Luanda: 16 municípios e 13 comunas;
 - Icolo e Bengo: 7 municípios e 11 comunas.
 
-Total actualmente registado: 326 municípios e 378 comunas, distribuídos pelas vinte e uma províncias. Estes totais ainda não representam a cobertura nacional.
+A soma das 21 tranches corresponde aos totais nacionais de referência: 326 municípios e 378 comunas. Isto confirma a cobertura tabular dos registos administrativos; não significa que existam geometrias, limites ou coordenadas territoriais.
 
 ## Códigos territoriais oficiais
 
@@ -87,9 +87,9 @@ O portal institucional do Governo Provincial do Cuando apresenta uma distribuiç
 
 ## Limites e próximos passos
 
-- A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas estão agora representados nas tranches transcritas. A cobertura dos registos não substitui a validação futura de eventuais alterações legais.
-- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe, Huíla, Cunene, Cubango, Cuando, Luanda e Icolo e Bengo; não se deve inferir que as restantes províncias já estão cobertas.
+- A cobertura tabular actualmente transcrita inclui as 21 províncias, 326 municípios e 378 comunas. Esta contagem não substitui a revisão jurídica dos diplomas nem a validação de futuras alterações administrativas.
+- As 21 tranches detalhadas estão enumeradas acima; os totais por província somam 326 municípios e 378 comunas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
-- A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF. As tranches de Luanda e Icolo e Bengo foram transcritas da página 20318 do Anexo da Lei n.º 8/25.
+- A manutenção deve continuar com revisão dos códigos e nomes contra o PDF oficial. As tranches de Luanda e Icolo e Bengo foram transcritas da página 20318 do Anexo da Lei n.º 8/25.
 - Alterações futuras à divisão administrativa devem ser versionadas; não se deve sobrescrever silenciosamente o histórico territorial.
