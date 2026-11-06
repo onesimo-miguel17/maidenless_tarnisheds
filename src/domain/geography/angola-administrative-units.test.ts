@@ -340,7 +340,7 @@ describe("Angola administrative hierarchy — Cuanza-Norte tranche", () => {
     expect(cuanzaNorteCommunes.every((unit) => unit.level === "commune")).toBe(true);
   });
 
-  it("keeps the seven municipalities with commune code 00 as municipality-only records", () => {
+  it("keeps the six municipalities with commune code 00 as municipality-only records", () => {
     const communeParentIds = new Set(cuanzaNorteCommunes.map((unit) => unit.parentId));
     const municipalityOnly = cuanzaNorteMunicipalities.filter(
       (unit) => !communeParentIds.has(unit.id),
