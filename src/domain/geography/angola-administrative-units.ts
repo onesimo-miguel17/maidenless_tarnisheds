@@ -23,6 +23,7 @@ import type { AdministrativeUnit } from "./types";
  * - Cunene: page 20330.
  * - Cubango: page 20330.
  * - Cuando: page 20331.
+ * - Luanda and Icolo e Bengo: page 20318.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -842,4 +843,29 @@ export const luandaCommunes: AdministrativeUnit[] = [
   { id: "ao-luanda-talatona-talatona", name: "Talatona", level: "commune", parentId: "ao-luanda-talatona", officialCode: "AOLDA050702" },
   { id: "ao-luanda-kilamba-kilamba", name: "Kilamba", level: "commune", parentId: "ao-luanda-kilamba", officialCode: "AOLDA051501" },
   { id: "ao-luanda-kilamba-vila-flor", name: "Vila Flor", level: "commune", parentId: "ao-luanda-kilamba", officialCode: "AOLDA051502" },
+];
+
+
+export const icoloEBengoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-icolo-e-bengo-catete", name: "Catete", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0601" },
+  { id: "ao-icolo-e-bengo-quicama", name: "Quicama", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0602" },
+  { id: "ao-icolo-e-bengo-calumbo", name: "Calumbo", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0603" },
+  { id: "ao-icolo-e-bengo-cabiri", name: "Cabiri", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0604" },
+  { id: "ao-icolo-e-bengo-cabo-ledo", name: "Cabo Ledo", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0605" },
+  { id: "ao-icolo-e-bengo-bom-jesus", name: "Bom Jesus", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0606" },
+  { id: "ao-icolo-e-bengo-sequele", name: "Sequele", level: "municipality", parentId: "ao-icolo-e-bengo", officialCode: "AOIBE0607" },
+];
+
+export const icoloEBengoCommunes: AdministrativeUnit[] = [
+  { id: "ao-icolo-e-bengo-catete-catete", name: "Catete", level: "commune", parentId: "ao-icolo-e-bengo-catete", officialCode: "AOIBE060101" },
+  { id: "ao-icolo-e-bengo-catete-cassoneca", name: "Cassoneca", level: "commune", parentId: "ao-icolo-e-bengo-catete", officialCode: "AOIBE060102" },
+  { id: "ao-icolo-e-bengo-catete-caculo-cahanga", name: "Caculo Cahanga", level: "commune", parentId: "ao-icolo-e-bengo-catete", officialCode: "AOIBE060103" },
+  { id: "ao-icolo-e-bengo-catete-caxicane", name: "Caxicane", level: "commune", parentId: "ao-icolo-e-bengo-catete", officialCode: "AOIBE060104" },
+  { id: "ao-icolo-e-bengo-quicama-muxima", name: "Muxima", level: "commune", parentId: "ao-icolo-e-bengo-quicama", officialCode: "AOIBE060201" },
+  { id: "ao-icolo-e-bengo-quicama-quixinge", name: "Quixinge", level: "commune", parentId: "ao-icolo-e-bengo-quicama", officialCode: "AOIBE060202" },
+  { id: "ao-icolo-e-bengo-quicama-dembo-chio", name: "Dembo Chio", level: "commune", parentId: "ao-icolo-e-bengo-quicama", officialCode: "AOIBE060203" },
+  { id: "ao-icolo-e-bengo-quicama-mumbondo", name: "Mumbondo", level: "commune", parentId: "ao-icolo-e-bengo-quicama", officialCode: "AOIBE060204" },
+  { id: "ao-icolo-e-bengo-sequele-funda", name: "Funda", level: "commune", parentId: "ao-icolo-e-bengo-sequele", officialCode: "AOIBE060701" },
+  { id: "ao-icolo-e-bengo-sequele-quifangondo", name: "Quifangondo", level: "commune", parentId: "ao-icolo-e-bengo-sequele", officialCode: "AOIBE060702" },
+  { id: "ao-icolo-e-bengo-sequele-sequele", name: "Sequele", level: "commune", parentId: "ao-icolo-e-bengo-sequele", officialCode: "AOIBE060703" },
 ];
