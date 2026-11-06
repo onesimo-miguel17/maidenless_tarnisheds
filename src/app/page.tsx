@@ -17,7 +17,7 @@ export default function Home() {
           <span><strong className="block text-xl tracking-tight">pambala</strong><span className="text-[10px] font-semibold uppercase tracking-[.22em] text-[var(--muted)]">Inteligência agrícola</span></span>
         </Link>
         <nav className="flex items-center gap-3">
-          <Link href="/climate" className="rounded-full bg-[var(--green)] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar clima NASA <ArrowUpRight size={14} className="ml-1 inline" /></Link>
+          <Link href="/agriculture" className="rounded-full border border-[var(--border)] bg-white px-4 py-2.5 text-xs font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">Dados agrícolas INE</Link><Link href="/climate" className="rounded-full bg-[var(--green)] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar clima NASA <ArrowUpRight size={14} className="ml-1 inline" /></Link>
           <span className="hidden rounded-full border border-[var(--border)] bg-white px-4 py-2 text-xs font-semibold text-[var(--green)] sm:inline-flex">Angola · Versão inicial</span>
         </nav>
       </header>
