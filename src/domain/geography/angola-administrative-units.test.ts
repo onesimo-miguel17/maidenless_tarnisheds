@@ -33,6 +33,8 @@ import {
   namibeMunicipalities,
   huilaCommunes,
   huilaMunicipalities,
+  cuneneCommunes,
+  cuneneMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
