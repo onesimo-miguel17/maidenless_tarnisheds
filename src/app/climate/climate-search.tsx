@@ -15,6 +15,7 @@ import type { ClimateDataset } from "@/lib/nasa-power";
 import { cropCatalog } from "@/domain/crops/catalog";
 import { assessCropAgainstSoil } from "@/domain/crops/recommendation";
 import { assessCropAgainstClimate } from "@/domain/crops/climate-assessment";
+import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonality";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 function formatDateInput(date: Date): string {
@@ -129,6 +130,11 @@ export default function ClimateSearch() {
   const maximumMonthlyRain = dataset
     ? Math.max(1, ...dataset.monthly.map((month) => month.precipitationTotalMm ?? 0))
     : 1;
+  const rainfallSeasonality = dataset ? analyzeRainfallSeasonality(dataset.daily) : null;
+  const maximumSeasonalRain = Math.max(
+    1,
+    ...(rainfallSeasonality?.months.map((month) => month.meanPrecipitationMm ?? 0) ?? []),
+  );
 
   return (
     <div className="space-y-6">
@@ -325,6 +331,63 @@ export default function ClimateSearch() {
               </div>
             </section>
           </div>
+
+          {rainfallSeasonality && (
+            <section className="rounded-3xl border border-[var(--border)] bg-white p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-lg font-semibold">Sazonalidade da precipitação</h3>
+                  <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--muted)]">
+                    Média da precipitação total de cada mês do calendário, calculada apenas com meses completos e com todos os dias válidos.
+                  </p>
+                </div>
+                <span className="rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-medium">
+                  {rainfallSeasonality.completeMonthCount} meses completos incluídos
+                </span>
+              </div>
+
+              <div className="mt-6 grid gap-x-5 gap-y-4 sm:grid-cols-2">
+                {rainfallSeasonality.months.map((month) => (
+                  <div key={month.monthNumber} className="grid grid-cols-[5rem_1fr_5.5rem] items-center gap-3 text-xs">
+                    <span className="capitalize text-[var(--muted)]">{month.label}</span>
+                    <div className="h-3 overflow-hidden rounded-full bg-[var(--background)]">
+                      <div
+                        className="h-full rounded-full bg-[var(--green)]"
+                        style={{ width: month.meanPrecipitationMm === null ? "0%" : `${(month.meanPrecipitationMm / maximumSeasonalRain) * 100}%` }}
+                      />
+                    </div>
+                    <span className="text-right font-medium tabular-nums">
+                      {month.meanPrecipitationMm === null ? "Sem dados" : `${formatNumber(month.meanPrecipitationMm)} mm`}
+                    </span>
+                    <span className="col-start-2 col-span-2 -mt-2 text-[10px] text-[var(--muted)]">
+                      {month.completeMonths} mês(es) completo(s){month.years.length > 0 ? ` · ${month.years.join(", ")}` : ""}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {rainfallSeasonality.excludedIncompleteMonthCount > 0 && (
+                <div className="mt-6 rounded-2xl bg-[var(--background)] p-4">
+                  <h4 className="text-sm font-semibold">Meses excluídos por cobertura incompleta</h4>
+                  <p className="mt-1 text-xs leading-5 text-[var(--muted)]">
+                    Estes períodos não entram na média sazonal. Os valores em falta não são considerados como zero.
+                  </p>
+                  <div className="mt-3 space-y-2">
+                    {rainfallSeasonality.monthlyCoverage.filter((month) => !month.complete).map((month) => (
+                      <div key={month.month} className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <span>{formatMonth(month.month)}</span>
+                        <span className="text-[var(--muted)]">{month.validDays}/{month.expectedDays} dias válidos</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <p className="mt-5 text-xs leading-5 text-[var(--muted)]">
+                Esta visualização descreve a distribuição histórica dentro do período consultado; não identifica automaticamente o início da época das chuvas nem recomenda datas de sementeira. A robustez depende do número de meses completos disponíveis em cada ano.
+              </p>
+            </section>
+          )}
 
           <div className="rounded-2xl border border-[#dce7d7] bg-[#f5f8f1] p-5 text-sm leading-6 text-[var(--muted)]">
             <strong className="text-[var(--foreground)]">Limites de interpretação:</strong> estes são indicadores descritivos derivados dos dados devolvidos pela NASA POWER. Uma sequência seca não é, isoladamente, prova de seca agrícola, stress hídrico ou perda de produção. A análise agronómica exige contexto do solo, cultura, fase de desenvolvimento e validação local.
