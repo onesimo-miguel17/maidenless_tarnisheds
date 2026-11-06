@@ -971,7 +971,7 @@ describe("Angola administrative hierarchy — Benguela tranche", () => {
     expect(benguelaMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
   });
 
-  it("contains the twelve communes explicitly listed in the legal annex", () => {
+  it("contains the eleven communes explicitly listed in the legal annex", () => {
     expect(benguelaCommunes).toHaveLength(12);
     expect(benguelaCommunes.map((unit) => unit.officialCode)).toEqual([
       "AOBLA160501", "AOBLA160502", "AOBLA160503",
