@@ -25,7 +25,8 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Huambo: 17 municípios e 30 comunas;
 - Benguela: 23 municípios e 12 comunas;
 - Namibe: 9 municípios e 11 comunas;
-- Huíla: 23 municípios e 26 comunas;\n- Cunene: 14 municípios e 10 comunas.
+- Huíla: 23 municípios e 26 comunas;
+- Cunene: 14 municípios e 10 comunas.
 
 Total actualmente registado: 283 municípios e 334 comunas, distribuídos por dezassete províncias. Estes totais não representam a cobertura nacional.
 
