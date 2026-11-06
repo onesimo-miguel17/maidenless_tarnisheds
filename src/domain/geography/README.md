@@ -25,11 +25,12 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Huambo: 17 municípios e 30 comunas;
 - Benguela: 23 municípios e 12 comunas;
 - Namibe: 9 municípios e 11 comunas;
-- Huíla: 23 municípios e 26 comunas;
+- Huíla: 23 municípios e 28 comunas;
 - Cunene: 14 municípios e 10 comunas;
-- Cubango: 11 municípios e 12 comunas.
+- Cubango: 11 municípios e 12 comunas;
+- Cuando: 9 municípios e 6 comunas.
 
-Total actualmente registado: 294 municípios e 346 comunas, distribuídos por dezoito províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 303 municípios e 354 comunas, distribuídos por dezanove províncias. Estes totais ainda não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
@@ -44,7 +45,7 @@ Os IDs como `ao-zaire-mbanza-kongo` são identificadores internos estáveis do P
 
 ### Marcador de comuna 00
 
-O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna para determinado município. Esse marcador aparece no código alfanumérico da linha do município, mas **não representa uma comuna autónoma**. A aplicação não cria registos de comuna para esses marcadores.
+O anexo usa o código `00` na coluna de comuna quando não enumera uma comuna para determinado município. Esse marcador aparece no código alfanumérico da linha do município, mas **não representa uma comuna autónoma**. A aplicação não cria registos de comuna para esses marcadores. Na tranche do Cuando, seis municípios têm código de comuna `00` e permanecem apenas como registos municipais.
 
 ### Importação por tranches
 
@@ -58,6 +59,8 @@ O ficheiro `angola-administrative-units.ts` contém os municípios e comunas das
 Os nomes são preservados conforme a grafia apresentada no anexo legal. A normalização de nomes para pesquisa ou apresentação deverá ser uma camada separada, sem alterar a transcrição de origem.
 
 Uma transcrição HTML secundária consultada durante a verificação apresentava divergência no código da comuna de Paredes (Quibaxe, Bengo). O PDF do Diário da República apresenta o código `02` e o código alfanumérico `AOBGO040202`; a transcrição secundária não é usada como fonte de verdade.
+
+A página institucional do Governo Provincial do Cuando apresenta algumas associações município/comuna diferentes das tabelas legais consultadas. Para esta tranche, os registos e códigos seguem o Anexo da Lei n.º 8/25, e as relações hierárquicas são mantidas de forma conservadora, sem inferir comunas adicionais a partir de listagens divergentes.
 
 ## Proveniência
 
@@ -74,10 +77,16 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 
 A Lei n.º 14/24 e o anexo de codificação da Lei n.º 8/25 apresentam diferenças de grafia para algumas unidades do Cubango. Nesta tranche, os nomes associados aos códigos seguem literalmente o anexo da Lei n.º 8/25: **Mavingue** (em vez de Mavengue), **Mué** (em vez de Maué) e **Jamba Cuio** (em vez de Jamba Cueio). A divergência é preservada para revisão jurídica, não normalizada silenciosamente.
 
+## Divergências e validação — Cuando
+
+A Lei n.º 8/25, página 20331, enumera seis comunas codificadas: Cuito Cuanavale, Lupire, Dirico, Xamavera, Cunjamba e Cutile. Os municípios Mavinga, Rivungo, Xipundo, Luiana, Mucusso e Luengue aparecem com marcador `00`; esse marcador não cria comunas. A Lei n.º 14/24, artigos 501.º a 513.º, confirma os nove municípios e a sede em Mavinga, e descreve a composição de Cuito Cuanavale, Dirico e Dima.
+
+O portal institucional do Governo Provincial do Cuando apresenta uma distribuição de comunas diferente em alguns municípios. Essa divergência fica registada para validação administrativa; não foi usada para alterar os códigos legais nem para criar relações não sustentadas pelo anexo de codificação.
+
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe, Huíla, Cunene e Cubango; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe, Huíla, Cunene, Cubango e Cuando; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
