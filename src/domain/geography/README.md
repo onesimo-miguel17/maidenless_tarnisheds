@@ -22,9 +22,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Moxico: 12 municípios e 13 comunas;
 - Moxico Leste: 9 municípios e 4 comunas;
 - Bié: 19 municípios e 30 comunas;
-- Huambo: 17 municípios e 30 comunas.
+- Huambo: 17 municípios e 30 comunas;
+- Benguela: 23 municípios e 12 comunas.
 
-Total actualmente registado: 214 municípios e 275 comunas, distribuídos por treze províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 237 municípios e 287 comunas, distribuídos por catorze províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
@@ -68,7 +69,7 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié e Huambo; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo e Benguela; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.

@@ -17,6 +17,7 @@ import type { AdministrativeUnit } from "./types";
  * - Moxico Leste: page 20324;
  * - Bié: pages 20325–20326.
  * - Huambo: pages 20326–20327.
+ * - Benguela: pages 20327–20328.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -593,4 +594,45 @@ export const huamboCommunes: AdministrativeUnit[] = [
   { id: "ao-huambo-galanga-cumbira", name: "Cumbira", level: "commune", parentId: "ao-huambo-galanga", officialCode: "AOHBO151402" },
   { id: "ao-huambo-cuima-cuima", name: "Cuima", level: "commune", parentId: "ao-huambo-cuima", officialCode: "AOHBO151701" },
   { id: "ao-huambo-cuima-catata", name: "Catata", level: "commune", parentId: "ao-huambo-cuima", officialCode: "AOHBO151702" },
+];
+
+export const benguelaMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-benguela-benguela", name: "Benguela", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1601" },
+  { id: "ao-benguela-ganda", name: "Ganda", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1602" },
+  { id: "ao-benguela-lobito", name: "Lobito", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1603" },
+  { id: "ao-benguela-catumbela", name: "Catumbela", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1604" },
+  { id: "ao-benguela-bocoio", name: "Bocoio", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1605" },
+  { id: "ao-benguela-balombo", name: "Balombo", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1606" },
+  { id: "ao-benguela-cubal", name: "Cubal", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1607" },
+  { id: "ao-benguela-baia-farta", name: "Baia Farta", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1608" },
+  { id: "ao-benguela-caimbambo", name: "Caimbambo", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1609" },
+  { id: "ao-benguela-chongoroi", name: "Chongoroi", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1610" },
+  { id: "ao-benguela-egito-praia", name: "Egito Praia", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1611" },
+  { id: "ao-benguela-chindumbo", name: "Chindumbo", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1612" },
+  { id: "ao-benguela-dombe-grande", name: "Dombe Grande", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1613" },
+  { id: "ao-benguela-capupa", name: "Capupa", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1614" },
+  { id: "ao-benguela-biopio", name: "Biópio", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1615" },
+  { id: "ao-benguela-chila", name: "Chila", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1616" },
+  { id: "ao-benguela-chicuma", name: "Chicuma", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1617" },
+  { id: "ao-benguela-babaera", name: "Babaera", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1618" },
+  { id: "ao-benguela-iambala", name: "Iambala", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1619" },
+  { id: "ao-benguela-catengue", name: "Catengue", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1620" },
+  { id: "ao-benguela-bolonguera", name: "Bolonguera", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1621" },
+  { id: "ao-benguela-canhamela", name: "Canhamela", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1622" },
+  { id: "ao-benguela-navegantes", name: "Navegantes", level: "municipality", parentId: "ao-benguela", officialCode: "AOBLA1623" },
+];
+
+export const benguelaCommunes: AdministrativeUnit[] = [
+  { id: "ao-benguela-bocoio-bocoio", name: "Bocoio", level: "commune", parentId: "ao-benguela-bocoio", officialCode: "AOBLA160501" },
+  { id: "ao-benguela-bocoio-cubal-do-lumbo", name: "Cubal do Lumbo", level: "commune", parentId: "ao-benguela-bocoio", officialCode: "AOBLA160502" },
+  { id: "ao-benguela-bocoio-monte-belo", name: "Monte Belo", level: "commune", parentId: "ao-benguela-bocoio", officialCode: "AOBLA160503" },
+  { id: "ao-benguela-balombo-balombo", name: "Balombo", level: "commune", parentId: "ao-benguela-balombo", officialCode: "AOBLA160601" },
+  { id: "ao-benguela-balombo-maca-mombolo", name: "Maca Mombolo", level: "commune", parentId: "ao-benguela-balombo", officialCode: "AOBLA160602" },
+  { id: "ao-benguela-caimbambo-caimbambo", name: "Caimbambo", level: "commune", parentId: "ao-benguela-caimbambo", officialCode: "AOBLA160901" },
+  { id: "ao-benguela-caimbambo-caivave", name: "Caivave", level: "commune", parentId: "ao-benguela-caimbambo", officialCode: "AOBLA160902" },
+  { id: "ao-benguela-caimbambo-viangombe", name: "Viangombe", level: "commune", parentId: "ao-benguela-caimbambo", officialCode: "AOBLA160903" },
+  { id: "ao-benguela-chongoroi-chongoroi", name: "Chongoroi", level: "commune", parentId: "ao-benguela-chongoroi", officialCode: "AOBLA161001" },
+  { id: "ao-benguela-chongoroi-camuine", name: "Camuine", level: "commune", parentId: "ao-benguela-chongoroi", officialCode: "AOBLA161002" },
+  { id: "ao-benguela-egito-praia-egito-praia", name: "Egito Praia", level: "commune", parentId: "ao-benguela-egito-praia", officialCode: "AOBLA161101" },
+  { id: "ao-benguela-egito-praia-canjala", name: "Canjala", level: "commune", parentId: "ao-benguela-egito-praia", officialCode: "AOBLA161102" },
 ];
