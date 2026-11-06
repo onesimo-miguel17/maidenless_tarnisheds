@@ -39,6 +39,8 @@ import {
   cubangoMunicipalities,
   cuandoCommunes,
   cuandoMunicipalities,
+  luandaCommunes,
+  luandaMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1380,7 +1382,7 @@ describe("Angola administrative hierarchy — Cuando tranche", () => {
     expect(municipalityOnly).toHaveLength(6);
   });
 
-  it("keeps IDs and official codes unique across all nineteen imported tranches", () => {
+  it("keeps IDs and official codes unique across all twenty imported tranches", () => {
     const units = [
       ...cabindaMunicipalities, ...cabindaCommunes,
       ...zaireMunicipalities, ...zaireCommunes,
@@ -1401,8 +1403,63 @@ describe("Angola administrative hierarchy — Cuando tranche", () => {
       ...cuneneMunicipalities, ...cuneneCommunes,
       ...cubangoMunicipalities, ...cubangoCommunes,
       ...cuandoMunicipalities, ...cuandoCommunes,
+      ...luandaMunicipalities, ...luandaCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Luanda tranche", () => {
+  it("contains the sixteen municipalities in the legal coding annex order", () => {
+    expect(luandaMunicipalities).toHaveLength(16);
+    expect(luandaMunicipalities.map((unit) => unit.name)).toEqual([
+      "Ingombota", "Cacuaco", "Cazenga", "Viana", "Belas", "Kilamba Kiaxi",
+      "Talatona", "Mussulo", "Sambizanga", "Rangel", "Maianga", "Samba",
+      "Camama", "Mulenvos", "Kilamba", "Hoji ya Henda",
+    ]);
+    expect(luandaMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 16 }, (_, index) => `AOLDA05${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links all Luanda municipalities to the province", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-luanda");
+    expect(province?.officialCode).toBe("AOLDA05");
+    expect(province?.administrativeSeat).toBe("Ingombota");
+    expect(luandaMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+  });
+
+  it("contains the thirteen communes and exact official codes", () => {
+    expect(luandaCommunes).toHaveLength(13);
+    expect(luandaCommunes.map((unit) => unit.name)).toEqual([
+      "Cacuaco", "Kikolo", "Cazenga", "Kima Kieza", "Barra do Cuanza",
+      "Cabolombo", "Ramiros", "Golfe", "Nova Vida", "Benfica", "Talatona",
+      "Kilamba", "Vila Flor",
+    ]);
+    expect(luandaCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOLDA050201", "AOLDA050202", "AOLDA050301", "AOLDA050302",
+      "AOLDA050501", "AOLDA050502", "AOLDA050503", "AOLDA050601",
+      "AOLDA050602", "AOLDA050701", "AOLDA050702", "AOLDA051501",
+      "AOLDA051502",
+    ]);
+  });
+
+  it("links every Luanda commune to an existing municipality", () => {
+    const municipalityIds = new Set(luandaMunicipalities.map((unit) => unit.id));
+    expect(luandaCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+  });
+
+  it("keeps the ten municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(luandaCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = luandaMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Ingombota", "Viana", "Mussulo", "Sambizanga", "Rangel", "Maianga",
+      "Samba", "Camama", "Mulenvos", "Hoji ya Henda",
+    ]);
+    expect(municipalityOnly).toHaveLength(10);
   });
 });
