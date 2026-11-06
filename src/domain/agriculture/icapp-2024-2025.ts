@@ -75,7 +75,7 @@ export const icappProvinceRecords: IcappProvinceRecord[] = [
   { provinceId: "cuando-cubango", provinceName: "Cuando Cubango", agriculturalHoldings: 56_744, temporaryCropsPlantedHa: 153_362, permanentCropsPlantedHa: 3_148, totalPlantedHa: 156_510 },
   { provinceId: "cuanza-norte", provinceName: "Cuanza Norte", agriculturalHoldings: 94_860, temporaryCropsPlantedHa: 171_202, permanentCropsPlantedHa: 3_515, totalPlantedHa: 174_717 },
   { provinceId: "cuanza-sul", provinceName: "Cuanza Sul", agriculturalHoldings: 304_595, temporaryCropsPlantedHa: 710_300, permanentCropsPlantedHa: 14_581, totalPlantedHa: 724_881 },
-  { provinceId: "cun ene", provinceName: "Cunene", agriculturalHoldings: 117_763, temporaryCropsPlantedHa: 547_828, permanentCropsPlantedHa: 11_245, totalPlantedHa: 559_073 },
+  { provinceId: "cunene", provinceName: "Cunene", agriculturalHoldings: 117_763, temporaryCropsPlantedHa: 547_828, permanentCropsPlantedHa: 11_245, totalPlantedHa: 559_073 },
   { provinceId: "huambo", provinceName: "Huambo", agriculturalHoldings: 350_161, temporaryCropsPlantedHa: 519_063, permanentCropsPlantedHa: 10_655, totalPlantedHa: 529_718 },
   { provinceId: "huila", provinceName: "Huíla", agriculturalHoldings: 352_661, temporaryCropsPlantedHa: 1_100_188, permanentCropsPlantedHa: 22_584, totalPlantedHa: 1_122_772 },
   { provinceId: "luanda", provinceName: "Luanda", agriculturalHoldings: 68_557, temporaryCropsPlantedHa: 117_872, permanentCropsPlantedHa: 2_419, totalPlantedHa: 120_291 },
