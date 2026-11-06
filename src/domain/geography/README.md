@@ -24,9 +24,9 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Bié: 19 municípios e 30 comunas;
 - Huambo: 17 municípios e 30 comunas;
 - Benguela: 23 municípios e 12 comunas;
-- Namibe: 9 municípios e 12 comunas.
+- Namibe: 9 municípios e 11 comunas.
 
-Total actualmente registado: 246 municípios e 299 comunas, distribuídos por quinze províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 246 municípios e 298 comunas, distribuídos por quinze províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
