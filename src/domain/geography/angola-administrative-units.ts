@@ -18,6 +18,7 @@ import type { AdministrativeUnit } from "./types";
  * - Bié: pages 20325–20326.
  * - Huambo: pages 20326–20327.
  * - Benguela: pages 20327–20328.
+ * - Namibe: pages 20328–20329.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -635,4 +636,31 @@ export const benguelaCommunes: AdministrativeUnit[] = [
   { id: "ao-benguela-chongoroi-camuine", name: "Camuine", level: "commune", parentId: "ao-benguela-chongoroi", officialCode: "AOBLA161002" },
   { id: "ao-benguela-egito-praia-egito-praia", name: "Egito Praia", level: "commune", parentId: "ao-benguela-egito-praia", officialCode: "AOBLA161101" },
   { id: "ao-benguela-egito-praia-canjala", name: "Canjala", level: "commune", parentId: "ao-benguela-egito-praia", officialCode: "AOBLA161102" },
+];
+
+
+export const namibeMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-namibe-mocamedes", name: "Moçâmedes", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1701" },
+  { id: "ao-namibe-tombwa", name: "Tômbwa", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1702" },
+  { id: "ao-namibe-bibala", name: "Bibala", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1703" },
+  { id: "ao-namibe-virei", name: "Virei", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1704" },
+  { id: "ao-namibe-camucuio", name: "Camucuio", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1705" },
+  { id: "ao-namibe-lucira", name: "Lucira", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1706" },
+  { id: "ao-namibe-iona", name: "Iona", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1707" },
+  { id: "ao-namibe-sacomar", name: "Sacomar", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1708" },
+  { id: "ao-namibe-cacimbas", name: "Cacimbas", level: "municipality", parentId: "ao-namibe", officialCode: "AONBE1709" },
+];
+
+export const namibeCommunes: AdministrativeUnit[] = [
+  { id: "ao-namibe-bibala-bibala", name: "Bibala", level: "commune", parentId: "ao-namibe-bibala", officialCode: "AONBE170301" },
+  { id: "ao-namibe-bibala-capangombe", name: "Capangombe", level: "commune", parentId: "ao-namibe-bibala", officialCode: "AONBE170302" },
+  { id: "ao-namibe-bibala-caitou", name: "Caitou", level: "commune", parentId: "ao-namibe-bibala", officialCode: "AONBE170303" },
+  { id: "ao-namibe-bibala-lola", name: "Lola", level: "commune", parentId: "ao-namibe-bibala", officialCode: "AONBE170304" },
+  { id: "ao-namibe-virei-virei", name: "Virei", level: "commune", parentId: "ao-namibe-virei", officialCode: "AONBE170401" },
+  { id: "ao-namibe-virei-cainde", name: "Cainde", level: "commune", parentId: "ao-namibe-virei", officialCode: "AONBE170402" },
+  { id: "ao-namibe-camucuio-camucuio", name: "Camucuio", level: "commune", parentId: "ao-namibe-camucuio", officialCode: "AONBE170501" },
+  { id: "ao-namibe-camucuio-mamue", name: "Mamue", level: "commune", parentId: "ao-namibe-camucuio", officialCode: "AONBE170502" },
+  { id: "ao-namibe-camucuio-chingo", name: "Chingo", level: "commune", parentId: "ao-namibe-camucuio", officialCode: "AONBE170503" },
+  { id: "ao-namibe-lucira-lucira", name: "Lucira", level: "commune", parentId: "ao-namibe-lucira", officialCode: "AONBE170601" },
+  { id: "ao-namibe-lucira-bentiaba", name: "Bentiaba", level: "commune", parentId: "ao-namibe-lucira", officialCode: "AONBE170602" },
 ];
