@@ -22,6 +22,7 @@ import type { AdministrativeUnit } from "./types";
  * - Huíla: pages 20329–20330.
  * - Cunene: page 20330.
  * - Cubango: page 20330.
+ * - Cuando: page 20331.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -783,4 +784,26 @@ export const cubangoCommunes: AdministrativeUnit[] = [
   { id: "ao-cubango-cutato-vissati", name: "Vissati", level: "commune", parentId: "ao-cubango-cutato", officialCode: "AOCGO200902" },
   { id: "ao-cubango-mavingue-mavingue", name: "Mavingue", level: "commune", parentId: "ao-cubango-mavingue", officialCode: "AOCGO201101" },
   { id: "ao-cubango-mavingue-mue", name: "Mué", level: "commune", parentId: "ao-cubango-mavingue", officialCode: "AOCGO201102" },
+];
+
+
+export const cuandoMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-cuando-cuito-cuanavale", name: "Cuito Cuanavale", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2101" },
+  { id: "ao-cuando-dirico", name: "Dirico", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2102" },
+  { id: "ao-cuando-mavinga", name: "Mavinga", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2103" },
+  { id: "ao-cuando-rivungo", name: "Rivungo", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2104" },
+  { id: "ao-cuando-xipundo", name: "Xipundo", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2105" },
+  { id: "ao-cuando-dima", name: "Dima", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2106" },
+  { id: "ao-cuando-luiana", name: "Luiana", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2107" },
+  { id: "ao-cuando-mucusso", name: "Mucusso", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2108" },
+  { id: "ao-cuando-luengue", name: "Luengue", level: "municipality", parentId: "ao-cuando", officialCode: "AOCDO2109" },
+];
+
+export const cuandoCommunes: AdministrativeUnit[] = [
+  { id: "ao-cuando-cuito-cuanavale-cuito-cuanavale", name: "Cuito Cuanavale", level: "commune", parentId: "ao-cuando-cuito-cuanavale", officialCode: "AOCDO210101" },
+  { id: "ao-cuando-cuito-cuanavale-lupire", name: "Lupire", level: "commune", parentId: "ao-cuando-cuito-cuanavale", officialCode: "AOCDO210102" },
+  { id: "ao-cuando-dirico-dirico", name: "Dirico", level: "commune", parentId: "ao-cuando-dirico", officialCode: "AOCDO210201" },
+  { id: "ao-cuando-dirico-xamavera", name: "Xamavera", level: "commune", parentId: "ao-cuando-dirico", officialCode: "AOCDO210202" },
+  { id: "ao-cuando-dima-cunjamba", name: "Cunjamba", level: "commune", parentId: "ao-cuando-dima", officialCode: "AOCDO210601" },
+  { id: "ao-cuando-dima-cutile", name: "Cutile", level: "commune", parentId: "ao-cuando-dima", officialCode: "AOCDO210602" },
 ];
