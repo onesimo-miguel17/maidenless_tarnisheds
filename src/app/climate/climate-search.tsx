@@ -226,6 +226,17 @@ export default function ClimateSearch() {
               {factor.expectedRange && <p className="mt-2 text-xs text-[var(--muted)]">Intervalo de referência: {factor.expectedRange.min}–{factor.expectedRange.max} pH · Evidência: {factor.evidence}</p>}
             </div>
           ))}
+          <div className="mt-5 rounded-2xl border border-[var(--border)] p-4">
+            <h3 className="text-sm font-semibold">Perfil registado nesta análise</h3>
+            <dl className="mt-3 grid gap-3 text-xs sm:grid-cols-2 lg:grid-cols-3">
+              <SoilFact label="Textura" value={{ sandy: "Arenoso", clayey: "Argiloso", loamy: "Franco", unknown: "Não registada" }[soilProfile.texture]} />
+              <SoilFact label="Humidade observada" value={{ dry: "Seco", normal: "Normal", wet: "Muito húmido", unknown: "Não registada" }[soilProfile.moisture]} />
+              <SoilFact label="Drenagem" value={{ poor: "Má", moderate: "Moderada", good: "Boa", unknown: "Não registada" }[soilProfile.drainage]} />
+              <SoilFact label="Fertilidade percebida" value={{ low: "Baixa", medium: "Média", high: "Alta", unknown: "Não avaliada" }[soilProfile.fertility]} />
+              <SoilFact label="Matéria orgânica percebida" value={{ low: "Baixa", medium: "Média", high: "Alta", unknown: "Não avaliada" }[soilProfile.organicMatter]} />
+            </dl>
+            <p className="mt-3 text-[11px] leading-5 text-[var(--muted)]">Apenas o pH é comparado com uma referência de cultura nesta versão. Os restantes atributos ficam registados como contexto, sem pontuação nem inferência de adequação.</p>
+          </div>
           <ul className="mt-4 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--muted)]">
             {cropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
           </ul>
@@ -472,6 +483,15 @@ function SoilSelect<T extends string>({
           <option key={optionValue} value={optionValue}>{optionLabel}</option>
         ))}
       </select>
+    </div>
+  );
+}
+
+function SoilFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-[var(--muted)]">{label}</dt>
+      <dd className="mt-1 font-semibold">{value}</dd>
     </div>
   );
 }
