@@ -139,6 +139,28 @@ function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
   );
 }
 
+function calendarDates(start: string, end: string): string[] {
+  const dates: string[] = [];
+  const cursor = new Date(`${start}T00:00:00.000Z`);
+  const final = new Date(`${end}T00:00:00.000Z`);
+
+  while (cursor <= final) {
+    dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
+  return dates;
+}
+
+function parameterValue(
+  values: Record<string, number> | undefined,
+  date: string,
+): number | null {
+  if (!values) return null;
+  const key = date.replaceAll("-", "");
+  return numericValue(values[key] ?? values[`${key}00`]);
+}
+
 export function normalizePowerResponse(
   rawPayload: unknown,
   latitude: number,
@@ -153,25 +175,21 @@ export function normalizePowerResponse(
   }
 
   const parameters = parsed.data.properties.parameter;
-  const dateKeys = [
-    ...new Set(
-      NASA_POWER_PARAMETERS.flatMap((parameter) =>
-        Object.keys(parameters[parameter] ?? {}),
-      ),
-    ),
-  ].sort();
+  const hasAnyObservations = NASA_POWER_PARAMETERS.some(
+    (parameter) => Object.keys(parameters[parameter] ?? {}).length > 0,
+  );
 
-  if (dateKeys.length === 0) {
+  if (!hasAnyObservations) {
     throw new Error("A NASA POWER não devolveu observações para este período.");
   }
 
-  const daily = dateKeys.map((key): DailyClimateRecord => ({
-    date: `${key.slice(0, 4)}-${key.slice(4, 6)}-${key.slice(6, 8)}`,
-    precipitationMm: numericValue(parameters.PRECTOTCORR?.[key]),
-    meanTemperatureC: numericValue(parameters.T2M?.[key]),
-    maxTemperatureC: numericValue(parameters.T2M_MAX?.[key]),
-    minTemperatureC: numericValue(parameters.T2M_MIN?.[key]),
-    relativeHumidityPct: numericValue(parameters.RH2M?.[key]),
+  const daily = calendarDates(start, end).map((date): DailyClimateRecord => ({
+    date,
+    precipitationMm: parameterValue(parameters.PRECTOTCORR, date),
+    meanTemperatureC: parameterValue(parameters.T2M, date),
+    maxTemperatureC: parameterValue(parameters.T2M_MAX, date),
+    minTemperatureC: parameterValue(parameters.T2M_MIN, date),
+    relativeHumidityPct: parameterValue(parameters.RH2M, date),
   }));
 
   const precipitation = daily
