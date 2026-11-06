@@ -29,7 +29,7 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Cunene: 14 municípios e 10 comunas;
 - Cubango: 11 municípios e 12 comunas;
 - Cuando: 9 municípios e 6 comunas;
-- Luanda: 16 municípios e 13 comunas;\n- Icolo e Bengo: 7 municípios e 11 comunas;
+- Luanda: 16 municípios e 13 comunas;
 - Icolo e Bengo: 7 municípios e 11 comunas.
 
 A soma das 21 tranches corresponde aos totais nacionais de referência: 326 municípios e 378 comunas. Isto confirma a cobertura tabular dos registos administrativos; não significa que existam geometrias, limites ou coordenadas territoriais.
