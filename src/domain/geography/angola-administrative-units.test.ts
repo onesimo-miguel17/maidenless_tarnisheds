@@ -33,6 +33,8 @@ import {
   namibeMunicipalities,
   huilaCommunes,
   huilaMunicipalities,
+  cuneneCommunes,
+  cuneneMunicipalities,
 } from "./angola-administrative-units";
 
 describe("Angola administrative hierarchy — Cabinda tranche", () => {
@@ -1164,6 +1166,84 @@ describe("Angola administrative hierarchy — Huíla tranche", () => {
       ...benguelaMunicipalities, ...benguelaCommunes,
       ...namibeMunicipalities, ...namibeCommunes,
       ...huilaMunicipalities, ...huilaCommunes,
+    ];
+    expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
+    expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
+  });
+});
+
+
+describe("Angola administrative hierarchy — Cunene tranche", () => {
+  it("contains the fourteen municipalities in the legal annex order", () => {
+    expect(cuneneMunicipalities).toHaveLength(14);
+    expect(cuneneMunicipalities.map((unit) => unit.name)).toEqual([
+      "Ombadja", "Cuanhama", "Curoca", "Cahama", "Cuvelai", "Namacunde",
+      "Chiéde", "Nehone", "Humbe", "Mupa", "Naulila", "Chitado", "Cafima",
+      "Chissuata",
+    ]);
+    expect(cuneneMunicipalities.map((unit) => unit.officialCode)).toEqual(
+      Array.from({ length: 14 }, (_, index) => `AOCNE19${String(index + 1).padStart(2, "0")}`),
+    );
+  });
+
+  it("links municipalities to Cunene province and its official code", () => {
+    const province = angolaProvinces.find((unit) => unit.id === "ao-cunene");
+    expect(province).toBeDefined();
+    expect(province?.officialCode).toBe("AOCNE19");
+    expect(province?.administrativeSeat).toBe("Cuanhama");
+    expect(cuneneMunicipalities.every((unit) => unit.parentId === province?.id)).toBe(true);
+    expect(cuneneMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
+  });
+
+  it("contains the ten communes explicitly enumerated in the legal annex", () => {
+    expect(cuneneCommunes).toHaveLength(10);
+    expect(cuneneCommunes.map((unit) => unit.name)).toEqual([
+      "Xangongo", "Ombala yo Mungo", "Ondjiva", "Môngua", "Cahama",
+      "Otchinjau", "Nehone", "Evale", "Mucupe", "Humbe",
+    ]);
+    expect(cuneneCommunes.map((unit) => unit.officialCode)).toEqual([
+      "AOCNE190101", "AOCNE190102", "AOCNE190201", "AOCNE190202",
+      "AOCNE190401", "AOCNE190402", "AOCNE190801", "AOCNE190802",
+      "AOCNE190901", "AOCNE190902",
+    ]);
+  });
+
+  it("links every commune to an existing Cunene municipality", () => {
+    const municipalityIds = new Set(cuneneMunicipalities.map((unit) => unit.id));
+    expect(cuneneCommunes.every((unit) => municipalityIds.has(unit.parentId ?? ""))).toBe(true);
+    expect(cuneneCommunes.every((unit) => unit.level === "commune")).toBe(true);
+  });
+
+  it("keeps the nine municipalities with commune code 00 as municipality-only records", () => {
+    const communeParentIds = new Set(cuneneCommunes.map((unit) => unit.parentId));
+    const municipalityOnly = cuneneMunicipalities.filter(
+      (unit) => !communeParentIds.has(unit.id),
+    );
+    expect(municipalityOnly.map((unit) => unit.name)).toEqual([
+      "Curoca", "Cuvelai", "Namacunde", "Chiéde", "Mupa", "Naulila",
+      "Chitado", "Cafima", "Chissuata",
+    ]);
+  });
+
+  it("keeps IDs and official codes unique across all seventeen imported tranches", () => {
+    const units = [
+      ...cabindaMunicipalities, ...cabindaCommunes,
+      ...zaireMunicipalities, ...zaireCommunes,
+      ...uigeMunicipalities, ...uigeCommunes,
+      ...bengoMunicipalities, ...bengoCommunes,
+      ...cuanzaNorteMunicipalities, ...cuanzaNorteCommunes,
+      ...cuanzaSulMunicipalities, ...cuanzaSulCommunes,
+      ...malanjeMunicipalities, ...malanjeCommunes,
+      ...lundaNorteMunicipalities, ...lundaNorteCommunes,
+      ...lundaSulMunicipalities, ...lundaSulCommunes,
+      ...moxicoMunicipalities, ...moxicoCommunes,
+      ...moxicoLesteMunicipalities, ...moxicoLesteCommunes,
+      ...bieMunicipalities, ...bieCommunes,
+      ...huamboMunicipalities, ...huamboCommunes,
+      ...benguelaMunicipalities, ...benguelaCommunes,
+      ...namibeMunicipalities, ...namibeCommunes,
+      ...huilaMunicipalities, ...huilaCommunes,
+      ...cuneneMunicipalities, ...cuneneCommunes,
     ];
     expect(new Set(units.map((unit) => unit.id)).size).toBe(units.length);
     expect(new Set(units.map((unit) => unit.officialCode)).size).toBe(units.length);
