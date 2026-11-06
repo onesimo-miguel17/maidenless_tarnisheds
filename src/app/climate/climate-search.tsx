@@ -14,6 +14,7 @@ import {
 import type { ClimateDataset } from "@/lib/nasa-power";
 import { cropCatalog } from "@/domain/crops/catalog";
 import { assessCropAgainstSoil } from "@/domain/crops/recommendation";
+import { assessCropAgainstClimate } from "@/domain/crops/climate-assessment";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 function formatDateInput(date: Date): string {
@@ -121,6 +122,9 @@ export default function ClimateSearch() {
   const cropAssessment = selectedCrop
     ? assessCropAgainstSoil(soilProfile, selectedCrop)
     : null;
+  const climateCropAssessment = dataset && selectedCrop
+    ? assessCropAgainstClimate(dataset, selectedCrop)
+    : null;
 
   const maximumMonthlyRain = dataset
     ? Math.max(1, ...dataset.monthly.map((month) => month.precipitationTotalMm ?? 0))
@@ -196,6 +200,73 @@ export default function ClimateSearch() {
             {cropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
           </ul>
           {selectedCrop.phRange?.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold text-[var(--green)] underline">Consultar fonte: {source.organization}</a>)}
+        </section>
+      )}
+
+      {climateCropAssessment && selectedCrop && (
+        <section className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Inteligência climática por cultura</span>
+              <h2 className="mt-2 text-xl font-semibold">{selectedCrop.commonName}</h2>
+              <p className="mt-1 text-sm text-[var(--muted)]">Comparação descritiva entre observações NASA POWER deste período e referências gerais da cultura.</p>
+            </div>
+            <span className="rounded-full bg-[var(--background)] px-3 py-1.5 text-xs font-semibold">Triagem, não recomendação final</span>
+          </div>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {climateCropAssessment.factors.map((factor) => {
+              const label = factor.factor === "period-temperature" ? "Temperatura média do período" : "Precipitação anual";
+              const statusLabel = factor.status === "within-reference"
+                ? "Dentro da referência"
+                : factor.status === "outside-reference"
+                  ? "Fora da referência"
+                  : "Dados insuficientes";
+              return (
+                <article key={factor.factor} className="rounded-2xl bg-[var(--background)] p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-sm font-semibold">{label}</h3>
+                    <span className="rounded-full border border-[var(--border)] px-2.5 py-1 text-[11px] font-semibold">{statusLabel}</span>
+                  </div>
+                  <p className="mt-3 text-2xl font-semibold tabular-nums">
+                    {factor.observedValue === null
+                      ? "Sem comparação"
+                      : `${formatNumber(factor.observedValue)} ${factor.unit}`}
+                  </p>
+                  {factor.expectedRange && <p className="mt-1 text-xs text-[var(--muted)]">Referência: {factor.expectedRange.min}–{factor.expectedRange.max} {factor.unit} · Evidência: {factor.evidence}</p>}
+                  <p className="mt-3 text-xs leading-5 text-[var(--muted)]">{factor.explanation}</p>
+                  <p className="mt-2 text-[11px] text-[var(--muted)]">Observações válidas: {factor.validObservations}/{factor.totalObservations}</p>
+                </article>
+              );
+            })}
+          </div>
+
+          {climateCropAssessment.annualRainfall.length > 0 && (
+            <div className="mt-5">
+              <h3 className="text-sm font-semibold">Verificação da precipitação por ano civil</h3>
+              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Só são comparados anos completos com precipitação válida em todos os dias.</p>
+              <div className="mt-3 divide-y divide-[var(--border)] rounded-2xl border border-[var(--border)]">
+                {climateCropAssessment.annualRainfall.map((year) => (
+                  <div key={year.year} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
+                    <span className="font-medium">{year.year}</span>
+                    <span className="text-xs text-[var(--muted)]">{year.validDays}/{year.expectedDays} dias válidos</span>
+                    <span className="font-semibold tabular-nums">{year.precipitationMm === null ? "Ano incompleto — sem comparação" : `${formatNumber(year.precipitationMm)} mm`}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <ul className="mt-5 list-disc space-y-1 pl-5 text-xs leading-5 text-[var(--muted)]">
+            {climateCropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
+          </ul>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            {[...(selectedCrop.temperatureC?.sources ?? []), ...(selectedCrop.annualRainfallMm?.sources ?? [])].map((source) => (
+              <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="text-xs font-semibold text-[var(--green)] underline">
+                {source.organization}: {source.title}
+              </a>
+            ))}
+          </div>
         </section>
       )}
 
