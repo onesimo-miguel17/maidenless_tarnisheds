@@ -19,6 +19,7 @@ import type { AdministrativeUnit } from "./types";
  * - Huambo: pages 20326–20327.
  * - Benguela: pages 20327–20328.
  * - Namibe: pages 20328–20329.
+ * - Huíla: pages 20329–20330.
  *
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
@@ -663,4 +664,62 @@ export const namibeCommunes: AdministrativeUnit[] = [
   { id: "ao-namibe-camucuio-chingo", name: "Chingo", level: "commune", parentId: "ao-namibe-camucuio", officialCode: "AONBE170503" },
   { id: "ao-namibe-lucira-lucira", name: "Lucira", level: "commune", parentId: "ao-namibe-lucira", officialCode: "AONBE170601" },
   { id: "ao-namibe-lucira-bentiaba", name: "Bentiaba", level: "commune", parentId: "ao-namibe-lucira", officialCode: "AONBE170602" },
+];
+
+
+export const huilaMunicipalities: AdministrativeUnit[] = [
+  { id: "ao-huila-caconda", name: "Caconda", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1801" },
+  { id: "ao-huila-gambos", name: "Gambos", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1802" },
+  { id: "ao-huila-humpata", name: "Humpata", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1803" },
+  { id: "ao-huila-lubango", name: "Lubango", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1804" },
+  { id: "ao-huila-cuvango", name: "Cuvango", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1805" },
+  { id: "ao-huila-quipungo", name: "Quipungo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1806" },
+  { id: "ao-huila-chibia", name: "Chibia", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1807" },
+  { id: "ao-huila-quilengues", name: "Quilengues", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1808" },
+  { id: "ao-huila-caluquembe", name: "Caluquembe", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1809" },
+  { id: "ao-huila-matala", name: "Matala", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1810" },
+  { id: "ao-huila-jamba-mineira", name: "Jamba Mineira", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1811" },
+  { id: "ao-huila-chipindo", name: "Chipindo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1812" },
+  { id: "ao-huila-chicomba", name: "Chicomba", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1813" },
+  { id: "ao-huila-cacula", name: "Cacula", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1814" },
+  { id: "ao-huila-dongo", name: "Dongo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1815" },
+  { id: "ao-huila-hoque", name: "Hoque", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1816" },
+  { id: "ao-huila-capelongo", name: "Capelongo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1817" },
+  { id: "ao-huila-chituto", name: "Chituto", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1818" },
+  { id: "ao-huila-capunda-cavilongo", name: "Capunda Cavilongo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1819" },
+  { id: "ao-huila-viti-vivali", name: "Viti Vivali", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1820" },
+  { id: "ao-huila-galangue", name: "Galangue", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1821" },
+  { id: "ao-huila-palanca", name: "Palanca", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1822" },
+  { id: "ao-huila-chicungo", name: "Chicungo", level: "municipality", parentId: "ao-huila", officialCode: "AOHLA1823" },
+];
+
+export const huilaCommunes: AdministrativeUnit[] = [
+  { id: "ao-huila-caconda-caconda", name: "Caconda", level: "commune", parentId: "ao-huila-caconda", officialCode: "AOHLA180101" },
+  { id: "ao-huila-caconda-cungue", name: "Cungue", level: "commune", parentId: "ao-huila-caconda", officialCode: "AOHLA180102" },
+  { id: "ao-huila-caconda-uaba", name: "Uaba", level: "commune", parentId: "ao-huila-caconda", officialCode: "AOHLA180103" },
+  { id: "ao-huila-caconda-ousse", name: "Ousse", level: "commune", parentId: "ao-huila-caconda", officialCode: "AOHLA180104" },
+  { id: "ao-huila-gambos-chiange", name: "Chiange", level: "commune", parentId: "ao-huila-gambos", officialCode: "AOHLA180201" },
+  { id: "ao-huila-gambos-chimbemba", name: "Chimbemba", level: "commune", parentId: "ao-huila-gambos", officialCode: "AOHLA180202" },
+  { id: "ao-huila-lubango-lubango", name: "Lubango", level: "commune", parentId: "ao-huila-lubango", officialCode: "AOHLA180401" },
+  { id: "ao-huila-lubango-huila", name: "Huíla", level: "commune", parentId: "ao-huila-lubango", officialCode: "AOHLA180402" },
+  { id: "ao-huila-chibia-chibia", name: "Chibia", level: "commune", parentId: "ao-huila-chibia", officialCode: "AOHLA180701" },
+  { id: "ao-huila-chibia-jau", name: "Jau", level: "commune", parentId: "ao-huila-chibia", officialCode: "AOHLA180702" },
+  { id: "ao-huila-quilengues-quilengues", name: "Quilengues", level: "commune", parentId: "ao-huila-quilengues", officialCode: "AOHLA180801" },
+  { id: "ao-huila-quilengues-impulo", name: "Impulo", level: "commune", parentId: "ao-huila-quilengues", officialCode: "AOHLA180802" },
+  { id: "ao-huila-quilengues-dinde", name: "Dinde", level: "commune", parentId: "ao-huila-quilengues", officialCode: "AOHLA180803" },
+  { id: "ao-huila-caluquembe-caluquembe", name: "Caluquembe", level: "commune", parentId: "ao-huila-caluquembe", officialCode: "AOHLA180901" },
+  { id: "ao-huila-caluquembe-calepi", name: "Calepi", level: "commune", parentId: "ao-huila-caluquembe", officialCode: "AOHLA180902" },
+  { id: "ao-huila-caluquembe-negola", name: "Negola", level: "commune", parentId: "ao-huila-caluquembe", officialCode: "AOHLA180903" },
+  { id: "ao-huila-jamba-mineira-jamba-mineira", name: "Jamba Mineira", level: "commune", parentId: "ao-huila-jamba-mineira", officialCode: "AOHLA181101" },
+  { id: "ao-huila-jamba-mineira-cassinga", name: "Cassinga", level: "commune", parentId: "ao-huila-jamba-mineira", officialCode: "AOHLA181102" },
+  { id: "ao-huila-chipindo-chipindo", name: "Chipindo", level: "commune", parentId: "ao-huila-chipindo", officialCode: "AOHLA181201" },
+  { id: "ao-huila-chipindo-bambi", name: "Bambi", level: "commune", parentId: "ao-huila-chipindo", officialCode: "AOHLA181202" },
+  { id: "ao-huila-chicomba-chicomba", name: "Chicomba", level: "commune", parentId: "ao-huila-chicomba", officialCode: "AOHLA181301" },
+  { id: "ao-huila-chicomba-cutenda", name: "Cutenda", level: "commune", parentId: "ao-huila-chicomba", officialCode: "AOHLA181302" },
+  { id: "ao-huila-cacula-cacula", name: "Cacula", level: "commune", parentId: "ao-huila-cacula", officialCode: "AOHLA181401" },
+  { id: "ao-huila-cacula-tchicuqueia", name: "Tchicuqueia", level: "commune", parentId: "ao-huila-cacula", officialCode: "AOHLA181402" },
+  { id: "ao-huila-capelongo-capelongo", name: "Capelongo", level: "commune", parentId: "ao-huila-capelongo", officialCode: "AOHLA181701" },
+  { id: "ao-huila-capelongo-mulondo", name: "Mulondo", level: "commune", parentId: "ao-huila-capelongo", officialCode: "AOHLA181702" },
+  { id: "ao-huila-capunda-cavilongo-capunda-cavilongo", name: "Capunda Cavilongo", level: "commune", parentId: "ao-huila-capunda-cavilongo", officialCode: "AOHLA181901" },
+  { id: "ao-huila-capunda-cavilongo-quihita", name: "Quihita", level: "commune", parentId: "ao-huila-capunda-cavilongo", officialCode: "AOHLA181902" },
 ];
