@@ -26,9 +26,10 @@ A base de dados está a ser importada por tranches provinciais, directamente a p
 - Benguela: 23 municípios e 12 comunas;
 - Namibe: 9 municípios e 11 comunas;
 - Huíla: 23 municípios e 26 comunas;
-- Cunene: 14 municípios e 10 comunas.
+- Cunene: 14 municípios e 10 comunas;
+- Cubango: 11 municípios e 12 comunas.
 
-Total actualmente registado: 283 municípios e 334 comunas, distribuídos por dezassete províncias. Estes totais não representam a cobertura nacional.
+Total actualmente registado: 294 municípios e 346 comunas, distribuídos por dezoito províncias. Estes totais não representam a cobertura nacional.
 
 ## Códigos territoriais oficiais
 
@@ -69,10 +70,14 @@ Uma transcrição HTML secundária consultada durante a verificação apresentav
 4. Assembleia Nacional, Lei n.º 8/25, de 16 de Setembro — Diário da República, I Série, n.º 176, Anexo sobre a Codificação Nacional.
    https://files.lex.ao/assembleia-nacional/2025/lei-n-o-8-25-de-16-de-setembro/download/lei-n-o-8-25-de-16-de-setembro_assembleia-nacional_lex-ao.pdf
 
+## Divergências de grafia entre diplomas
+
+A Lei n.º 14/24 e o anexo de codificação da Lei n.º 8/25 apresentam diferenças de grafia para algumas unidades do Cubango. Nesta tranche, os nomes associados aos códigos seguem literalmente o anexo da Lei n.º 8/25: **Mavingue** (em vez de Mavengue), **Mué** (em vez de Maué) e **Jamba Cuio** (em vez de Jamba Cueio). A divergência é preservada para revisão jurídica, não normalizada silenciosamente.
+
 ## Limites e próximos passos
 
 - A hierarquia completa ainda não está importada: os 326 municípios e 378 comunas são contagens legais nacionais, não a quantidade já presente no código.
-- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe, Huíla e Cunene; não se deve inferir que as restantes províncias já estão cobertas.
+- As tranches detalhadas são Cabinda, Zaire, Uíge, Bengo, Cuanza-Norte, Cuanza-Sul, Malanje, Lunda-Norte, Lunda-Sul, Moxico, Moxico Leste, Bié, Huambo, Benguela, Namibe, Huíla, Cunene e Cubango; não se deve inferir que as restantes províncias já estão cobertas.
 - Não contém geometrias, limites, áreas, centroides ou coordenadas.
 - Não representa zonas agroecológicas nem classes de aptidão agrícola.
 - A importação deve continuar por província, com revisão dos códigos e nomes contra o PDF.
