@@ -121,3 +121,39 @@ Pambala must continue to:
 - preserve missing/unknown values as unavailable, never as zero.
 
 **No production boundary file or automated administrative assignment is approved by this research note.**
+
+
+## 7. Official-source recheck — 7 November 2026
+
+The following official institutional pages were rechecked during the current research pass. They improve the source trail, but they do **not** change the production decision above.
+
+### 7.1 Official Government of Angola map — reference, not a verified GIS download
+
+- Portal: https://governo.gov.ao/angola/mapa
+- The page is presented as the Government of Angola's map for exploring provinces and municipalities.
+- The Ministry of the Interior's corresponding map page reports 21 provinces, 326 municipalities, 378 communes and 44 urban districts: https://minint.gov.ao/web/mapa-de-angola
+
+The public page content reviewed exposes the map entry point and administrative counts, but the review did not establish a downloadable vector dataset, machine-readable service endpoint, dataset licence, CRS/datum, positional accuracy, or geometry provenance. Therefore, this portal is a useful official reference for discovery and cross-checking, **not an approved source of boundary geometries**.
+
+### 7.2 IGCA institutional role and current contact details
+
+- IGCA home page: https://igca.gov.ao/
+- Contact page: https://igca.gov.ao/contactos
+- The IGCA describes itself as the National Cartography and Cadastre Authority and identifies responsibilities related to the national geographic information system.
+- The contact page currently lists the institutional email `info@igca.gov.ao` and telephone numbers `932 841 616` / `932 832 929`.
+
+The existing draft request in `docs/igca-boundary-data-request.md` remains the recommended next institutional step. Contact details should be rechecked immediately before sending. No request is considered sent and no institutional response has been received as part of this research pass.
+
+### 7.3 UN SALB availability check
+
+- Angola country page: https://salb.un.org/en/data/ago
+- The page identifies the Angolan Geographical and Cadastral Institute as the national geospatial information authority and currently displays no geospatial datasets for Angola.
+
+This is evidence that the UN SALB catalogue does not currently provide a dataset for Angola; it is **not** proof that no official dataset exists elsewhere or is held by IGCA.
+
+### 7.4 Decision after recheck
+
+- Keep automatic coordinate-to-province, municipality and commune attribution disabled.
+- Do not promote the Government portal's visual map, a community GeoJSON, or a third-party ArcGIS layer to authoritative boundary status without direct institutional confirmation and technical acceptance.
+- Send the prepared IGCA request only after the team has reviewed and authorised it.
+- If IGCA provides a service or dataset, preserve the original files, metadata, licence, checksum, acquisition date and written provenance before validation or integration.
