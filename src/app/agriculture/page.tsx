@@ -41,6 +41,8 @@ export default function AgriculturePage() {
           ))}
         </div>
 
+        <Link href="/agriculture/regions" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar dados por região <MapPinned size={16} /></Link>
+
         <section className="mt-12 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div><p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--green)]">Quadro 4 · INE</p><h2 className="mt-2 text-2xl font-semibold">Área plantada por província</h2></div>
