@@ -44,6 +44,7 @@ function makeDataset(daily: DailyClimateRecord[]): ClimateDataset {
       meanTemperatureC: null,
       meanRelativeHumidityPct: null,
       validPrecipitationDays: 0,
+      validRelativeHumidityDays: 0,
       validTemperatureDays: 0,
       missingPrecipitationDays: 0,
       longestDrySpellDays: null,
