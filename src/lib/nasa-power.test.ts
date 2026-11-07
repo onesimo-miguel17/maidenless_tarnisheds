@@ -31,6 +31,8 @@ describe("normalizePowerResponse", () => {
     expect(result.summary.meanRelativeHumidityPct).toBeCloseTo(67.67, 1);
     expect(result.summary.validPrecipitationDays).toBe(2);
     expect(result.summary.validRelativeHumidityDays).toBe(3);
+    expect(result.summary.validMaxTemperatureDays).toBe(3);
+    expect(result.summary.validMinTemperatureDays).toBe(3);
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
     expect(result.monthly[0].precipitationTotalMm).toBeNull();
@@ -77,6 +79,28 @@ describe("normalizePowerResponse", () => {
 
     expect(result.summary.meanRelativeHumidityPct).toBe(65);
     expect(result.summary.validRelativeHumidityDays).toBe(1);
+  });
+
+  it("counts maximum and minimum temperature coverage independently", () => {
+    const result = normalizePowerResponse(
+      {
+        properties: {
+          parameter: {
+            T2M_MAX: { "2026010100": 31, "2026010200": 33 },
+            T2M_MIN: { "2026010100": 20 },
+          },
+        },
+      },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-03",
+    );
+
+    expect(result.summary.validMaxTemperatureDays).toBe(2);
+    expect(result.summary.validMinTemperatureDays).toBe(1);
+    expect(result.daily[2].maxTemperatureC).toBeNull();
+    expect(result.daily[1].minTemperatureC).toBeNull();
   });
 
   it("does not bridge missing precipitation days when calculating dry spells", () => {
