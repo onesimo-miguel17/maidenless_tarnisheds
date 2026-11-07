@@ -15,7 +15,7 @@ export interface ProvinceGeographyCoverage {
 export interface AngolaGeographyCoverage {
   referenceDate: string;
   expected: {
-    provinces: number;
+    provinceList: number;
     municipalities: number;
     communes: number;
   };
@@ -63,7 +63,7 @@ export function getAngolaGeographyCoverage(): AngolaGeographyCoverage {
       communes: angolaGeographyMetadata.administrativeCounts.communes,
     },
     registered: {
-      provinces: angolaProvinces.length,
+      provinceList: angolaProvinces.length,
       municipalities: cabindaMunicipalities.length,
       communes: cabindaCommunes.length,
     },
