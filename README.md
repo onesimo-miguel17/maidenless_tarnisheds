@@ -22,6 +22,7 @@ A atribuição automática de província, município ou comuna a partir de coord
 | Contexto agrícola nacional | `/agriculture` | Consultar estatísticas nacionais e registos históricos por província do ICAPP 2024/2025. |
 | Contexto regional | `/agriculture/regions` | Explorar agregados da campanha por região, conforme a classificação usada pelo INE. |
 | Qualidade dos dados | `/agriculture/data-quality` | Consultar discrepâncias documentadas na publicação ICAPP e as respectivas restrições de utilização. |
+| Geografia administrativa | `/geography` | Consultar a hierarquia nominal e os códigos das 21 províncias, 326 municípios e 378 comunas; a página não apresenta limites cartográficos. |
 
 ### APIs
 
