@@ -11,7 +11,7 @@ describe("Angola geographic registry coverage", () => {
       communes: 378,
     });
     expect(coverage.registered).toEqual({
-      provinces: 21,
+      provinceList: 21,
       municipalities: 10,
       communes: 8,
     });
