@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowUpRight, Menu, Sprout, X } from "lucide-react";
 
 const links = [
+  { href: "/farmer", label: "Meu espaço" },
   { href: "/geography", label: "Cobertura geográfica" },
   { href: "/agriculture", label: "Dados agrícolas INE" },
   { href: "/climate", label: "Explorar clima NASA", primary: true },
