@@ -66,9 +66,9 @@ O repositório mantém um registo de discrepâncias da publicação. Esse regist
 
 ## Geografia administrativa
 
-A divisão político-administrativa de referência compreende 21 províncias, 326 municípios e 378 comunas. A hierarquia está a ser transcrita por tranches a partir da legislação e ainda não representa cobertura nacional completa.
+A hierarquia administrativa nominal das 21 províncias, 326 municípios e 378 comunas está transcrita a partir do Anexo da Lei n.º 8/25. A cobertura cartográfica é uma questão distinta: ainda não foi validado um conjunto de limites geográficos oficial e adequado para produção.
 
-- A estrutura e a proveniência estão documentadas em [`src/domain/geography/README.md`](src/domain/geography/README.md).
+- A estrutura, os códigos, a proveniência e os testes estão documentados em [`src/domain/geography/README.md`](src/domain/geography/README.md).
 - Os limites geográficos oficiais actuais ainda não foram validados para utilização em produção.
 - Não são inferidos municípios, comunas, coordenadas, áreas ou polígonos em falta.
 - A geografia histórica do ICAPP não é silenciosamente convertida para a divisão administrativa actual.
