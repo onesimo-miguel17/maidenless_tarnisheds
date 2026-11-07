@@ -3,7 +3,7 @@ import type { SoilProfile } from "../soil/schema";
 import { assessCropAgainstClimate, type CropClimateAssessment } from "./climate-assessment";
 import { assessCropAgainstSoil, type CropAssessment } from "./recommendation";
 import type { CropProfile } from "./types";
-import { getBlockedIcappMetricIds } from "@/domain/agriculture/icapp-quality-gate";
+import { getBlockedIcappMetricIds } from "../agriculture/icapp-quality-gate";
 
 export interface SoilContext {
   texture: SoilProfile["texture"];
