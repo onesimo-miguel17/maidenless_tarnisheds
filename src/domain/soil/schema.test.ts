@@ -17,8 +17,13 @@ describe("soilProfileSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects a pH outside the 0–14 scale", () => {
-    const result = soilProfileSchema.safeParse({ ph: { value: 15 } });
+  it.each([0, 14])("accepts the pH boundary value %s", (value) => {
+    const result = soilProfileSchema.safeParse({ ph: { value } });
+    expect(result.success).toBe(true);
+  });
+
+  it.each([-0.1, 14.1, 15])("rejects a pH outside the 0–14 scale: %s", (value) => {
+    const result = soilProfileSchema.safeParse({ ph: { value } });
     expect(result.success).toBe(false);
   });
 
