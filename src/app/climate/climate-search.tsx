@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import {
   Activity,
   CalendarDays,
@@ -65,6 +65,35 @@ export default function ClimateSearch() {
   const [locating, setLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryLatitude = params.get("latitude");
+    const queryLongitude = params.get("longitude");
+
+    if (queryLatitude === null || queryLongitude === null) return;
+
+    const parsedLatitude = Number(queryLatitude);
+    const parsedLongitude = Number(queryLongitude);
+    const validCoordinates =
+      queryLatitude.trim() !== "" &&
+      queryLongitude.trim() !== "" &&
+      Number.isFinite(parsedLatitude) &&
+      Number.isFinite(parsedLongitude) &&
+      parsedLatitude >= -90 &&
+      parsedLatitude <= 90 &&
+      parsedLongitude >= -180 &&
+      parsedLongitude <= 180;
+
+    if (!validCoordinates) {
+      setLocationMessage("As coordenadas recebidas da exploração são inválidas. Verifique-as antes de consultar os dados.");
+      return;
+    }
+
+    setLatitude(parsedLatitude.toFixed(6));
+    setLongitude(parsedLongitude.toFixed(6));
+    setLocationMessage("Coordenadas da exploração preenchidas. Confirme o ponto e escolha o período antes de consultar a NASA POWER.");
+  }, []);
 
   function handleUseCurrentLocation() {
     setLocationMessage(null);
