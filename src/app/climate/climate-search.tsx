@@ -17,6 +17,7 @@ import { assessCropAgainstSoil } from "@/domain/crops/recommendation";
 import { assessCropAgainstClimate } from "@/domain/crops/climate-assessment";
 import { assessCropAtPlot } from "@/domain/crops/integrated-assessment";
 import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonality";
+import { analyzeClimateRiskInsights } from "@/domain/climate/risk-insights";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 function formatDateInput(date: Date): string {
@@ -178,6 +179,7 @@ export default function ClimateSearch() {
     ? Math.max(1, ...dataset.monthly.map((month) => month.precipitationTotalMm ?? 0))
     : 1;
   const rainfallSeasonality = dataset ? analyzeRainfallSeasonality(dataset.daily) : null;
+  const climateRiskInsights = dataset ? analyzeClimateRiskInsights(dataset.daily) : null;
   const maximumSeasonalRain = Math.max(
     1,
     ...(rainfallSeasonality?.months.map((month) => month.meanPrecipitationMm ?? 0) ?? []),
@@ -430,6 +432,39 @@ export default function ClimateSearch() {
             <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail="Média das observações disponíveis" />
             <Metric icon={<Activity size={18} />} label="Maior sequência seca" value={dataset.summary.longestDrySpellDays === null ? "Sem dados" : `${dataset.summary.longestDrySpellDays} dias`} detail="Dias consecutivos com precipitação < 1 mm; lacunas interrompem a sequência." />
           </div>
+
+          {climateRiskInsights && (
+            <section className="rounded-3xl border border-[var(--border)] bg-white p-5 sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-lg font-semibold">Leitura dos sinais climáticos</h3>
+                  <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Indicadores descritivos calculados a partir das observações diárias disponíveis.</p>
+                </div>
+                <span className="rounded-full border border-[var(--border)] px-3 py-1.5 text-[11px] font-semibold">Sem diagnóstico automático</span>
+              </div>
+              <div className="mt-5 grid gap-4 md:grid-cols-2">
+                <article className="rounded-2xl bg-[var(--background)] p-4">
+                  <h4 className="text-sm font-semibold">Maior sequência abaixo de 1 mm/dia</h4>
+                  {climateRiskInsights.drySpell ? (
+                    <>
+                      <p className="mt-3 text-3xl font-semibold tabular-nums">{climateRiskInsights.drySpell.durationDays} dias</p>
+                      <p className="mt-1 text-xs text-[var(--muted)]">{climateRiskInsights.drySpell.startDate} a {climateRiskInsights.drySpell.endDate}</p>
+                    </>
+                  ) : (
+                    <p className="mt-3 text-sm text-[var(--muted)]">Sem sequência identificável com os dados válidos disponíveis.</p>
+                  )}
+                  <p className="mt-3 text-xs leading-5 text-[var(--muted)]">Conta dias consecutivos com precipitação inferior a {climateRiskInsights.dryDayThresholdMm} mm. Um dia sem dados interrompe a sequência.</p>
+                </article>
+                <article className="rounded-2xl bg-[var(--background)] p-4">
+                  <h4 className="text-sm font-semibold">Cobertura da precipitação</h4>
+                  <p className="mt-3 text-3xl font-semibold tabular-nums">{climateRiskInsights.precipitationCoverage.percentage === null ? "Sem dados" : climateRiskInsights.precipitationCoverage.percentage.toFixed(1) + "%"}</p>
+                  <p className="mt-1 text-xs text-[var(--muted)]">{climateRiskInsights.precipitationCoverage.validDays}/{climateRiskInsights.precipitationCoverage.totalDays} dias válidos · {climateRiskInsights.precipitationCoverage.missingDays} em falta</p>
+                  <p className="mt-3 text-xs leading-5 text-[var(--muted)]">{climateRiskInsights.precipitationCoverage.status === "complete" ? "Todos os dias do intervalo têm um valor de precipitação utilizável." : climateRiskInsights.precipitationCoverage.status === "partial" ? "A leitura é parcial. Os dias em falta não são tratados como dias secos nem como precipitação zero." : "Não existem valores de precipitação utilizáveis neste intervalo."}</p>
+                </article>
+              </div>
+              <p className="mt-4 text-xs leading-5 text-[var(--muted)]">Estes sinais descrevem precipitação estimada pela NASA POWER numa grelha. Não confirmam seca agrícola, falta de água no solo, stress da cultura ou perda de produção. A interpretação agronómica exige observações locais e contexto da parcela.</p>
+            </section>
+          )}
 
           <div className="grid min-w-0 gap-4 xl:grid-cols-[1.25fr_.75fr]">
             <section className="rounded-3xl border border-[var(--border)] bg-white p-6">
