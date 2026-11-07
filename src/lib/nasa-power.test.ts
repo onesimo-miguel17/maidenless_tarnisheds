@@ -25,14 +25,14 @@ describe("normalizePowerResponse", () => {
     expect(result.daily).toHaveLength(3);
     expect(result.daily[0].date).toBe("2026-01-01");
     expect(result.daily[2].precipitationMm).toBeNull();
-    expect(result.summary.precipitationTotalMm).toBe(2);
+    expect(result.summary.precipitationTotalMm).toBeNull();
     expect(result.summary.precipitationDays).toBe(1);
     expect(result.summary.meanTemperatureC).toBe(25);
     expect(result.summary.meanRelativeHumidityPct).toBeCloseTo(67.67, 1);
     expect(result.summary.validPrecipitationDays).toBe(2);
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
-    expect(result.monthly[0].precipitationTotalMm).toBe(2);
+    expect(result.monthly[0].precipitationTotalMm).toBeNull();
     expect(result.retrievedAt).toBe("2026-01-04T00:00:00.000Z");
     expect(result.timeStandard).toBe("UTC");
   });
@@ -106,6 +106,26 @@ describe("normalizePowerResponse", () => {
     expect(result.daily[1].precipitationMm).toBeNull();
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
+  });
+
+
+  it("calculates period and monthly precipitation totals only with complete requested coverage", () => {
+    const complete = normalizePowerResponse(
+      {
+        properties: {
+          parameter: {
+            PRECTOTCORR: { "2026010100": 2, "2026010200": 0, "2026010300": 4 },
+          },
+        },
+      },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-03",
+    );
+
+    expect(complete.summary.precipitationTotalMm).toBe(6);
+    expect(complete.monthly[0].precipitationTotalMm).toBe(6);
   });
 
   it("rejects malformed responses and empty time series", () => {
