@@ -123,7 +123,7 @@ function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
       return {
         month,
         precipitationTotalMm:
-          validPrecipitation.length > 0
+          bucket.length > 0 && validPrecipitation.length === bucket.length
             ? validPrecipitation.reduce((sum, value) => sum + value, 0)
             : null,
         meanTemperatureC: average(bucket.map((record) => record.meanTemperatureC)),
@@ -212,7 +212,7 @@ export function normalizePowerResponse(
     monthly: buildMonthly(daily),
     summary: {
       precipitationTotalMm:
-        precipitation.length > 0
+        daily.length > 0 && precipitation.length === daily.length
           ? precipitation.reduce((sum, value) => sum + value, 0)
           : null,
       precipitationDays: precipitation.filter((value) => value > 0).length,
