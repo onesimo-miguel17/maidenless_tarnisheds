@@ -253,6 +253,15 @@ export default function ClimateSearch() {
               </div>
             ))}
           </div>
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-sm font-semibold text-amber-950">Protecção da qualidade dos dados agrícolas</p>
+            <p className="mt-1 text-xs leading-5 text-amber-900">
+              Esta avaliação usa o perfil de solo registado e os dados NASA POWER. Os agregados ICAPP regionais não são aplicados à parcela: ainda não existe uma correspondência geográfica validada entre a localização e as regiões estatísticas. Indicadores inconsistentes ou pendentes estão bloqueados para rankings, previsões e recomendações.
+            </p>
+            <a href="/agriculture/data-quality" className="mt-2 inline-flex text-xs font-semibold text-amber-950 underline underline-offset-2">
+              Consultar {integratedAssessment.dataQuality.blockedMetricIds.length} indicadores bloqueados pela auditoria
+            </a>
+          </div>
           <p className="mt-4 text-xs leading-5 text-[var(--muted)]">{integratedAssessment.interpretation.statement}</p>
           <p className="mt-2 text-[11px] text-[var(--muted)]">NASA POWER · {integratedAssessment.location.latitude}, {integratedAssessment.location.longitude} · Consulta: {new Date(integratedAssessment.evidence.climateRetrievedAt).toLocaleString("pt-PT")} · Estado de validação da cultura: {integratedAssessment.evidence.cropValidationStatus}</p>
         </section>
