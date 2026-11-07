@@ -133,6 +133,8 @@ export default function AgricultureRegionsPage() {
           </div>
         </section>
 
+        <Link href="/agriculture/data-quality" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">Consultar auditoria de qualidade dos dados <ExternalLink size={16} /></Link>
+
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
           <article className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
             <h2 className="font-semibold text-amber-950">Porque ainda não mostramos culturas por região</h2>
