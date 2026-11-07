@@ -25,14 +25,14 @@ describe("normalizePowerResponse", () => {
     expect(result.daily).toHaveLength(3);
     expect(result.daily[0].date).toBe("2026-01-01");
     expect(result.daily[2].precipitationMm).toBeNull();
-    expect(result.summary.precipitationTotalMm).toBe(2);
+    expect(result.summary.precipitationTotalMm).toBeNull();
     expect(result.summary.precipitationDays).toBe(1);
     expect(result.summary.meanTemperatureC).toBe(25);
     expect(result.summary.meanRelativeHumidityPct).toBeCloseTo(67.67, 1);
     expect(result.summary.validPrecipitationDays).toBe(2);
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
-    expect(result.monthly[0].precipitationTotalMm).toBe(2);
+    expect(result.monthly[0].precipitationTotalMm).toBeNull();
     expect(result.retrievedAt).toBe("2026-01-04T00:00:00.000Z");
     expect(result.timeStandard).toBe("UTC");
   });
@@ -106,6 +106,46 @@ describe("normalizePowerResponse", () => {
     expect(result.daily[1].precipitationMm).toBeNull();
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
+  });
+
+
+  it("keeps the requested-period total but withholds a monthly total for a partial calendar month", () => {
+    const partialMonth = normalizePowerResponse(
+      {
+        properties: {
+          parameter: {
+            PRECTOTCORR: { "2026010100": 2, "2026010200": 0, "2026010300": 4 },
+          },
+        },
+      },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-03",
+    );
+
+    expect(partialMonth.summary.precipitationTotalMm).toBe(6);
+    expect(partialMonth.monthly[0].precipitationTotalMm).toBeNull();
+    expect(partialMonth.monthly[0].totalDays).toBe(31);
+  });
+
+  it("calculates monthly totals only for a complete calendar month with full coverage", () => {
+    const precipitation: Record<string, number> = {};
+    for (let day = 1; day <= 31; day += 1) {
+      const key = `202601${String(day).padStart(2, "0")}00`;
+      precipitation[key] = 1;
+    }
+    const completeMonth = normalizePowerResponse(
+      { properties: { parameter: { PRECTOTCORR: precipitation } } },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-31",
+    );
+
+    expect(completeMonth.summary.precipitationTotalMm).toBe(31);
+    expect(completeMonth.monthly[0].precipitationTotalMm).toBe(31);
+    expect(completeMonth.monthly[0].totalDays).toBe(31);
   });
 
   it("rejects malformed responses and empty time series", () => {

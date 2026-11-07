@@ -78,10 +78,10 @@ describe("assessCropAtPlot", () => {
     expect(result.soil.assessedFactors[0].status).toBe("compatible");
     expect(result.soilContext.texture).toBe("clayey");
     expect(result.soilContext.observedDrainage).toBe("unknown");
-    expect(result.climate.factors[0].status).toBe("within-reference");
+    expect(result.climate.factors[0].status).toBe("insufficient-data");
     expect(result.climate.factors[1].status).toBe("insufficient-data");
-    expect(result.interpretation.factorsWithinReference).toBe(2);
-    expect(result.interpretation.factorsInsufficientData).toBe(1);
+    expect(result.interpretation.factorsWithinReference).toBe(1);
+    expect(result.interpretation.factorsInsufficientData).toBe(2);
     expect(result.interpretation.statement).toContain("não recomendação");
     expect(result.dataQuality.icappRegionalContextApplied).toBe(false);
     expect(result.dataQuality.blockedMetricIds).toContain("maize-productivity");

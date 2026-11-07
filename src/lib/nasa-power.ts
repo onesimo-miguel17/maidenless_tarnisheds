@@ -27,6 +27,7 @@ export interface MonthlyClimateRecord {
   meanTemperatureC: number | null;
   meanRelativeHumidityPct: number | null;
   validPrecipitationDays: number;
+  totalDays: number;
   validTemperatureDays: number;
 }
 
@@ -104,6 +105,10 @@ function longestDrySpell(records: DailyClimateRecord[]): number | null {
   return observedDays > 0 ? longest : null;
 }
 
+function daysInMonth(year: number, month: number): number {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate();
+}
+
 function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
   const grouped = new Map<string, DailyClimateRecord[]>();
 
@@ -120,17 +125,23 @@ function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
       const validPrecipitation = precipitation.filter(
         (value): value is number => value !== null,
       );
+      const [yearText, monthText] = month.split("-");
+      const expectedDays = daysInMonth(Number(yearText), Number(monthText));
+      const uniqueDates = new Set(bucket.map((record) => record.date));
+      const completeCalendarMonth = bucket.length === expectedDays
+        && uniqueDates.size === expectedDays
+        && validPrecipitation.length === expectedDays;
       return {
         month,
-        precipitationTotalMm:
-          validPrecipitation.length > 0
-            ? validPrecipitation.reduce((sum, value) => sum + value, 0)
-            : null,
+        precipitationTotalMm: completeCalendarMonth
+          ? validPrecipitation.reduce((sum, value) => sum + value, 0)
+          : null,
         meanTemperatureC: average(bucket.map((record) => record.meanTemperatureC)),
         meanRelativeHumidityPct: average(
           bucket.map((record) => record.relativeHumidityPct),
         ),
         validPrecipitationDays: validPrecipitation.length,
+        totalDays: expectedDays,
         validTemperatureDays: bucket.filter(
           (record) => record.meanTemperatureC !== null,
         ).length,
@@ -212,7 +223,7 @@ export function normalizePowerResponse(
     monthly: buildMonthly(daily),
     summary: {
       precipitationTotalMm:
-        precipitation.length > 0
+        daily.length > 0 && precipitation.length === daily.length
           ? precipitation.reduce((sum, value) => sum + value, 0)
           : null,
       precipitationDays: precipitation.filter((value) => value > 0).length,

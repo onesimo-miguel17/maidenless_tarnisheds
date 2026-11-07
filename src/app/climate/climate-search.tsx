@@ -428,7 +428,7 @@ export default function ClimateSearch() {
           </div>
 
           <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? "Sem dados" : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.precipitationDays} dias com precipitação > 0 mm`} />
+            <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? (dataset.summary.validPrecipitationDays > 0 ? "Incompleto" : "Sem dados") : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.validPrecipitationDays}/${dataset.daily.length} dias válidos; totais só são apresentados com cobertura completa`} />
             <Metric icon={<ThermometerSun size={18} />} label="Temperatura média" value={dataset.summary.meanTemperatureC === null ? "Sem dados" : `${formatNumber(dataset.summary.meanTemperatureC)} °C`} detail={`${dataset.summary.validTemperatureDays} observações válidas`} />
             <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail="Média das observações disponíveis" />
             <Metric icon={<Activity size={18} />} label="Maior sequência seca" value={dataset.summary.longestDrySpellDays === null ? "Sem dados" : `${dataset.summary.longestDrySpellDays} dias`} detail="Dias consecutivos com precipitação < 1 mm; lacunas interrompem a sequência." />
@@ -486,7 +486,7 @@ export default function ClimateSearch() {
                     <div className="h-3 overflow-hidden rounded-full bg-[var(--background)]">
                       <div className="h-full rounded-full bg-[var(--green)]" style={{ width: month.precipitationTotalMm === null ? "0%" : `${(month.precipitationTotalMm / maximumMonthlyRain) * 100}%` }} />
                     </div>
-                    <span className="text-right font-medium tabular-nums">{month.precipitationTotalMm === null ? "N/D" : `${formatNumber(month.precipitationTotalMm)} mm`}</span>
+                    <span className="text-right font-medium tabular-nums">{month.precipitationTotalMm === null ? `N/D · ${month.validPrecipitationDays}/${month.totalDays}` : `${formatNumber(month.precipitationTotalMm)} mm`}</span>
                   </div>
                 ))}
               </div>
@@ -511,7 +511,7 @@ export default function ClimateSearch() {
                 <div>
                   <h3 className="text-lg font-semibold">Sazonalidade da precipitação</h3>
                   <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--muted)]">
-                    Média da precipitação total de cada mês do calendário, calculada apenas com meses completos e com todos os dias válidos.
+                    Média dos totais dos meses completos disponíveis no intervalo consultado. Este perfil não é uma normal climatológica nem uma previsão: o número de anos por mês está indicado e um único ano não caracteriza a variabilidade entre anos.
                   </p>
                 </div>
                 <span className="rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-medium">
