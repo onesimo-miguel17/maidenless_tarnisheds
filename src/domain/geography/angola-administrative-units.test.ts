@@ -981,7 +981,7 @@ describe("Angola administrative hierarchy — Benguela tranche", () => {
     expect(benguelaMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
   });
 
-  it("contains the eleven communes explicitly listed in the legal annex", () => {
+  it("contains the twelve communes explicitly listed in the legal annex", () => {
     expect(benguelaCommunes).toHaveLength(12);
     expect(benguelaCommunes.map((unit) => unit.officialCode)).toEqual([
       "AOBLA160501", "AOBLA160502", "AOBLA160503",
@@ -1062,7 +1062,7 @@ describe("Angola administrative hierarchy — Namibe tranche", () => {
     expect(namibeMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
   });
 
-  it("contains the twelve communes explicitly listed in the legal annex", () => {
+  it("contains the eleven communes explicitly listed in the legal annex", () => {
     expect(namibeCommunes).toHaveLength(11);
     expect(namibeCommunes.map((unit) => unit.officialCode)).toEqual([
       "AONBE170301", "AONBE170302", "AONBE170303", "AONBE170304",
@@ -1136,7 +1136,7 @@ describe("Angola administrative hierarchy — Huíla tranche", () => {
     expect(huilaMunicipalities.every((unit) => unit.level === "municipality")).toBe(true);
   });
 
-  it("contains the 26 communes and their official codes", () => {
+  it("contains the 28 communes and their official codes", () => {
     expect(huilaCommunes).toHaveLength(28);
     expect(huilaCommunes.map((unit) => unit.name)).toEqual(["Caconda","Cungue","Uaba","Ousse","Chiange","Chimbemba","Lubango","Huíla","Chibia","Jau","Quilengues","Impulo","Dinde","Caluquembe","Calepi","Negola","Jamba Mineira","Cassinga","Chipindo","Bambi","Chicomba","Cutenda","Cacula","Tchicuqueia","Capelongo","Mulondo","Capunda Cavilongo","Quihita"]);
     expect(huilaCommunes.map((unit) => unit.officialCode)).toEqual(["AOHLA180101","AOHLA180102","AOHLA180103","AOHLA180104","AOHLA180201","AOHLA180202","AOHLA180401","AOHLA180402","AOHLA180701","AOHLA180702","AOHLA180801","AOHLA180802","AOHLA180803","AOHLA180901","AOHLA180902","AOHLA180903","AOHLA181101","AOHLA181102","AOHLA181201","AOHLA181202","AOHLA181301","AOHLA181302","AOHLA181401","AOHLA181402","AOHLA181701","AOHLA181702","AOHLA181901","AOHLA181902"]);
