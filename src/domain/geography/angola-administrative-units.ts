@@ -7,7 +7,8 @@ import type { AdministrativeUnit } from "./types";
  * I Série, n.º 176, 16 September 2025:
  * - Cabinda: page 20315.
  * - Luanda and Icolo e Bengo: page 20318.
- * - Zaire and Uíge: page 20316.
+ * - Zaire: page 20315.
+ * - Uíge: page 20316.
  * - Bengo: page 20317.
  * - Cuanza-Norte: page 20319.
  * - Cuanza-Sul: page 20320.
@@ -24,9 +25,7 @@ import type { AdministrativeUnit } from "./types";
  * - Cunene: page 20330.
  * - Cubango: page 20330.
  * - Cuando: page 20331.
- *
- * - Zaire and Uíge through Cuando: pages 20316–20331.
- *
+
  * The annex uses commune code "00" when no commune is listed for a
  * municipality. Those placeholders are not separate commune records.
  */
