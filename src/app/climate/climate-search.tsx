@@ -359,7 +359,10 @@ export default function ClimateSearch() {
             {climateCropAssessment.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
           </ul>
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-            {[...(selectedCrop.temperatureC?.sources ?? []), ...(selectedCrop.annualRainfallMm?.sources ?? [])].map((source) => (
+            {[...new Map(
+              [...(selectedCrop.temperatureC?.sources ?? []), ...(selectedCrop.annualRainfallMm?.sources ?? [])]
+                .map((source) => [source.url, source] as const),
+            ).values()].map((source) => (
               <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="text-xs font-semibold text-[var(--green)] underline">
                 {source.organization}: {source.title}
               </a>
