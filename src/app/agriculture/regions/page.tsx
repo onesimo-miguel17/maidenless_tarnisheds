@@ -22,7 +22,7 @@ function getShare(value: number, total: number): number {
 export default function AgricultureRegionsPage() {
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+      <header className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-6 lg:px-10">
         <Link href="/agriculture" className="text-sm font-semibold text-[var(--green)]">
           <ArrowLeft size={16} className="mr-2 inline" /> Contexto agrícola
         </Link>
@@ -31,12 +31,12 @@ export default function AgricultureRegionsPage() {
         </span>
       </header>
 
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 sm:pb-16 sm:pt-8 lg:px-10">
         <div className="max-w-3xl">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--green)]">
             <MapPinned size={15} /> ICAPP 2024/2025 · Quadros 7–10
           </div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
             A actividade agrícola por região.
           </h1>
           <p className="mt-5 max-w-2xl leading-7 text-[var(--muted)]">
@@ -47,24 +47,24 @@ export default function AgricultureRegionsPage() {
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          <article className="rounded-3xl border border-[var(--border)] bg-white p-6">
+          <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
             <p className="text-sm text-[var(--muted)]">Explorações agrícolas · Angola</p>
-            <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--green-dark)]">
+            <p className="mt-3 text-2xl font-semibold tracking-tight text-[var(--green-dark)] sm:text-3xl">
               {formatNumber(icappNationalSummary.agriculturalHoldings)}
             </p>
             <p className="mt-1 text-xs text-[var(--muted)]">Total nacional · Quadro 5</p>
           </article>
-          <article className="rounded-3xl border border-[var(--border)] bg-white p-6">
+          <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
             <p className="text-sm text-[var(--muted)]">Área colhida · Angola</p>
-            <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--green-dark)]">
+            <p className="mt-3 text-2xl font-semibold tracking-tight text-[var(--green-dark)] sm:text-3xl">
               {formatNumber(icappNationalSummary.harvestedAreaHa)} ha
             </p>
             <p className="mt-1 text-xs text-[var(--muted)]">Total nacional · Quadro 5</p>
           </article>
         </div>
 
-        <section className="mt-10 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
+        <section className="mt-10 rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:gap-3">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--green)]">
                 Comparação regional
@@ -136,7 +136,7 @@ export default function AgricultureRegionsPage() {
         <Link href="/agriculture/data-quality" className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">Consultar auditoria de qualidade dos dados <ExternalLink size={16} /></Link>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
-          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
+          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-4 sm:p-6">
             <h2 className="font-semibold text-amber-950">Porque ainda não mostramos culturas por região</h2>
             <p className="mt-3 text-sm leading-6 text-amber-950/80">
               Os Quadros 7 a 10 incluem linhas por cultura, mas a validação encontrou
@@ -147,7 +147,7 @@ export default function AgricultureRegionsPage() {
               registos em rankings ou recomendações até a inconsistência ser resolvida.
             </p>
           </article>
-          <article className="rounded-3xl border border-[var(--border)] bg-white p-6">
+          <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
             <h2 className="font-semibold">Fonte e limitações</h2>
             <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--muted)]">
               {icappRegionalMetadata.limitations.map((limitation) => (

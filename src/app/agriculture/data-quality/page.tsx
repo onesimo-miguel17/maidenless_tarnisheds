@@ -26,7 +26,7 @@ export default function AgricultureDataQualityPage() {
 
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+      <header className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-6 lg:px-10">
         <Link href="/agriculture" className="text-sm font-semibold text-[var(--green)]">
           <ArrowLeft size={16} className="mr-2 inline" /> Contexto agrícola
         </Link>
@@ -35,12 +35,12 @@ export default function AgricultureDataQualityPage() {
         </span>
       </header>
 
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 sm:pb-16 sm:pt-8 lg:px-10">
         <div className="max-w-3xl">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--green)]">
             <ShieldCheck size={15} /> Qualidade estatística
           </div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
             Antes de confiar nos números, verificamos os números.
           </h1>
           <p className="mt-5 max-w-2xl leading-7 text-[var(--muted)]">
@@ -51,21 +51,21 @@ export default function AgricultureDataQualityPage() {
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          <article className="rounded-3xl border border-[var(--border)] bg-white p-6">
+          <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
             <p className="text-sm text-[var(--muted)]">Verificações registadas</p>
             <p className="mt-3 text-3xl font-semibold">{icappQualityFindings.length}</p>
           </article>
-          <article className="rounded-3xl border border-red-200 bg-red-50 p-6">
+          <article className="rounded-3xl border border-red-200 bg-red-50 p-4 sm:p-6">
             <p className="text-sm text-red-800">Inconsistências identificadas</p>
             <p className="mt-3 text-3xl font-semibold text-red-950">{inconsistentCount}</p>
           </article>
-          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
+          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-4 sm:p-6">
             <p className="text-sm text-amber-800">Aguardam esclarecimento</p>
             <p className="mt-3 text-3xl font-semibold text-amber-950">{pendingCount}</p>
           </article>
         </div>
 
-        <div className="mt-8 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
+        <div className="mt-8 rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 sm:p-8">
           <div className="flex items-center gap-2 font-semibold">
             <AlertTriangle size={18} className="text-amber-700" />
             Como interpretar este registo
@@ -81,7 +81,7 @@ export default function AgricultureDataQualityPage() {
             <h2 className="mt-2 text-2xl font-semibold">O que precisa de validação</h2>
           </div>
           {icappQualityFindings.map((finding, index) => (
-            <article key={finding.id} className="rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
+            <article key={finding.id} className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 sm:p-8">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="text-xs font-bold uppercase tracking-[.12em] text-[var(--muted)]">
                   Verificação {index + 1} · {finding.sourceTables.join(", ")}
@@ -117,7 +117,7 @@ export default function AgricultureDataQualityPage() {
           ))}
         </section>
 
-        <section className="mt-8 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
+        <section className="mt-8 rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 sm:p-8">
           <h2 className="font-semibold">Limitações e fontes</h2>
           <ul className="mt-4 space-y-2 text-sm leading-6 text-[var(--muted)]">
             {icappQualityMetadata.limitations.map((item) => <li key={item}>• {item}</li>)}

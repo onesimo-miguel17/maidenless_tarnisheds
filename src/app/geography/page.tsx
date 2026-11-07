@@ -23,7 +23,7 @@ function CoverageCard({
     expected > 0 ? Math.min(100, Math.round((registered / expected) * 100)) : 0;
 
   return (
-    <article className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm shadow-black/[0.02]">
+    <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 shadow-sm shadow-black/[0.02]">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-semibold text-[var(--muted)]">{label}</p>
@@ -128,7 +128,7 @@ export default function GeographyPage() {
           />
         </div>
 
-        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm shadow-black/[0.02] sm:p-8">
+        <div className="mt-6 rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 shadow-sm shadow-black/[0.02] sm:p-8">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--green)]">

@@ -152,7 +152,7 @@ export default function ClimateSearch() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSearch} className="grid gap-5 rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm lg:grid-cols-2">
+      <form onSubmit={handleSearch} className="grid min-w-0 gap-4 rounded-3xl border border-[var(--border)] bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2">
         <div className="lg:col-span-2">
           <h2 className="text-lg font-semibold">Configurar análise da exploração</h2>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Cada consulta usa as coordenadas e o período indicados. Não há uma localização de demonstração pré-seleccionada.</p>
@@ -215,7 +215,7 @@ export default function ClimateSearch() {
       </form>
 
       {integratedAssessment && (
-        <section className="rounded-3xl border-2 border-[var(--green)] bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border-2 border-[var(--green)] bg-white p-4 shadow-sm sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Avaliação agrícola integrada</span>
@@ -268,7 +268,7 @@ export default function ClimateSearch() {
       )}
 
       {cropAssessment && selectedCrop && (
-        <section className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border border-[var(--border)] bg-white p-4 shadow-sm sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Avaliação do solo</span>
@@ -302,7 +302,7 @@ export default function ClimateSearch() {
       )}
 
       {climateCropAssessment && selectedCrop && (
-        <section className="rounded-3xl border border-[var(--border)] bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border border-[var(--border)] bg-white p-4 shadow-sm sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[.16em] text-[var(--green)]">Inteligência climática por cultura</span>
@@ -369,7 +369,7 @@ export default function ClimateSearch() {
       )}
 
       {!dataset && !loading && (
-        <section className="flex min-h-64 flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--border)] bg-white p-8 text-center">
+        <section className="flex min-h-64 flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--border)] bg-white p-5 text-center sm:p-8">
           <span className="grid size-14 place-items-center rounded-2xl bg-[#e5edda] text-[var(--green)]"><MapPin size={25} /></span>
           <h2 className="mt-5 text-lg font-semibold">Aguardando localização e período</h2>
           <p className="mt-2 max-w-md text-sm leading-6 text-[var(--muted)]">Indique as coordenadas da parcela e o intervalo que pretende estudar. Os indicadores serão calculados a partir da resposta da NASA POWER.</p>
@@ -381,26 +381,26 @@ export default function ClimateSearch() {
         <section className="space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Análise climática da localização</h2>
+              <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">Análise climática da localização</h2>
               <p className="mt-2 text-sm text-[var(--muted)]">{dataset.period.start} — {dataset.period.end} · {dataset.coordinates.latitude}, {dataset.coordinates.longitude}</p>
             </div>
             <span className="rounded-full bg-[#e5edda] px-3 py-1.5 text-xs font-semibold text-[var(--green)]">Fonte: {dataset.source} · {dataset.community}</span>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? "Sem dados" : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.precipitationDays} dias com precipitação > 0 mm`} />
             <Metric icon={<ThermometerSun size={18} />} label="Temperatura média" value={dataset.summary.meanTemperatureC === null ? "Sem dados" : `${formatNumber(dataset.summary.meanTemperatureC)} °C`} detail={`${dataset.summary.validTemperatureDays} observações válidas`} />
             <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail="Média das observações disponíveis" />
             <Metric icon={<Activity size={18} />} label="Maior sequência seca" value={dataset.summary.longestDrySpellDays === null ? "Sem dados" : `${dataset.summary.longestDrySpellDays} dias`} detail="Dias consecutivos com precipitação < 1 mm; lacunas interrompem a sequência." />
           </div>
 
-          <div className="grid gap-6 xl:grid-cols-[1.25fr_.75fr]">
+          <div className="grid min-w-0 gap-4 xl:grid-cols-[1.25fr_.75fr]">
             <section className="rounded-3xl border border-[var(--border)] bg-white p-6">
               <h3 className="font-semibold">Precipitação mensal</h3>
               <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Soma dos valores diários disponíveis em cada mês. Meses sem observações são apresentados como indisponíveis.</p>
               <div className="mt-6 space-y-4">
                 {dataset.monthly.map((month) => (
-                  <div key={month.month} className="grid grid-cols-[3.5rem_1fr_4.5rem] items-center gap-3 text-xs">
+                  <div key={month.month} className="grid grid-cols-[3.25rem_minmax(0,1fr)_4.25rem] items-center gap-2 text-[11px] sm:grid-cols-[3.5rem_minmax(0,1fr)_4.5rem] sm:gap-3 sm:text-xs">
                     <span className="text-[var(--muted)]">{formatMonth(month.month)}</span>
                     <div className="h-3 overflow-hidden rounded-full bg-[var(--background)]">
                       <div className="h-full rounded-full bg-[var(--green)]" style={{ width: month.precipitationTotalMm === null ? "0%" : `${(month.precipitationTotalMm / maximumMonthlyRain) * 100}%` }} />
@@ -440,7 +440,7 @@ export default function ClimateSearch() {
 
               <div className="mt-6 grid gap-x-5 gap-y-4 sm:grid-cols-2">
                 {rainfallSeasonality.months.map((month) => (
-                  <div key={month.monthNumber} className="grid grid-cols-[5rem_1fr_5.5rem] items-center gap-3 text-xs">
+                  <div key={month.monthNumber} className="grid grid-cols-[4.5rem_minmax(0,1fr)_5rem] items-center gap-2 text-[11px] sm:grid-cols-[5rem_minmax(0,1fr)_5.5rem] sm:gap-3 sm:text-xs">
                     <span className="capitalize text-[var(--muted)]">{month.label}</span>
                     <div className="h-3 overflow-hidden rounded-full bg-[var(--background)]">
                       <div
@@ -481,7 +481,7 @@ export default function ClimateSearch() {
             </section>
           )}
 
-          <div className="rounded-2xl border border-[#dce7d7] bg-[#f5f8f1] p-5 text-sm leading-6 text-[var(--muted)]">
+          <div className="rounded-2xl border border-[#dce7d7] bg-[#f5f8f1] p-4 text-sm leading-6 sm:p-5 text-[var(--muted)]">
             <strong className="text-[var(--foreground)]">Limites de interpretação:</strong> estes são indicadores descritivos derivados dos dados devolvidos pela NASA POWER. Uma sequência seca não é, isoladamente, prova de seca agrícola, stress hídrico ou perda de produção. A análise agronómica exige contexto do solo, cultura, fase de desenvolvimento e validação local.
           </div>
         </section>

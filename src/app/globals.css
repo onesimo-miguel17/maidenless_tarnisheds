@@ -18,3 +18,77 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
 button, input, select { font: inherit; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: #d8e7b5; color: #173d29; }
+
+
+/* Responsive foundations shared by every Pambala route. */
+html {
+  scroll-padding-top: 1rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: clip;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid #8cab6e;
+  outline-offset: 3px;
+}
+
+@media (max-width: 639px) {
+  header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  main > section,
+  main > header {
+    min-width: 0;
+  }
+
+  h1 {
+    overflow-wrap: anywhere;
+  }
+
+  table {
+    font-size: 0.8125rem;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
