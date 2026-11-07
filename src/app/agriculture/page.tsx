@@ -15,27 +15,27 @@ function formatNumber(value: number): string {
 export default function AgriculturePage() {
   return (
     <main className="min-h-screen bg-[var(--background)]">
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+      <header className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-6 lg:px-10">
         <Link href="/" className="text-sm font-semibold text-[var(--green)]"><ArrowLeft size={16} className="mr-2 inline" /> Pambala</Link>
         <span className="rounded-full border border-[var(--border)] bg-white px-4 py-2 text-xs font-semibold text-[var(--muted)]">Fonte oficial · INE</span>
       </header>
-      <section className="mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 sm:pb-16 sm:pt-8 lg:px-10">
         <div className="max-w-3xl">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--green)]"><MapPinned size={15} /> Contexto agrícola de Angola</div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">O retrato agrícola nacional.</h1>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">O retrato agrícola nacional.</h1>
           <p className="mt-5 max-w-2xl leading-7 text-[var(--muted)]">Estatísticas oficiais da campanha {icappMetadata.referencePeriod}, publicadas pelo Instituto Nacional de Estatística. São dados agregados de contexto, não medições de uma exploração individual.</p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {[
             { label: "Explorações agrícolas", value: formatNumber(icappNationalSummary.agriculturalHoldings), unit: "explorações" },
             { label: "Área plantada", value: formatNumber(icappNationalSummary.plantedAreaHa), unit: "hectares" },
             { label: "Área colhida", value: formatNumber(icappNationalSummary.harvestedAreaHa), unit: "hectares" },
             { label: "Produção declarada", value: formatNumber(icappNationalSummary.productionTons), unit: "toneladas" },
           ].map((metric) => (
-            <article key={metric.label} className="rounded-3xl border border-[var(--border)] bg-white p-6">
+            <article key={metric.label} className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
               <p className="text-sm text-[var(--muted)]">{metric.label}</p>
-              <p className="mt-3 text-3xl font-semibold tracking-tight text-[var(--green-dark)]">{metric.value}</p>
+              <p className="mt-3 text-2xl font-semibold tracking-tight text-[var(--green-dark)] sm:text-3xl">{metric.value}</p>
               <p className="mt-1 text-xs text-[var(--muted)]">{metric.unit}</p>
             </article>
           ))}
@@ -44,8 +44,8 @@ export default function AgriculturePage() {
         <Link href="/agriculture/regions" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar dados por região <MapPinned size={16} /></Link>
         <Link href="/agriculture/data-quality" className="ml-3 mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">Ver qualidade dos dados <ExternalLink size={16} /></Link>
 
-        <section className="mt-12 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
+        <section className="mt-12 rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:gap-3">
             <div><p className="text-xs font-bold uppercase tracking-[.16em] text-[var(--green)]">Quadro 4 · INE</p><h2 className="mt-2 text-2xl font-semibold">Área plantada por província</h2></div>
             <p className="text-xs text-[var(--muted)]">18 províncias · hectares</p>
           </div>
@@ -66,7 +66,7 @@ export default function AgriculturePage() {
         </section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
-          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
+          <article className="rounded-3xl border border-amber-200 bg-amber-50 p-4 sm:p-6">
             <h2 className="font-semibold text-amber-950">Limites que importam</h2>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-amber-950/80">
               <li>• A publicação usa 18 províncias. Não distribuímos os valores pelas 21 províncias actuais.</li>
@@ -75,7 +75,7 @@ export default function AgriculturePage() {
               <li>• Estes indicadores não determinam a aptidão agrícola nem descrevem uma parcela específica.</li>
             </ul>
           </article>
-          <article className="rounded-3xl border border-[var(--border)] bg-white p-6">
+          <article className="rounded-3xl border border-[var(--border)] bg-white p-4 sm:p-6">
             <h2 className="font-semibold">Fonte e metodologia</h2>
             <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{icappMetadata.methodology.join(" ")}</p>
             <div className="mt-5 space-y-3">{icappMetadata.sourceFiles.map((source) => (
