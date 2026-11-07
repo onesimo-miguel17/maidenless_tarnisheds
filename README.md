@@ -22,6 +22,7 @@ A atribuição automática de província, município ou comuna a partir de coord
 | Contexto agrícola nacional | `/agriculture` | Consultar estatísticas nacionais e registos históricos por província do ICAPP 2024/2025. |
 | Contexto regional | `/agriculture/regions` | Explorar agregados da campanha por região, conforme a classificação usada pelo INE. |
 | Qualidade dos dados | `/agriculture/data-quality` | Consultar discrepâncias documentadas na publicação ICAPP e as respectivas restrições de utilização. |
+| Geografia administrativa | `/geography` | Consultar a hierarquia nominal e os códigos das 21 províncias, 326 municípios e 378 comunas; a página não apresenta limites cartográficos. |
 
 ### APIs
 
@@ -66,9 +67,9 @@ O repositório mantém um registo de discrepâncias da publicação. Esse regist
 
 ## Geografia administrativa
 
-A divisão político-administrativa de referência compreende 21 províncias, 326 municípios e 378 comunas. A hierarquia está a ser transcrita por tranches a partir da legislação e ainda não representa cobertura nacional completa.
+A hierarquia administrativa nominal das 21 províncias, 326 municípios e 378 comunas está transcrita a partir do Anexo da Lei n.º 8/25. A cobertura cartográfica é uma questão distinta: ainda não foi validado um conjunto de limites geográficos oficial e adequado para produção.
 
-- A estrutura e a proveniência estão documentadas em [`src/domain/geography/README.md`](src/domain/geography/README.md).
+- A estrutura, os códigos, a proveniência e os testes estão documentados em [`src/domain/geography/README.md`](src/domain/geography/README.md).
 - Os limites geográficos oficiais actuais ainda não foram validados para utilização em produção.
 - Não são inferidos municípios, comunas, coordenadas, áreas ou polígonos em falta.
 - A geografia histórica do ICAPP não é silenciosamente convertida para a divisão administrativa actual.

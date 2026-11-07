@@ -100,7 +100,7 @@ export default function GeographyPage() {
               </span>
             </p>
             <p className="mt-1 text-xs text-[var(--muted)]">
-              província com municípios registados
+              províncias com hierarquia nominal transcrita
             </p>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function GeographyPage() {
             label="Províncias listadas"
             registered={coverage.registered.provinceList}
             expected={coverage.expected.provinces}
-            detail="Nomes e códigos provinciais de referência. Isto não significa que a hierarquia municipal esteja completa."
+            detail="Nomes e códigos das 21 províncias de referência legal."
           />
           <CoverageCard
             label="Municípios"
@@ -163,7 +163,7 @@ export default function GeographyPage() {
                 </div>
                 {province.hasDetailedHierarchy ? (
                   <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#e5edda] px-3 py-1.5 text-xs font-semibold text-[var(--green)]">
-                    <CheckCircle2 size={14} /> Parcial
+                    <CheckCircle2 size={14} /> Transcrita
                   </span>
                 ) : (
                   <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[var(--background)] px-3 py-1.5 text-xs font-semibold text-[var(--muted)]">

@@ -101,11 +101,11 @@ The ICAPP audit preserves published values and documents discrepancies; it is no
 
 The quality gate allows only reconciled national/regional aggregates for descriptive context. It blocks documented inconsistent findings from all purposes and blocks unknown metrics by default. Regional campaign context is not included in plot assessment because there is no validated geographic mapping.
 
-## 7. Angola administrative boundaries — unresolved dependency
+## 7. Angola administrative hierarchy and boundaries
 
 Current legal baseline: Law No. 14/24 of 5 September 2024, establishing the 21-province administrative division.
 
-No authoritative, machine-readable current boundary dataset has yet been verified for production use. Automatic coordinate-to-province/municipality assignment must remain disabled.
+The nominal administrative hierarchy is transcribed from the coding annex to Law 8/25: 21 provinces, 326 municipalities, and 378 communes. Automated tests check national counts, uniqueness of internal IDs and official codes, parent-child links, and code prefixes. This is a text/code hierarchy, not a boundary dataset. No authoritative, machine-readable current boundary dataset has yet been verified for production use. Automatic coordinate-to-province/municipality assignment must remain disabled.
 
 Primary authority to contact:
 - Instituto Geográfico e Cadastral de Angola (IGCA)
@@ -124,9 +124,19 @@ A candidate ArcGIS layer and third-party/community files have been examined but 
   - Merge commit: `d801ab743cae63608e0f05a038a9f6813bb4d8ff`
 - PR #34: quality gate implementation, merged into the PR #33 feature branch before PR #33 was merged into `main`.
 - PR #35: official-source validation documentation for Angola administrative boundaries. Merged into `main` on 2026-11-07.
-  - Merge commit: `00fa2832396707982264e7575628cad2de969f8c`
+- PR #39: geographic coverage dashboard.
+- PR #40: geographic coverage dashboard visual polish. Merged into `main` on 2026-11-07.
+  - Merge commit: `ab776f48c1d1a9b0fa2feb1271af1c551ad972c5`
 
-The latest known main commit is `00fa2832396707982264e7575628cad2de969f8c`. Verify GitHub before relying on this if the repository has advanced.
+The latest known main commit at this handoff is `ab776f48c1d1a9b0fa2feb1271af1c551ad972c5`. Verify GitHub before relying on this if the repository has advanced.
+
+### Current geography implementation PR
+
+- PR #41: complete nominal administrative hierarchy registry, based on the coding annex to Law 8/25.
+- Adds the missing Luanda and Icolo e Bengo page-20318 records and integrates the existing 19-province transcription branch.
+- National integrity checks target 21 provinces, 326 municipalities and 378 communes.
+- This work does not provide boundary geometry; coordinate assignment remains disabled.
+- PR: https://github.com/onesimo-miguel17/maidenless_tarnisheds/pull/41
 
 ## 9. Engineering and release workflow
 
