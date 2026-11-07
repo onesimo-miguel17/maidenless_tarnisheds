@@ -74,7 +74,9 @@ describe("assessCropAgainstClimate", () => {
     const dataset = makeDataset(yearRecords(2024, 2));
     const result = assessCropAgainstClimate(dataset, crop);
 
-    expect(result.factors[0].status).toBe("within-reference");
+    expect(result.factors[0].status).toBe("insufficient-data");
+    expect(result.factors[0].observedValue).toBe(25);
+    expect(result.factors[0].expectedRange).toBeNull();
     expect(result.factors[0].validObservations).toBe(366);
     expect(result.annualRainfall[0].complete).toBe(true);
     expect(result.annualRainfall[0].precipitationMm).toBe(732);
