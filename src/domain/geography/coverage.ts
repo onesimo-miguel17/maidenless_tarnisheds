@@ -15,12 +15,12 @@ export interface ProvinceGeographyCoverage {
 export interface AngolaGeographyCoverage {
   referenceDate: string;
   expected: {
-    provinceList: number;
+    provinces: number;
     municipalities: number;
     communes: number;
   };
   registered: {
-    provinces: number;
+    provinceList: number;
     municipalities: number;
     communes: number;
   };
