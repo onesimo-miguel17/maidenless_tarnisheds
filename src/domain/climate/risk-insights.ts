@@ -54,7 +54,7 @@ export function analyzeClimateRiskInsights(
           };
         } else {
           currentSpell = {
-            ...currentSpell,
+            startDate: currentSpell.startDate,
             endDate: record.date,
             durationDays: currentSpell.durationDays + 1,
           };
