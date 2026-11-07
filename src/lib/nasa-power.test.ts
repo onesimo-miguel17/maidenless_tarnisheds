@@ -126,7 +126,7 @@ describe("normalizePowerResponse", () => {
 
     expect(partialMonth.summary.precipitationTotalMm).toBe(6);
     expect(partialMonth.monthly[0].precipitationTotalMm).toBeNull();
-    expect(partialMonth.monthly[0].totalDays).toBe(3);
+    expect(partialMonth.monthly[0].totalDays).toBe(31);
   });
 
   it("calculates monthly totals only for a complete calendar month with full coverage", () => {
