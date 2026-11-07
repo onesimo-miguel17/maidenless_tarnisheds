@@ -3,6 +3,7 @@ import type { SoilProfile } from "../soil/schema";
 import { assessCropAgainstClimate, type CropClimateAssessment } from "./climate-assessment";
 import { assessCropAgainstSoil, type CropAssessment } from "./recommendation";
 import type { CropProfile } from "./types";
+import { getBlockedIcappMetricIds } from "../agriculture/icapp-quality-gate";
 
 export interface SoilContext {
   texture: SoilProfile["texture"];
@@ -34,6 +35,11 @@ export interface IntegratedCropAssessment {
     cropSources: CropProfile["sources"];
     climateSource: ClimateDataset["source"];
     climateRetrievedAt: string;
+  };
+  dataQuality: {
+    icappRegionalContextApplied: false;
+    reason: string;
+    blockedMetricIds: string[];
   };
   interpretation: {
     assessedFactors: number;
@@ -95,6 +101,12 @@ export function assessCropAtPlot(
       perceivedOrganicMatter: soil.organicMatter,
       previousCropId: soil.previousCropId,
       observedProblems: soil.observedProblems,
+    },
+    dataQuality: {
+      icappRegionalContextApplied: false,
+      reason:
+        "Os agregados ICAPP são contexto de campanha, não medições da parcela. A região da parcela ainda não é determinada por limites geográficos validados; por isso, nenhum agregado regional entra nesta avaliação.",
+      blockedMetricIds: getBlockedIcappMetricIds(),
     },
     evidence: {
       cropValidationStatus: crop.validationStatus,

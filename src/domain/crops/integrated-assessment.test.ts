@@ -83,6 +83,9 @@ describe("assessCropAtPlot", () => {
     expect(result.interpretation.factorsWithinReference).toBe(2);
     expect(result.interpretation.factorsInsufficientData).toBe(1);
     expect(result.interpretation.statement).toContain("não recomendação");
+    expect(result.dataQuality.icappRegionalContextApplied).toBe(false);
+    expect(result.dataQuality.blockedMetricIds).toContain("maize-productivity");
+    expect(result.dataQuality.reason).toContain("limites geográficos validados");
   });
 
   it("does not convert a missing soil pH or missing climate observations into compatibility", () => {
