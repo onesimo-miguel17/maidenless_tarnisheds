@@ -43,7 +43,13 @@ As tabelas do anexo distribuem-se pelas páginas 20315–20331. A tranche de Lua
 
 Os nomes são preservados conforme a grafia transcrita do anexo. A normalização para pesquisa ou apresentação deverá ser uma camada separada, sem alterar a transcrição de origem.
 
-Divergências entre diplomas ou fontes secundárias devem permanecer documentadas e não podem ser normalizadas silenciosamente. Quando a grafia legal for ambígua na reprodução digital, a unidade deve ser marcada para revisão, em vez de inventar uma forma alternativa.
+### Divergências documentadas
+
+- **Bengo:** a transcrição HTML secundária consultada diverge no código da comuna Paredes (Quibaxe). O PDF do Diário da República apresenta o código `AOBGO040202`; é esse o código mantido no registo.
+- **Cubango:** a Lei n.º 14/24 e o Anexo de Codificação da Lei n.º 8/25 apresentam diferenças de grafia em alguns nomes. Para os registos com código, mantém-se a grafia do Anexo da Lei n.º 8/25, incluindo Mavingue, Mué e Jamba Cuio.
+- **Cuando:** o portal institucional provincial apresenta algumas associações município/comuna diferentes das tabelas do Anexo de Codificação. O registo segue os códigos e as associações explicitamente enumeradas no anexo, sem criar comunas adicionais.
+
+Estas divergências devem permanecer documentadas e não podem ser normalizadas silenciosamente. A transcrição digital do anexo deve ser revista contra a reprodução oficial sempre que uma grafia ou associação seja questionada.
 
 ## Limites
 
