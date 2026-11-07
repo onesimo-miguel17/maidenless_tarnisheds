@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { ArrowRight, CheckCircle2, ClipboardList, MapPin, Plus, Sprout, Wheat } from "lucide-react";
 import SiteNavigation from "@/components/site-navigation";
 import { farmSchema, type Farm } from "@/domain/farms/schema";
@@ -13,6 +14,11 @@ export default function FarmerWorkspacePage() {
   const [province, setProvince] = useState("");
   const [municipality, setMunicipality] = useState("");
   const [commune, setCommune] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [coordinateSource, setCoordinateSource] = useState<"manual" | "device">("manual");
+  const [accuracyMeters, setAccuracyMeters] = useState<number | null>(null);
+  const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -25,6 +31,10 @@ export default function FarmerWorkspacePage() {
         provinceLabel: province || undefined,
         municipalityLabel: municipality || undefined,
         communeLabel: commune || undefined,
+        latitude: latitude.trim() ? Number(latitude) : undefined,
+        longitude: longitude.trim() ? Number(longitude) : undefined,
+        source: latitude.trim() && longitude.trim() ? coordinateSource : undefined,
+        accuracyMeters: coordinateSource === "device" && latitude.trim() && longitude.trim() ? accuracyMeters ?? undefined : undefined,
       },
     });
 
@@ -38,6 +48,35 @@ export default function FarmerWorkspacePage() {
     setFarm(result.data);
   }
 
+  function handleUseCurrentLocation() {
+    setLocationMessage(null);
+    setAccuracyMeters(null);
+
+    if (!("geolocation" in navigator)) {
+      setLocationMessage("Este navegador não disponibiliza geolocalização. Introduza as coordenadas manualmente.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude.toFixed(6));
+        setLongitude(position.coords.longitude.toFixed(6));
+        setCoordinateSource("device");
+        setAccuracyMeters(position.coords.accuracy);
+        setLocationMessage("Localização obtida. Confirme que o ponto corresponde à parcela agrícola.");
+      },
+      (cause) => {
+        const message = cause.code === cause.PERMISSION_DENIED
+          ? "A permissão de localização foi recusada. Pode introduzir as coordenadas manualmente."
+          : cause.code === cause.POSITION_UNAVAILABLE
+            ? "A localização não está disponível. Introduza as coordenadas manualmente."
+            : "A localização demorou demasiado tempo. Tente novamente ou introduza as coordenadas manualmente.";
+        setLocationMessage(message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+    );
+  }
+
   function resetForm() {
     setFarm(null);
     setName("");
@@ -46,6 +85,11 @@ export default function FarmerWorkspacePage() {
     setProvince("");
     setMunicipality("");
     setCommune("");
+    setLatitude("");
+    setLongitude("");
+    setCoordinateSource("manual");
+    setAccuracyMeters(null);
+    setLocationMessage(null);
     setErrors([]);
   }
 
@@ -75,6 +119,14 @@ export default function FarmerWorkspacePage() {
                     <div className="rounded-xl border border-[var(--border)] bg-white p-3"><span className="text-xs text-[var(--muted)]">Localização indicada</span><p className="mt-1 font-semibold">{[farm.location.provinceLabel, farm.location.municipalityLabel, farm.location.communeLabel].filter(Boolean).join(", ") || "Não indicada"}</p></div>
                   </div>
                 </div>
+                {farm.location.latitude !== undefined && farm.location.longitude !== undefined && (
+                  <Link
+                    href={`/climate?latitude=${farm.location.latitude}&longitude=${farm.location.longitude}`}
+                    className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)] sm:w-auto"
+                  >
+                    Analisar clima desta parcela <ArrowRight size={17} />
+                  </Link>
+                )}
                 <button type="button" onClick={resetForm} className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)]"><Plus size={16} /> Registar outra exploração</button>
               </div>
             ) : (
@@ -85,6 +137,23 @@ export default function FarmerWorkspacePage() {
                   <div><label htmlFor="farm-description" className="mb-2 block text-sm font-semibold">Descrição <span className="font-normal text-[var(--muted)]">(opcional)</span></label><textarea id="farm-description" value={description} onChange={(event) => setDescription(event.target.value)} maxLength={500} rows={3} placeholder="Uma breve descrição da exploração..." className="w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-sm outline-none transition focus:border-[var(--green)] focus:ring-2 focus:ring-[var(--green)]/10" /></div>
                   <div><label htmlFor="farm-area" className="mb-2 block text-sm font-semibold">Área em hectares <span className="font-normal text-[var(--muted)]">(opcional)</span></label><input id="farm-area" type="number" min="0.01" step="any" inputMode="decimal" value={areaHa} onChange={(event) => setAreaHa(event.target.value)} placeholder="Ex.: 12.5" className="min-h-12 w-full rounded-xl border border-[var(--border)] bg-white px-4 text-sm outline-none transition focus:border-[var(--green)] focus:ring-2 focus:ring-[var(--green)]/10" /><p className="mt-2 text-xs text-[var(--muted)]">Introduza um valor positivo. Se não souber, deixe em branco.</p></div>
                   <div className="border-t border-[var(--border)] pt-5"><div className="mb-4 flex items-center gap-2"><MapPin size={17} className="text-[var(--green)]" /><h3 className="text-sm font-semibold">Localização administrativa</h3><span className="text-xs text-[var(--muted)]">Opcional</span></div><p className="mb-4 text-xs leading-5 text-[var(--muted)]">Indique os nomes que conhece. Nesta versão, são etiquetas informativas e não são confirmadas automaticamente por coordenadas.</p><div className="grid gap-4 sm:grid-cols-2"><div><label htmlFor="province" className="mb-2 block text-xs font-semibold">Província</label><input id="province" value={province} onChange={(event) => setProvince(event.target.value)} maxLength={100} placeholder="Ex.: Huambo" className="min-h-11 w-full rounded-xl border border-[var(--border)] px-3 text-sm outline-none focus:border-[var(--green)]" /></div><div><label htmlFor="municipality" className="mb-2 block text-xs font-semibold">Município</label><input id="municipality" value={municipality} onChange={(event) => setMunicipality(event.target.value)} maxLength={100} placeholder="Nome do município" className="min-h-11 w-full rounded-xl border border-[var(--border)] px-3 text-sm outline-none focus:border-[var(--green)]" /></div><div className="sm:col-span-2"><label htmlFor="commune" className="mb-2 block text-xs font-semibold">Comuna</label><input id="commune" value={commune} onChange={(event) => setCommune(event.target.value)} maxLength={100} placeholder="Nome da comuna" className="min-h-11 w-full rounded-xl border border-[var(--border)] px-3 text-sm outline-none focus:border-[var(--green)]" /></div></div></div>
+                  <div className="border-t border-[var(--border)] pt-5">
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <h3 className="text-sm font-semibold">Coordenadas da parcela</h3>
+                        <p className="mt-1 text-xs text-[var(--muted)]">O ponto permite consultar estimativas climáticas da NASA POWER. Não representa uma medição feita no terreno.</p>
+                      </div>
+                      <button type="button" onClick={handleUseCurrentLocation} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[var(--border)] px-4 py-2 text-xs font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">
+                        <MapPin size={15} /> Usar localização atual
+                      </button>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div><label htmlFor="farm-latitude" className="mb-2 block text-xs font-semibold">Latitude</label><input id="farm-latitude" type="number" min="-90" max="90" step="any" value={latitude} onChange={(event) => { setLatitude(event.target.value); setCoordinateSource("manual"); setAccuracyMeters(null); }} placeholder="Ex.: -8.8389" className="min-h-11 w-full rounded-xl border border-[var(--border)] px-3 text-sm outline-none focus:border-[var(--green)]" /></div>
+                      <div><label htmlFor="farm-longitude" className="mb-2 block text-xs font-semibold">Longitude</label><input id="farm-longitude" type="number" min="-180" max="180" step="any" value={longitude} onChange={(event) => { setLongitude(event.target.value); setCoordinateSource("manual"); setAccuracyMeters(null); }} placeholder="Ex.: 13.2894" className="min-h-11 w-full rounded-xl border border-[var(--border)] px-3 text-sm outline-none focus:border-[var(--green)]" /></div>
+                    </div>
+                    {accuracyMeters !== null && <p className="mt-2 text-xs text-[var(--muted)]">Precisão indicada pelo dispositivo: aproximadamente {Math.round(accuracyMeters)} m. Isto não corresponde à resolução espacial dos dados NASA POWER.</p>}
+                    {locationMessage && <p role="status" className="mt-3 text-xs leading-5 text-[var(--muted)]">{locationMessage}</p>}
+                  </div>
                   {errors.length > 0 && <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800"><p className="font-semibold">Verifique os dados introduzidos:</p><ul className="mt-2 list-disc space-y-1 pl-5">{errors.map((error, index) => <li key={`${index}-${error}`}>{error}</li>)}</ul></div>}
                   <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--green)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)] sm:w-auto">Validar exploração <ArrowRight size={17} /></button>
                 </form>
