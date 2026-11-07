@@ -42,6 +42,7 @@ export default function AgriculturePage() {
         </div>
 
         <Link href="/agriculture/regions" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)]">Explorar dados por região <MapPinned size={16} /></Link>
+        <Link href="/agriculture/data-quality" className="ml-3 mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--green)] transition hover:bg-[var(--background)]">Ver qualidade dos dados <ExternalLink size={16} /></Link>
 
         <section className="mt-12 rounded-3xl border border-[var(--border)] bg-white p-6 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
