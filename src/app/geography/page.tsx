@@ -44,10 +44,10 @@ export default function GeographyPage() {
         <div className="grid gap-4 md:grid-cols-3">
           {[
             {
-              label: "Províncias",
+              label: "Províncias listadas",
               expected: coverage.expected.provinces,
-              registered: coverage.registered.provinces,
-              detail: "Lista provincial registada",
+              registered: coverage.registered.provinceList,
+              detail: "Nomes e códigos provinciais de referência",
             },
             {
               label: "Municípios",
