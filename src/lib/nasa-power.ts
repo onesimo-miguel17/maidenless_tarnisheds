@@ -141,7 +141,7 @@ function buildMonthly(records: DailyClimateRecord[]): MonthlyClimateRecord[] {
           bucket.map((record) => record.relativeHumidityPct),
         ),
         validPrecipitationDays: validPrecipitation.length,
-        totalDays: bucket.length,
+        totalDays: expectedDays,
         validTemperatureDays: bucket.filter(
           (record) => record.meanTemperatureC !== null,
         ).length,
