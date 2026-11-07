@@ -430,7 +430,7 @@ export default function ClimateSearch() {
           <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric icon={<CloudRain size={18} />} label="Precipitação acumulada" value={dataset.summary.precipitationTotalMm === null ? (dataset.summary.validPrecipitationDays > 0 ? "Incompleto" : "Sem dados") : `${formatNumber(dataset.summary.precipitationTotalMm)} mm`} detail={`${dataset.summary.validPrecipitationDays}/${dataset.daily.length} dias válidos; totais só são apresentados com cobertura completa`} />
             <Metric icon={<ThermometerSun size={18} />} label="Temperatura média" value={dataset.summary.meanTemperatureC === null ? "Sem dados" : `${formatNumber(dataset.summary.meanTemperatureC)} °C`} detail={`${dataset.summary.validTemperatureDays} observações válidas`} />
-            <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail="Média das observações disponíveis" />
+            <Metric icon={<Droplets size={18} />} label="Humidade relativa média" value={dataset.summary.meanRelativeHumidityPct === null ? "Sem dados" : `${formatNumber(dataset.summary.meanRelativeHumidityPct)} %`} detail={`${dataset.summary.validRelativeHumidityDays}/${dataset.daily.length} dias válidos; média apenas dos dias disponíveis`} />
             <Metric icon={<Activity size={18} />} label="Maior sequência seca" value={dataset.summary.longestDrySpellDays === null ? "Sem dados" : `${dataset.summary.longestDrySpellDays} dias`} detail="Dias consecutivos com precipitação < 1 mm; lacunas interrompem a sequência." />
           </div>
 
@@ -478,7 +478,7 @@ export default function ClimateSearch() {
           <div className="grid min-w-0 gap-4 xl:grid-cols-[1.25fr_.75fr]">
             <section className="rounded-3xl border border-[var(--border)] bg-white p-6">
               <h3 className="font-semibold">Precipitação mensal</h3>
-              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Soma dos valores diários disponíveis em cada mês. Meses sem observações são apresentados como indisponíveis.</p>
+              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Totais apresentados apenas para meses completos com cobertura diária integral. Meses parciais ou com lacunas ficam assinalados como N/D.</p>
               <div className="mt-6 space-y-4">
                 {dataset.monthly.map((month) => (
                   <div key={month.month} className="grid grid-cols-[3.25rem_minmax(0,1fr)_4.25rem] items-center gap-2 text-[11px] sm:grid-cols-[3.5rem_minmax(0,1fr)_4.5rem] sm:gap-3 sm:text-xs">
@@ -498,6 +498,7 @@ export default function ClimateSearch() {
               <div className="mt-6 space-y-5">
                 <Coverage label="Precipitação" valid={dataset.summary.validPrecipitationDays} missing={dataset.summary.missingPrecipitationDays} />
                 <Coverage label="Temperatura média" valid={dataset.summary.validTemperatureDays} missing={dataset.daily.length - dataset.summary.validTemperatureDays} />
+                <Coverage label="Humidade relativa" valid={dataset.summary.validRelativeHumidityDays} missing={dataset.daily.length - dataset.summary.validRelativeHumidityDays} />
                 <div className="rounded-2xl bg-[var(--background)] p-4 text-xs leading-5 text-[var(--muted)]">
                   <strong className="text-[var(--foreground)]">Consulta:</strong> {new Date(dataset.retrievedAt).toLocaleString("pt-PT")} · Fuso de referência: {dataset.timeStandard}
                 </div>

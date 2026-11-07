@@ -30,6 +30,7 @@ describe("normalizePowerResponse", () => {
     expect(result.summary.meanTemperatureC).toBe(25);
     expect(result.summary.meanRelativeHumidityPct).toBeCloseTo(67.67, 1);
     expect(result.summary.validPrecipitationDays).toBe(2);
+    expect(result.summary.validRelativeHumidityDays).toBe(3);
     expect(result.summary.missingPrecipitationDays).toBe(1);
     expect(result.summary.longestDrySpellDays).toBe(1);
     expect(result.monthly[0].precipitationTotalMm).toBeNull();
@@ -56,6 +57,26 @@ describe("normalizePowerResponse", () => {
     expect(result.daily).toHaveLength(2);
     expect(result.daily[1].meanTemperatureC).toBeNull();
     expect(result.daily[1].precipitationMm).toBe(3);
+  });
+
+  it("counts valid relative humidity days independently from other parameters", () => {
+    const result = normalizePowerResponse(
+      {
+        properties: {
+          parameter: {
+            PRECTOTCORR: { "2026010100": 1, "2026010200": 2, "2026010300": 0 },
+            RH2M: { "2026010100": 65, "2026010200": -999 },
+          },
+        },
+      },
+      0,
+      0,
+      "2026-01-01",
+      "2026-01-03",
+    );
+
+    expect(result.summary.meanRelativeHumidityPct).toBe(65);
+    expect(result.summary.validRelativeHumidityDays).toBe(1);
   });
 
   it("does not bridge missing precipitation days when calculating dry spells", () => {
