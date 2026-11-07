@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowUpRight, Wheat, Droplets, ScanSearch, Leaf, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Wheat, Droplets, ScanSearch, Sprout, Leaf, ShieldCheck } from "lucide-react";
 import SiteNavigation from "@/components/site-navigation";
 
 const capabilities = [
