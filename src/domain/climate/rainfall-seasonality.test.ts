@@ -65,6 +65,22 @@ describe("analyzeRainfallSeasonality", () => {
     expect(result.months[1].meanPrecipitationMm).toBeNull();
   });
 
+
+  it("rejects duplicate dates even when the record count matches the month length", () => {
+    const records = monthRecords(2025, 1, 2);
+    records[10] = { ...records[10], date: records[9].date };
+    const result = analyzeRainfallSeasonality(records);
+
+    expect(result.monthlyCoverage[0]).toMatchObject({
+      month: "2025-01",
+      validDays: 31,
+      expectedDays: 31,
+      complete: false,
+      precipitationTotalMm: null,
+    });
+    expect(result.months[0].meanPrecipitationMm).toBeNull();
+  });
+
   it("returns unavailable month values when no records exist", () => {
     const result = analyzeRainfallSeasonality([]);
 
