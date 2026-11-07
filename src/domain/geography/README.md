@@ -9,7 +9,7 @@ A divisão de referência, em vigor desde 1 de Janeiro de 2025, compreende:
 - 326 municípios;
 - 378 comunas.
 
-A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. A primeira tranche detalhada contém Cabinda: 10 municípios e 8 comunas efectivamente enumeradas no anexo.
+A base de dados está a ser importada por tranches provinciais, directamente a partir do anexo da Lei n.º 8/25. A primeira tranche detalhada contém Cabinda: 10 municípios e 8 comunas efectivamente enumeradas no anexo. O estado de cobertura pode ser consultado na página `/geography` e na API `GET /api/geography/coverage`.
 
 ## Códigos territoriais oficiais
 
