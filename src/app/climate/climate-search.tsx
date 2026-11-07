@@ -123,7 +123,7 @@ export default function ClimateSearch() {
   }
 
   const selectedCrop = cropCatalog.find((crop) => crop.id === cropId);
-  const soilProfile = soilProfileSchema.parse({
+  const soilProfileResult = soilProfileSchema.safeParse({
     texture: soilTexture,
     moisture: soilMoisture,
     drainage: soilDrainage,
@@ -131,13 +131,17 @@ export default function ClimateSearch() {
     organicMatter: soilOrganicMatter,
     ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
   });
-  const cropAssessment = selectedCrop
+  const soilProfile = soilProfileResult.success ? soilProfileResult.data : null;
+  const soilProfileError = soilProfileResult.success
+    ? null
+    : "O pH deve estar entre 0 e 14. Corrija o valor ou deixe o campo vazio.";
+  const cropAssessment = selectedCrop && soilProfile
     ? assessCropAgainstSoil(soilProfile, selectedCrop)
     : null;
   const climateCropAssessment = dataset && selectedCrop
     ? assessCropAgainstClimate(dataset, selectedCrop)
     : null;
-  const integratedAssessment = dataset && selectedCrop
+  const integratedAssessment = dataset && selectedCrop && soilProfile
     ? assessCropAtPlot(soilProfile, dataset, selectedCrop)
     : null;
 
@@ -181,8 +185,9 @@ export default function ClimateSearch() {
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="soil-ph">pH medido do solo (opcional)</label>
-          <input id="soil-ph" type="number" min="0" max="14" step="0.1" value={soilPh} onChange={(event) => setSoilPh(event.target.value)} placeholder="Ex.: 6.2" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="soil-ph" type="number" min="0" max="14" step="0.1" value={soilPh} onChange={(event) => setSoilPh(event.target.value)} aria-invalid={soilProfileError !== null} aria-describedby={soilProfileError ? "soil-ph-error" : undefined} placeholder="Ex.: 6.2" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
           <p className="mt-1 text-xs text-[var(--muted)]">Introduza apenas um valor obtido por medição do solo.</p>
+          {soilProfileError && <p id="soil-ph-error" role="alert" className="mt-2 text-xs font-medium text-red-700">{soilProfileError} A avaliação do solo fica suspensa até corrigir o valor.</p>}
         </div>
         <div className="lg:col-span-2 rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
           <div className="mb-3">
@@ -267,7 +272,7 @@ export default function ClimateSearch() {
         </section>
       )}
 
-      {cropAssessment && selectedCrop && (
+      {cropAssessment && selectedCrop && soilProfile && (
         <section className="rounded-3xl border border-[var(--border)] bg-white p-4 shadow-sm sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
