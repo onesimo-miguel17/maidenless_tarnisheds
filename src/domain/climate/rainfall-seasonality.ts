@@ -58,7 +58,10 @@ export function analyzeRainfallSeasonality(
       const validValues = bucket
         .map((record) => record.precipitationMm)
         .filter((value): value is number => value !== null && Number.isFinite(value));
-      const complete = bucket.length === expectedDays && validValues.length === expectedDays;
+      const uniqueDates = new Set(bucket.map((record) => record.date));
+      const complete = bucket.length === expectedDays
+        && uniqueDates.size === expectedDays
+        && validValues.length === expectedDays;
 
       return {
         month,
