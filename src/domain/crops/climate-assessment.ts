@@ -85,21 +85,18 @@ export function assessCropAgainstClimate(
     : null;
   const temperatureRange = crop.temperatureC;
   const usableTemperatureRange = temperatureRange !== null && temperatureRange.evidence !== "pending-validation";
-  const temperatureStatus: ClimateFactorStatus = meanTemperature === null || !usableTemperatureRange
-    ? "insufficient-data"
-    : meanTemperature >= temperatureRange.min && meanTemperature <= temperatureRange.max
-      ? "within-reference"
-      : "outside-reference";
+  // EcoCrop's global temperature range does not encode a clear temporal basis
+  // (annual mean versus growing-season/phenological-stage temperature). Do not
+  // classify an annual mean against it until that semantic gap is resolved.
+  const temperatureStatus: ClimateFactorStatus = "insufficient-data";
 
   const temperatureFactor: ClimateFactorAssessment = {
     factor: "period-temperature",
     status: temperatureStatus,
     observedValue: meanTemperature,
-    expectedRange: usableTemperatureRange
-      ? { min: temperatureRange.min, max: temperatureRange.max }
-      : null,
+    expectedRange: null,
     unit: "°C",
-    evidence: usableTemperatureRange ? temperatureRange.evidence : null,
+    evidence: null,
     validObservations: completeTemperatureYears.length,
     totalObservations: completeTemperatureYears.length > 0
       ? completeTemperatureYears.length
@@ -108,7 +105,7 @@ export function assessCropAgainstClimate(
       ? "Não existe uma faixa de temperatura com evidência utilizável para esta cultura."
       : completeTemperatureYears.length === 0
         ? "Não existe nenhum ano civil completo com temperatura média válida em todos os dias. A amostra disponível é apresentada sem classificação de referência."
-        : `A média diária de temperatura dos ${years.filter((year) => getCompleteYearRecords(dataset.daily, year, (record) => record.meanTemperatureC) !== null).length} ano(s) civil(is) completo(s) foi ${meanTemperature!.toFixed(1)} °C; a referência geral é ${temperatureRange.min}–${temperatureRange.max} °C. Anos parciais ou com dias em falta foram excluídos.`,
+        : `A média diária de temperatura dos ${years.filter((year) => getCompleteYearRecords(dataset.daily, year, (record) => record.meanTemperatureC) !== null).length} ano(s) civil(is) completo(s) foi ${meanTemperature!.toFixed(1)} °C e é apresentada apenas como contexto. A faixa global da cultura não identifica claramente se representa média anual, época de crescimento ou fase fenológica; por isso, não é feita uma comparação.`,
   };
 
   const rainfallRange = crop.annualRainfallMm;
@@ -168,7 +165,7 @@ export function assessCropAgainstClimate(
     annualRainfall,
     limitations: [
       "As faixas da cultura são referências gerais globais e ainda não foram validadas localmente para Angola.",
-      "A comparação de temperatura usa apenas anos civis completos com todos os dias válidos; não representa temperaturas por fase fenológica nem extremos de curta duração.",
+      "A temperatura média anual é apenas contextual: as referências globais disponíveis não especificam uma base temporal comparável (média anual, ciclo da cultura ou fase fenológica), pelo que não é atribuída compatibilidade térmica.",
       "A precipitação só é comparada com a referência anual em anos civis completos com todos os dias observados.",
       "Dados NASA POWER são estimativas em grelha e não medições dentro da parcela agrícola.",
       "Esta triagem não estima produtividade, stress hídrico, risco de pragas nem adequação definitiva da cultura.",
