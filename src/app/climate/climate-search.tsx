@@ -457,7 +457,7 @@ export default function ClimateSearch() {
                 </article>
                 <article className="rounded-2xl bg-[var(--background)] p-4">
                   <h4 className="text-sm font-semibold">Cobertura da precipitação</h4>
-                  <p className="mt-3 text-3xl font-semibold tabular-nums">{climateRiskInsights.precipitationCoverage.percentage === null ? "Sem dados" : \`\${climateRiskInsights.precipitationCoverage.percentage.toFixed(1)}%\`}</p>
+                  <p className="mt-3 text-3xl font-semibold tabular-nums">{climateRiskInsights.precipitationCoverage.percentage === null ? "Sem dados" : climateRiskInsights.precipitationCoverage.percentage.toFixed(1) + "%"}</p>
                   <p className="mt-1 text-xs text-[var(--muted)]">{climateRiskInsights.precipitationCoverage.validDays}/{climateRiskInsights.precipitationCoverage.totalDays} dias válidos · {climateRiskInsights.precipitationCoverage.missingDays} em falta</p>
                   <p className="mt-3 text-xs leading-5 text-[var(--muted)]">{climateRiskInsights.precipitationCoverage.status === "complete" ? "Todos os dias do intervalo têm um valor de precipitação utilizável." : climateRiskInsights.precipitationCoverage.status === "partial" ? "A leitura é parcial. Os dias em falta não são tratados como dias secos nem como precipitação zero." : "Não existem valores de precipitação utilizáveis neste intervalo."}</p>
                 </article>
