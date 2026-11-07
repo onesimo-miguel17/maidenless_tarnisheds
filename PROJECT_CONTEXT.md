@@ -130,6 +130,14 @@ A candidate ArcGIS layer and third-party/community files have been examined but 
 
 The latest known main commit at this handoff is `ab776f48c1d1a9b0fa2feb1271af1c551ad972c5`. Verify GitHub before relying on this if the repository has advanced.
 
+### Current geography implementation PR
+
+- PR #41: complete nominal administrative hierarchy registry, based on the coding annex to Law 8/25.
+- Adds the missing Luanda and Icolo e Bengo page-20318 records and integrates the existing 19-province transcription branch.
+- National integrity checks target 21 provinces, 326 municipalities and 378 communes.
+- This work does not provide boundary geometry; coordinate assignment remains disabled.
+- PR: https://github.com/onesimo-miguel17/maidenless_tarnisheds/pull/41
+
 ## 9. Engineering and release workflow
 
 - Work on a dedicated feature/docs branch based on the latest `main`.
