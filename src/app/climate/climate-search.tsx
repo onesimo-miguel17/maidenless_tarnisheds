@@ -18,6 +18,7 @@ import { assessCropAgainstClimate } from "@/domain/crops/climate-assessment";
 import { assessCropAtPlot } from "@/domain/crops/integrated-assessment";
 import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonality";
 import { analyzeClimateRiskInsights } from "@/domain/climate/risk-insights";
+import { FieldContextCrosscheck } from "./field-context-crosscheck";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 function formatDateInput(date: Date): string {
@@ -464,6 +465,14 @@ export default function ClimateSearch() {
               </div>
               <p className="mt-4 text-xs leading-5 text-[var(--muted)]">Estes sinais descrevem precipitação estimada pela NASA POWER numa grelha. Não confirmam seca agrícola, falta de água no solo, stress da cultura ou perda de produção. A interpretação agronómica exige observações locais e contexto da parcela.</p>
             </section>
+          )}
+
+          {climateRiskInsights && (
+            <FieldContextCrosscheck
+              insights={climateRiskInsights}
+              soilProfile={soilProfile}
+              cropName={selectedCrop?.commonName ?? null}
+            />
           )}
 
           <div className="grid min-w-0 gap-4 xl:grid-cols-[1.25fr_.75fr]">
