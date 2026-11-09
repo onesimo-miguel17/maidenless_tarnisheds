@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { readFarmerSession, saveFarmerSession } from "./session";
+import { clearFarmerSession, readFarmerSession, saveFarmerSession } from "./session";
 import { soilProfileSchema } from "../soil/schema";
 
 const sessionId = "123e4567-e89b-42d3-a456-426614174000";
