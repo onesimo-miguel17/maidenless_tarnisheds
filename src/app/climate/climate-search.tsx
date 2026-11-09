@@ -151,9 +151,9 @@ export default function ClimateSearch() {
       parsedLongitude <= 180;
     const farm = hasValidCoordinates
       ? {
-          ...farmSession.farm,
+          ...activeFarm,
           location: {
-            ...farmSession.farm.location,
+            ...activeFarm.location,
             latitude: parsedLatitude,
             longitude: parsedLongitude,
             source: coordinateSource,
