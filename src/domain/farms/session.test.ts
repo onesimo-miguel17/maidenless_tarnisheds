@@ -17,6 +17,41 @@ function installSessionStorage(): Map<string, string> {
 
 afterEach(() => {
   vi.unstubAllGlobals();
+
+  it("updates plot coordinates while preserving their provenance", () => {
+    installSessionStorage();
+    const initial = {
+      farm: {
+        name: "Fazenda do Vale",
+        areaHa: 3,
+        location: { latitude: -8.8, longitude: 13.2, source: "manual" as const },
+      },
+      cropId: null,
+      soilProfile: soilProfileSchema.parse({}),
+    };
+    expect(saveFarmerSession(sessionId, initial)).toBe(true);
+
+    const updated = {
+      ...initial,
+      farm: {
+        ...initial.farm,
+        location: {
+          latitude: -9.1,
+          longitude: 13.4,
+          source: "device" as const,
+          accuracyMeters: 18,
+        },
+      },
+    };
+    expect(saveFarmerSession(sessionId, updated)).toBe(true);
+    expect(readFarmerSession(sessionId)?.farm.location).toMatchObject({
+      latitude: -9.1,
+      longitude: 13.4,
+      source: "device",
+      accuracyMeters: 18,
+    });
+  });
+
 });
 
 describe("farmer session", () => {
