@@ -130,7 +130,7 @@ export default function ClimateSearch() {
   }, []);
 
   useEffect(() => {
-    if (!farmSessionId || !farmSession) return;
+    if (!farmSessionId || !activeFarm) return;
     const soilResult = soilProfileSchema.safeParse({
       texture: soilTexture, moisture: soilMoisture, drainage: soilDrainage,
       fertility: soilFertility, organicMatter: soilOrganicMatter,
@@ -157,14 +157,14 @@ export default function ClimateSearch() {
             longitude: parsedLongitude,
             source: coordinateSource,
             accuracyMeters: coordinateSource === "device"
-              ? locationAccuracy ?? farmSession.farm.location.accuracyMeters
+              ? locationAccuracy ?? activeFarm.location.accuracyMeters
               : undefined,
           },
         }
       : farmSession.farm;
     const updated = { farm, cropId: cropId || null, soilProfile: soilResult.data };
     saveFarmerSession(farmSessionId, updated);
-  }, [farmSessionId, farmSession?.farm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter, latitude, longitude, coordinateSource, locationAccuracy]);
+  }, [farmSessionId, activeFarm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter, latitude, longitude, coordinateSource, locationAccuracy]);
   function handleUseCurrentLocation() {
     setLocationMessage(null);
     setLocationAccuracy(null);
