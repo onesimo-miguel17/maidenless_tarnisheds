@@ -71,7 +71,7 @@ export default function ClimateSearch() {
   const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
   const [coordinateSource, setCoordinateSource] = useState<"manual" | "device">("manual");
   const [farmSessionId, setFarmSessionId] = useState<string | null>(null);
-  const [farmSession, setFarmSession] = useState<FarmerSession | null>(null);
+  const [farmSession, setFarmSession] = useState<FarmerSession | null>(null);\n  const activeFarm = farmSession?.farm;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -161,7 +161,7 @@ export default function ClimateSearch() {
               : undefined,
           },
         }
-      : farmSession.farm;
+      : activeFarm;
     const updated = { farm, cropId: cropId || null, soilProfile: soilResult.data };
     saveFarmerSession(farmSessionId, updated);
   }, [farmSessionId, activeFarm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter, latitude, longitude, coordinateSource, locationAccuracy]);
