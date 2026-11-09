@@ -69,6 +69,7 @@ export default function ClimateSearch() {
   const [locating, setLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
+  const [coordinateSource, setCoordinateSource] = useState<"manual" | "device">("manual");
   const [farmSessionId, setFarmSessionId] = useState<string | null>(null);
   const [farmSession, setFarmSession] = useState<FarmerSession | null>(null);
 
@@ -84,6 +85,8 @@ export default function ClimateSearch() {
       setFarmSessionId(sessionId);
       setFarmSession(session);
       const farmLocation = session.farm.location;
+      setCoordinateSource(farmLocation.source ?? "manual");
+      setLocationAccuracy(farmLocation.accuracyMeters ?? null);
       if (farmLocation.latitude !== undefined && farmLocation.longitude !== undefined) {
         setLatitude(farmLocation.latitude.toFixed(6));
         setLongitude(farmLocation.longitude.toFixed(6));
@@ -134,11 +137,34 @@ export default function ClimateSearch() {
       ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
     });
     if (!soilResult.success) return;
-    const updated = { farm: farmSession.farm, cropId: cropId || null, soilProfile: soilResult.data };
-    if (saveFarmerSession(farmSessionId, updated)) {
-      setFarmSession({ ...updated, updatedAt: new Date().toISOString() });
-    }
-  }, [farmSessionId, farmSession?.farm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter]);
+    const parsedLatitude = latitude.trim() === "" ? null : Number(latitude);
+    const parsedLongitude = longitude.trim() === "" ? null : Number(longitude);
+    const hasValidCoordinates =
+      parsedLatitude !== null &&
+      parsedLongitude !== null &&
+      Number.isFinite(parsedLatitude) &&
+      Number.isFinite(parsedLongitude) &&
+      parsedLatitude >= -90 &&
+      parsedLatitude <= 90 &&
+      parsedLongitude >= -180 &&
+      parsedLongitude <= 180;
+    const farm = hasValidCoordinates
+      ? {
+          ...farmSession.farm,
+          location: {
+            ...farmSession.farm.location,
+            latitude: parsedLatitude,
+            longitude: parsedLongitude,
+            source: coordinateSource,
+            accuracyMeters: coordinateSource === "device"
+              ? locationAccuracy ?? farmSession.farm.location.accuracyMeters
+              : undefined,
+          },
+        }
+      : farmSession.farm;
+    const updated = { farm, cropId: cropId || null, soilProfile: soilResult.data };
+    saveFarmerSession(farmSessionId, updated);
+  }, [farmSessionId, farmSession?.farm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter, latitude, longitude, coordinateSource, locationAccuracy]);
   function handleUseCurrentLocation() {
     setLocationMessage(null);
     setLocationAccuracy(null);
@@ -154,6 +180,7 @@ export default function ClimateSearch() {
         setLatitude(position.coords.latitude.toFixed(6));
         setLongitude(position.coords.longitude.toFixed(6));
         setLocationAccuracy(position.coords.accuracy);
+        setCoordinateSource("device");
         setLocationMessage("Coordenadas obtidas pelo dispositivo. Confirme que o ponto corresponde à parcela agrícola.");
         setLocating(false);
       },
@@ -248,11 +275,11 @@ export default function ClimateSearch() {
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="latitude">Latitude decimal</label>
-          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => { setLatitude(event.target.value); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="latitude" type="number" step="any" min="-90" max="90" required value={latitude} onChange={(event) => { setLatitude(event.target.value); setCoordinateSource("manual"); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: -12.5763" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div>
           <label className="block text-sm font-medium" htmlFor="longitude">Longitude decimal</label>
-          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => { setLongitude(event.target.value); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
+          <input id="longitude" type="number" step="any" min="-180" max="180" required value={longitude} onChange={(event) => { setLongitude(event.target.value); setCoordinateSource("manual"); setLocationAccuracy(null); setLocationMessage(null); }} placeholder="Ex.: 13.4055" className="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 outline-none focus:border-[var(--green)]" />
         </div>
         <div className="lg:col-span-2">
           <button type="button" onClick={handleUseCurrentLocation} disabled={locating || loading} className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--green)] px-4 py-2.5 text-sm font-semibold text-[var(--green)] transition hover:bg-[#f5f8f1] disabled:cursor-not-allowed disabled:opacity-60">
