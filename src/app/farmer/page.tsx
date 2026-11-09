@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ClipboardList, MapPin, Plus, Sprout, Wheat } from "lucide-react";
 import SiteNavigation from "@/components/site-navigation";
 import { farmSchema, type Farm } from "@/domain/farms/schema";
+import { createFarmerSessionId, readFarmerSession, saveFarmerSession } from "@/domain/farms/session";
+import { soilProfileSchema } from "@/domain/soil/schema";
 
 export default function FarmerWorkspacePage() {
   const [farm, setFarm] = useState<Farm | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [areaHa, setAreaHa] = useState("");
@@ -20,6 +23,15 @@ export default function FarmerWorkspacePage() {
   const [accuracyMeters, setAccuracyMeters] = useState<number | null>(null);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    const sessionId = new URLSearchParams(window.location.search).get("farmSession");
+    if (!sessionId) return;
+    const session = readFarmerSession(sessionId);
+    if (!session) return;
+    setFarm(session.farm);
+    setSessionId(sessionId);
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,7 +56,20 @@ export default function FarmerWorkspacePage() {
       return;
     }
 
+    const nextSessionId = createFarmerSessionId();
+    const saved = saveFarmerSession(nextSessionId, {
+      farm: result.data,
+      cropId: null,
+      soilProfile: soilProfileSchema.parse({}),
+    });
+    if (!saved) {
+      setErrors(["Não foi possível iniciar a sessão temporária neste navegador. Verifique as definições de armazenamento e tente novamente."]);
+      setFarm(null);
+      setSessionId(null);
+      return;
+    }
     setErrors([]);
+    setSessionId(nextSessionId);
     setFarm(result.data);
   }
 
@@ -79,6 +104,7 @@ export default function FarmerWorkspacePage() {
 
   function resetForm() {
     setFarm(null);
+    setSessionId(null);
     setName("");
     setDescription("");
     setAreaHa("");
@@ -119,14 +145,15 @@ export default function FarmerWorkspacePage() {
                     <div className="rounded-xl border border-[var(--border)] bg-white p-3"><span className="text-xs text-[var(--muted)]">Localização indicada</span><p className="mt-1 font-semibold">{[farm.location.provinceLabel, farm.location.municipalityLabel, farm.location.communeLabel].filter(Boolean).join(", ") || "Não indicada"}</p></div>
                   </div>
                 </div>
-                {farm.location.latitude !== undefined && farm.location.longitude !== undefined && (
+                {sessionId && farm.location.latitude !== undefined && farm.location.longitude !== undefined && (
                   <Link
-                    href={`/climate?latitude=${farm.location.latitude}&longitude=${farm.location.longitude}`}
+                    href={`/climate?farmSession=${sessionId}`}
                     className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)] sm:w-auto"
                   >
                     Analisar clima desta parcela <ArrowRight size={17} />
                   </Link>
                 )}
+                {sessionId && <p className="mt-4 text-xs text-[var(--muted)]">Sessão temporária activa neste separador. Os dados não são enviados nem guardados numa conta.</p>}
                 <button type="button" onClick={resetForm} className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--green)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--green-dark)]"><Plus size={16} /> Registar outra exploração</button>
               </div>
             ) : (

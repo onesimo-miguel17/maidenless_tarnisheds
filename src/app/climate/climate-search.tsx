@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import Link from "next/link";
 import {
   Activity,
   CalendarDays,
@@ -20,6 +21,7 @@ import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonalit
 import { analyzeClimateRiskInsights } from "@/domain/climate/risk-insights";
 import { FieldContextCrosscheck } from "./field-context-crosscheck";
 import { soilProfileSchema } from "@/domain/soil/schema";
+import { readFarmerSession, saveFarmerSession, type FarmerSession } from "@/domain/farms/session";
 
 function formatDateInput(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -67,9 +69,36 @@ export default function ClimateSearch() {
   const [locating, setLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [locationAccuracy, setLocationAccuracy] = useState<number | null>(null);
+  const [farmSessionId, setFarmSessionId] = useState<string | null>(null);
+  const [farmSession, setFarmSession] = useState<FarmerSession | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("farmSession");
+    if (sessionId) {
+      const session = readFarmerSession(sessionId);
+      if (!session) {
+        setLocationMessage("A sessão da exploração não está disponível neste separador. Regresse ao espaço do agricultor e abra novamente a análise.");
+        return;
+      }
+      setFarmSessionId(sessionId);
+      setFarmSession(session);
+      const farmLocation = session.farm.location;
+      if (farmLocation.latitude !== undefined && farmLocation.longitude !== undefined) {
+        setLatitude(farmLocation.latitude.toFixed(6));
+        setLongitude(farmLocation.longitude.toFixed(6));
+        setLocationMessage("Exploração activa carregada. Confirme as coordenadas antes de consultar a NASA POWER.");
+      }
+      setCropId(session.cropId ?? "");
+      setSoilPh(session.soilProfile.ph ? String(session.soilProfile.ph.value) : "");
+      setSoilTexture(session.soilProfile.texture);
+      setSoilMoisture(session.soilProfile.moisture);
+      setSoilDrainage(session.soilProfile.drainage);
+      setSoilFertility(session.soilProfile.fertility);
+      setSoilOrganicMatter(session.soilProfile.organicMatter);
+      return;
+    }
+
     const queryLatitude = params.get("latitude");
     const queryLongitude = params.get("longitude");
 
@@ -97,6 +126,19 @@ export default function ClimateSearch() {
     setLocationMessage("Coordenadas da exploração preenchidas. Confirme o ponto e escolha o período antes de consultar a NASA POWER.");
   }, []);
 
+  useEffect(() => {
+    if (!farmSessionId || !farmSession) return;
+    const soilResult = soilProfileSchema.safeParse({
+      texture: soilTexture, moisture: soilMoisture, drainage: soilDrainage,
+      fertility: soilFertility, organicMatter: soilOrganicMatter,
+      ph: soilPh.trim() === "" ? null : { value: Number(soilPh) },
+    });
+    if (!soilResult.success) return;
+    const updated = { farm: farmSession.farm, cropId: cropId || null, soilProfile: soilResult.data };
+    if (saveFarmerSession(farmSessionId, updated)) {
+      setFarmSession({ ...updated, updatedAt: new Date().toISOString() });
+    }
+  }, [farmSessionId, farmSession?.farm, cropId, soilPh, soilTexture, soilMoisture, soilDrainage, soilFertility, soilOrganicMatter]);
   function handleUseCurrentLocation() {
     setLocationMessage(null);
     setLocationAccuracy(null);
@@ -188,6 +230,17 @@ export default function ClimateSearch() {
 
   return (
     <div className="space-y-6">
+      {farmSession && (
+        <section className="rounded-2xl border border-[var(--green)]/30 bg-[#f5f8f1] p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green)]">Exploração activa nesta sessão</p>
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-semibold text-[var(--foreground)]">{farmSession.farm.name}</h2>
+            <div className="flex flex-wrap items-center gap-3"><span className="text-xs text-[var(--muted)]">Rascunho temporário · não guardado numa conta</span><Link href={farmSessionId ? `/farmer?farmSession=${farmSessionId}` : "/farmer"} className="text-xs font-semibold text-[var(--green)] underline underline-offset-4">Voltar à exploração</Link></div>
+          </div>
+          {farmSession.farm.areaHa !== null && <p className="mt-1 text-xs text-[var(--muted)]">Área declarada: {farmSession.farm.areaHa} ha</p>}
+        </section>
+      )}
+
       <form onSubmit={handleSearch} className="grid min-w-0 gap-4 rounded-3xl border border-[var(--border)] bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2">
         <div className="lg:col-span-2">
           <h2 className="text-lg font-semibold">Configurar análise da exploração</h2>
