@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { farmSchema } from "./schema";
-import { soilProfileSchema } from "@/domain/soil/schema";
+import { soilProfileSchema } from "../soil/schema";
 
 export const farmerSessionSchema = z.object({
   farm: farmSchema,
