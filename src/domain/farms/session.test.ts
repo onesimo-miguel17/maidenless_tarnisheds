@@ -10,6 +10,7 @@ function installSessionStorage(): Map<string, string> {
     sessionStorage: {
       getItem: (key: string): string | null => values.get(key) ?? null,
       setItem: (key: string, value: string): void => { values.set(key, value); },
+      removeItem: (key: string): void => { values.delete(key); },
     },
   });
   return values;
@@ -17,6 +18,28 @@ function installSessionStorage(): Map<string, string> {
 
 afterEach(() => {
   vi.unstubAllGlobals();
+});
+
+describe("farmer session", () => {
+  it("stores and reads a validated farm context for the current tab", () => {
+    installSessionStorage();
+    const saved = saveFarmerSession(sessionId, {
+      farm: {
+        name: "Fazenda do Vale",
+        areaHa: 3,
+        location: { latitude: -8.8, longitude: 13.2, source: "manual" },
+      },
+      cropId: "maize",
+      soilProfile: soilProfileSchema.parse({ texture: "sandy", ph: { value: 6.1 } }),
+    });
+
+    expect(saved).toBe(true);
+    const session = readFarmerSession(sessionId);
+    expect(session?.farm.name).toBe("Fazenda do Vale");
+    expect(session?.cropId).toBe("maize");
+    expect(session?.soilProfile.texture).toBe("sandy");
+    expect(session?.soilProfile.ph?.value).toBe(6.1);
+  });
 
   it("updates plot coordinates while preserving their provenance", () => {
     installSessionStorage();
@@ -52,27 +75,12 @@ afterEach(() => {
     });
   });
 
-});
-
-describe("farmer session", () => {
-  it("stores and reads a validated farm context for the current tab", () => {
-    installSessionStorage();
-    const saved = saveFarmerSession(sessionId, {
-      farm: {
-        name: "Fazenda do Vale",
-        areaHa: 3,
-        location: { latitude: -8.8, longitude: 13.2, source: "manual" },
-      },
-      cropId: "maize",
-      soilProfile: soilProfileSchema.parse({ texture: "sandy", ph: { value: 6.1 } }),
-    });
-
-    expect(saved).toBe(true);
-    const session = readFarmerSession(sessionId);
-    expect(session?.farm.name).toBe("Fazenda do Vale");
-    expect(session?.cropId).toBe("maize");
-    expect(session?.soilProfile.texture).toBe("sandy");
-    expect(session?.soilProfile.ph?.value).toBe(6.1);
+  it("clears the active temporary session", () => {
+    const values = installSessionStorage();
+    values.set("pambala:farmer-session:" + sessionId, JSON.stringify({}));
+    clearFarmerSession(sessionId);
+    expect(readFarmerSession(sessionId)).toBeNull();
+    expect(values.size).toBe(0);
   });
 
   it("rejects malformed identifiers and invalid session payloads", () => {
