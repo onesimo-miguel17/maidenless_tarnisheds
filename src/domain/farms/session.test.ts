@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { readFarmerSession, saveFarmerSession } from "./session";
+import { soilProfileSchema } from "@/domain/soil/schema";
 
 const sessionId = "123e4567-e89b-42d3-a456-426614174000";
 
@@ -28,7 +29,7 @@ describe("farmer session", () => {
         location: { latitude: -8.8, longitude: 13.2, source: "manual" },
       },
       cropId: "maize",
-      soilProfile: { texture: "sandy", ph: { value: 6.1 } },
+      soilProfile: soilProfileSchema.parse({ texture: "sandy", ph: { value: 6.1 } }),
     });
 
     expect(saved).toBe(true);
@@ -44,7 +45,7 @@ describe("farmer session", () => {
     expect(saveFarmerSession("../invalid", {
       farm: { name: "Exploração", areaHa: null, location: {} },
       cropId: null,
-      soilProfile: {},
+      soilProfile: soilProfileSchema.parse({}),
     })).toBe(false);
     values.set("pambala:farmer-session:" + sessionId, "{not-json");
     expect(readFarmerSession(sessionId)).toBeNull();
