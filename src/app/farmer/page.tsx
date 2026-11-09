@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, ClipboardList, MapPin, Plus, Sprout, Wheat } from "lucide-react";
 import SiteNavigation from "@/components/site-navigation";
 import { farmSchema, type Farm } from "@/domain/farms/schema";
-import { createFarmerSessionId, readFarmerSession, saveFarmerSession } from "@/domain/farms/session";
+import { clearFarmerSession, createFarmerSessionId, readFarmerSession, saveFarmerSession } from "@/domain/farms/session";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 export default function FarmerWorkspacePage() {
@@ -103,6 +103,7 @@ export default function FarmerWorkspacePage() {
   }
 
   function resetForm() {
+    if (sessionId) clearFarmerSession(sessionId);
     setFarm(null);
     setSessionId(null);
     setName("");
