@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ClipboardList, MapPin, Plus, Sprout, Wheat } from "lucide-react";
 import SiteNavigation from "@/components/site-navigation";
 import { farmSchema, type Farm } from "@/domain/farms/schema";
-import { createFarmerSessionId, saveFarmerSession } from "@/domain/farms/session";
+import { createFarmerSessionId, readFarmerSession, saveFarmerSession } from "@/domain/farms/session";
 import { soilProfileSchema } from "@/domain/soil/schema";
 
 export default function FarmerWorkspacePage() {
@@ -23,6 +23,15 @@ export default function FarmerWorkspacePage() {
   const [accuracyMeters, setAccuracyMeters] = useState<number | null>(null);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
+
+  useEffect(() => {
+    const sessionId = new URLSearchParams(window.location.search).get("farmSession");
+    if (!sessionId) return;
+    const session = readFarmerSession(sessionId);
+    if (!session) return;
+    setFarm(session.farm);
+    setSessionId(sessionId);
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
