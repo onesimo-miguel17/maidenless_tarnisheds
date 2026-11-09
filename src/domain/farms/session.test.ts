@@ -59,7 +59,7 @@ describe("farmer session", () => {
     expect(saveFarmerSession(sessionId, {
       farm: { name: "Exploração", areaHa: null, location: {} },
       cropId: null,
-      soilProfile: {},
+      soilProfile: soilProfileSchema.parse({}),
     })).toBe(false);
     expect(readFarmerSession(sessionId)).toBeNull();
   });
