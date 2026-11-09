@@ -41,3 +41,12 @@ export function readFarmerSession(id: string): FarmerSession | null {
     return null;
   }
 }
+
+export function clearFarmerSession(id: string): void {
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return;
+  try {
+    window.sessionStorage.removeItem(`${SESSION_PREFIX}${id}`);
+  } catch {
+    // Storage may be unavailable; the session expires when the tab closes.
+  }
+}
