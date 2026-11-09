@@ -3,7 +3,7 @@ name: Security dependency audit
 on:
   push:
     branches:
-      - chore/security-audit-artifact
+      - chore/run-security-audit
   pull_request:
     branches:
       - main
