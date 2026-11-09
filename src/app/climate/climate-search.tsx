@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import Link from "next/link";
 import {
   Activity,
   CalendarDays,
@@ -234,7 +235,7 @@ export default function ClimateSearch() {
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green)]">Exploração activa nesta sessão</p>
           <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-semibold text-[var(--foreground)]">{farmSession.farm.name}</h2>
-            <span className="text-xs text-[var(--muted)]">Rascunho temporário · não guardado numa conta</span>
+            <div className="flex flex-wrap items-center gap-3"><span className="text-xs text-[var(--muted)]">Rascunho temporário · não guardado numa conta</span><Link href={farmSessionId ? `/farmer?farmSession=${farmSessionId}` : "/farmer"} className="text-xs font-semibold text-[var(--green)] underline underline-offset-4">Voltar à exploração</Link></div>
           </div>
           {farmSession.farm.areaHa !== null && <p className="mt-1 text-xs text-[var(--muted)]">Área declarada: {farmSession.farm.areaHa} ha</p>}
         </section>
