@@ -498,6 +498,8 @@ export default function ClimateSearch() {
               <div className="mt-6 space-y-5">
                 <Coverage label="Precipitação" valid={dataset.summary.validPrecipitationDays} missing={dataset.summary.missingPrecipitationDays} />
                 <Coverage label="Temperatura média" valid={dataset.summary.validTemperatureDays} missing={dataset.daily.length - dataset.summary.validTemperatureDays} />
+                <Coverage label="Temperatura máxima" valid={dataset.summary.validMaxTemperatureDays} missing={dataset.daily.length - dataset.summary.validMaxTemperatureDays} />
+                <Coverage label="Temperatura mínima" valid={dataset.summary.validMinTemperatureDays} missing={dataset.daily.length - dataset.summary.validMinTemperatureDays} />
                 <Coverage label="Humidade relativa" valid={dataset.summary.validRelativeHumidityDays} missing={dataset.daily.length - dataset.summary.validRelativeHumidityDays} />
                 <div className="rounded-2xl bg-[var(--background)] p-4 text-xs leading-5 text-[var(--muted)]">
                   <strong className="text-[var(--foreground)]">Consulta:</strong> {new Date(dataset.retrievedAt).toLocaleString("pt-PT")} · Fuso de referência: {dataset.timeStandard}

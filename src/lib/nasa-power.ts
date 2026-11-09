@@ -38,6 +38,8 @@ export interface ClimateSummary {
   meanRelativeHumidityPct: number | null;
   validPrecipitationDays: number;
   validTemperatureDays: number;
+  validMaxTemperatureDays: number;
+  validMinTemperatureDays: number;
   validRelativeHumidityDays: number;
   missingPrecipitationDays: number;
   longestDrySpellDays: number | null;
@@ -235,6 +237,12 @@ export function normalizePowerResponse(
       validPrecipitationDays: precipitation.length,
       validTemperatureDays: daily.filter(
         (record) => record.meanTemperatureC !== null,
+      ).length,
+      validMaxTemperatureDays: daily.filter(
+        (record) => record.maxTemperatureC !== null,
+      ).length,
+      validMinTemperatureDays: daily.filter(
+        (record) => record.minTemperatureC !== null,
       ).length,
       validRelativeHumidityDays: daily.filter(
         (record) => record.relativeHumidityPct !== null,

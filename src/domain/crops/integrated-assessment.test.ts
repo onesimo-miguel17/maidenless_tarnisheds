@@ -47,6 +47,8 @@ function dataset(daily: DailyClimateRecord[]): ClimateDataset {
       validPrecipitationDays: 0,
       validRelativeHumidityDays: 0,
       validTemperatureDays: 0,
+      validMaxTemperatureDays: 0,
+      validMinTemperatureDays: 0,
       missingPrecipitationDays: 0,
       longestDrySpellDays: null,
     },
