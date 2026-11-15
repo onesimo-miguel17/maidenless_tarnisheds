@@ -41,3 +41,15 @@ A resolução do produto continental é mais grosseira do que a dos produtos nac
 - FAO WaPOR portal: https://data.apps.fao.org/wapor/
 - GISMGR API reference: https://data.apps.fao.org/gismgr/shared/docs/api-reference/index.html
 - FAO WaPOR v3 API tutorial: https://github.com/un-fao/FAO-Water-Applications/blob/main/WaPOR/WaPORv3_API.ipynb
+
+## Descoberta de períodos dos rasters
+
+`GET /api/wapor/rasters?layer=L1-RSM-D&limit=24`
+
+- Consulta o catálogo de rasters do mapset seleccionado.
+- Segue a paginação disponibilizada pela API oficial.
+- Interpreta períodos diários e decendiais a partir dos códigos oficiais dos rasters.
+- Devolve os períodos mais recentes encontrados, a cadência e se a leitura foi truncada pelo limite de páginas.
+- Não devolve valores de pixel nem afirma que existe uma medição extraída para a parcela.
+
+O endpoint limita-se a códigos de camadas previamente autorizados e valida os endereços de paginação para o domínio oficial `data.apps.fao.org`. A próxima fase é a leitura pontual do COG, com validação explícita do CRS, NoData e escala/offset antes de expor qualquer valor ao agricultor.
