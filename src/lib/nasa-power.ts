@@ -8,6 +8,8 @@ export const NASA_POWER_PARAMETERS = [
   "T2M_MAX",
   "T2M_MIN",
   "RH2M",
+  "WS2M",
+  "ALLSKY_SFC_SW_DWN",
 ] as const;
 
 export type ClimateParameter = (typeof NASA_POWER_PARAMETERS)[number];
@@ -19,6 +21,8 @@ export interface DailyClimateRecord {
   maxTemperatureC: number | null;
   minTemperatureC: number | null;
   relativeHumidityPct: number | null;
+  windSpeed2mMs?: number | null;
+  solarRadiationMjM2Day?: number | null;
 }
 
 export interface MonthlyClimateRecord {
@@ -51,11 +55,14 @@ export interface ClimateDataset {
   timeStandard: "UTC";
   retrievedAt: string;
   coordinates: { latitude: number; longitude: number };
+  elevationMeters?: number | null;
   period: { start: string; end: string };
   units: {
     precipitation: "mm/day";
     temperature: "°C";
     relativeHumidity: "%";
+    windSpeed: "m/s";
+    solarRadiation: "MJ/m²/day";
   };
   daily: DailyClimateRecord[];
   monthly: MonthlyClimateRecord[];
@@ -64,6 +71,7 @@ export interface ClimateDataset {
 
 const parameterRecordSchema = z.record(z.string(), z.number());
 const powerResponseSchema = z.object({
+  geometry: z.object({ coordinates: z.array(z.number()).min(2).max(3) }).optional(),
   properties: z.object({
     parameter: z.object({
       PRECTOTCORR: parameterRecordSchema.optional(),
@@ -71,6 +79,8 @@ const powerResponseSchema = z.object({
       T2M_MAX: parameterRecordSchema.optional(),
       T2M_MIN: parameterRecordSchema.optional(),
       RH2M: parameterRecordSchema.optional(),
+      WS2M: parameterRecordSchema.optional(),
+      ALLSKY_SFC_SW_DWN: parameterRecordSchema.optional(),
     }),
   }),
 });
@@ -204,6 +214,8 @@ export function normalizePowerResponse(
     maxTemperatureC: parameterValue(parameters.T2M_MAX, date),
     minTemperatureC: parameterValue(parameters.T2M_MIN, date),
     relativeHumidityPct: parameterValue(parameters.RH2M, date),
+    windSpeed2mMs: parameterValue(parameters.WS2M, date),
+    solarRadiationMjM2Day: parameterValue(parameters.ALLSKY_SFC_SW_DWN, date),
   }));
 
   const precipitation = daily
@@ -216,11 +228,14 @@ export function normalizePowerResponse(
     timeStandard: "UTC",
     retrievedAt,
     coordinates: { latitude, longitude },
+    elevationMeters: parsed.data.geometry?.coordinates[2] ?? null,
     period: { start, end },
     units: {
       precipitation: "mm/day",
       temperature: "°C",
       relativeHumidity: "%",
+      windSpeed: "m/s",
+      solarRadiation: "MJ/m²/day",
     },
     daily,
     monthly: buildMonthly(daily),
