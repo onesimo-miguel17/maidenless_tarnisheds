@@ -207,4 +207,31 @@ describe("normalizePowerResponse", () => {
       ),
     ).toThrow("não devolveu observações");
   });
+  it("normalizes wind, solar radiation and NASA POWER grid elevation", () => {
+    const result = normalizePowerResponse(
+      {
+        geometry: { coordinates: [13.4, -12.5, 120] },
+        properties: {
+          parameter: {
+            PRECTOTCORR: { "2026010100": 1.5 },
+            T2M: { "2026010100": 25 },
+            T2M_MAX: { "2026010100": 31 },
+            T2M_MIN: { "2026010100": 19 },
+            RH2M: { "2026010100": 60 },
+            WS2M: { "2026010100": 2.1 },
+            ALLSKY_SFC_SW_DWN: { "2026010100": 18.5 },
+          },
+        },
+      },
+      -12.5,
+      13.4,
+      "2026-01-01",
+      "2026-01-01",
+    );
+
+    expect(result.elevationMeters).toBe(120);
+    expect(result.daily[0].windSpeed2mMs).toBe(2.1);
+    expect(result.daily[0].solarRadiationMjM2Day).toBe(18.5);
+  });
+
 });
