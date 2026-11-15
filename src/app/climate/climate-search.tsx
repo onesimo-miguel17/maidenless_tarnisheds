@@ -21,6 +21,7 @@ import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonalit
 import { analyzeClimateRiskInsights } from "@/domain/climate/risk-insights";
 import { FieldContextCrosscheck } from "./field-context-crosscheck";
 import MeteomaticsForecast from "./meteomatics-forecast";
+import WaterIntelligence from "./water-intelligence";
 import { soilProfileSchema } from "@/domain/soil/schema";
 import { readFarmerSession, saveFarmerSession, type FarmerSession } from "@/domain/farms/session";
 
@@ -334,6 +335,7 @@ export default function ClimateSearch() {
       </form>
 
       <MeteomaticsForecast latitude={latitude} longitude={longitude} />
+      {dataset && <WaterIntelligence dataset={dataset} />}
 
       {integratedAssessment && (
         <section className="rounded-3xl border-2 border-[var(--green)] bg-white p-4 shadow-sm sm:p-6">
