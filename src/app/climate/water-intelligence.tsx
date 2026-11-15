@@ -1,6 +1,6 @@
 "use client";
 
-import { Droplets, Info, Waves } from "lucide-react";
+import { Droplets, Info } from "lucide-react";
 import type { ClimateDataset } from "@/lib/nasa-power";
 import { analyzeWaterBalance } from "@/domain/climate/water-balance";
 
