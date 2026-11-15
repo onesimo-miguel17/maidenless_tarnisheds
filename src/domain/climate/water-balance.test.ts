@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { DailyClimateRecord } from "@/lib/nasa-power";
+import type { DailyClimateRecord } from "../../lib/nasa-power";
 import { analyzeWaterBalance, calculateDailyReferenceEt0 } from "./water-balance";
 
 const completeDay: DailyClimateRecord = {
