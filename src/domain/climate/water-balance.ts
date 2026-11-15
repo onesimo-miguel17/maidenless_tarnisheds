@@ -1,4 +1,4 @@
-import type { DailyClimateRecord } from "@/lib/nasa-power";
+import type { DailyClimateRecord } from "../../lib/nasa-power";
 
 export interface WaterBalanceDay {
   date: string;
