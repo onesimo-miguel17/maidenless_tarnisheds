@@ -14,6 +14,24 @@ const rasterPageSchema = z.object({
 const rasterSchema = z.object({
   code: z.string(),
   downloadUrl: z.string().url().optional(),
+  scale: z.number().optional(),
+  offset: z.number().optional(),
+  measureUnit: z.string().optional(),
+  noDataValue: z.union([z.number(), z.string()]).optional(),
+  dataType: z.string().optional(),
+  extent: z.object({
+    wgs84: z.array(z.number()).length(4).optional(),
+  }).optional(),
+  dimensions: z.array(z.object({
+    type: z.string(),
+    member: z.unknown().optional(),
+  })).optional(),
+});
+
+const timeMemberSchema = z.object({
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  numberOfDays: z.number().optional(),
 });
 
 export type WaporRasterPeriod = {
@@ -22,6 +40,42 @@ export type WaporRasterPeriod = {
   periodEnd: string;
   cadence: "daily" | "dekadal";
 };
+
+export type WaporRasterSourceMetadata = {
+  downloadUrl: string | null;
+  scale: number | null;
+  offset: number | null;
+  measureUnit: string | null;
+  noDataValue: number | string | null;
+  dataType: string | null;
+  extentWgs84: [number, number, number, number] | null;
+  time: {
+    startDate: string | null;
+    endDate: string | null;
+    numberOfDays: number | null;
+  } | null;
+};
+
+/**
+ * Only expose the public FAO WaPOR v3 COG bucket. This prevents catalog
+ * metadata from turning the endpoint into an arbitrary URL proxy.
+ */
+export function resolvePublicWaporCogUrl(value: string | undefined): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (
+      url.protocol !== "https:" ||
+      url.hostname !== "storage.googleapis.com" ||
+      !url.pathname.startsWith("/fao-gismgr-wapor-3-data/DATA/WAPOR-3/MAPSET/")
+    ) {
+      return null;
+    }
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
 
 export function parseWaporRasterPeriod(
   code: string,
@@ -54,13 +108,36 @@ export function parseWaporRasterPeriod(
   };
 }
 
+function readRasterMetadata(
+  raster: z.infer<typeof rasterSchema>,
+): WaporRasterSourceMetadata {
+  const timeDimension = raster.dimensions?.find((dimension) => dimension.type.toUpperCase() === "TIME");
+  const time = timeMemberSchema.safeParse(timeDimension?.member);
+  const extent = raster.extent?.wgs84;
+
+  return {
+    downloadUrl: resolvePublicWaporCogUrl(raster.downloadUrl),
+    scale: raster.scale ?? null,
+    offset: raster.offset ?? null,
+    measureUnit: raster.measureUnit ?? null,
+    noDataValue: raster.noDataValue ?? null,
+    dataType: raster.dataType ?? null,
+    extentWgs84: extent ? [extent[0], extent[1], extent[2], extent[3]] : null,
+    time: time.success ? {
+      startDate: time.data.startDate ?? null,
+      endDate: time.data.endDate ?? null,
+      numberOfDays: time.data.numberOfDays ?? null,
+    } : null,
+  };
+}
+
 export async function fetchWaporRasterTimeline(layerCode: string, limit = 24) {
   const layer = WAPOR_LAYERS.find((candidate) => candidate.code === layerCode);
   if (!layer) throw new Error("Camada WaPOR não reconhecida.");
 
-  const baseUrl = WAPOR_API_BASE_URL + "/catalog/workspaces/WAPOR-3/mapsets/" + layer.code + "/rasters";
+  const baseUrl = WAPOR_API_BASE_URL + "/catalog/workspaces/WAPOR-3/mapsets/" + layer.code + "/rasters?view=details";
   let nextUrl: string | null = baseUrl;
-  const periods: WaporRasterPeriod[] = [];
+  const periods: Array<WaporRasterPeriod & { metadata: WaporRasterSourceMetadata }> = [];
   let pagesRead = 0;
   const maxPages = 40;
 
@@ -87,7 +164,7 @@ export async function fetchWaporRasterTimeline(layerCode: string, limit = 24) {
       const parsed = rasterSchema.safeParse(item);
       if (!parsed.success) continue;
       const period = parseWaporRasterPeriod(parsed.data.code, layer.cadence);
-      if (period) periods.push(period);
+      if (period) periods.push({ ...period, metadata: readRasterMetadata(parsed.data) });
     }
 
     const next = page.data.response.links.find((link) => link.rel.toLowerCase() === "next");
@@ -107,6 +184,6 @@ export async function fetchWaporRasterTimeline(layerCode: string, limit = 24) {
     totalDiscovered: uniquePeriods.length,
     truncated: nextUrl !== null,
     pagesRead,
-    note: "Este endpoint devolve apenas a disponibilidade temporal dos rasters. Não representa valores extraídos das coordenadas da exploração.",
+    note: "Este endpoint devolve disponibilidade temporal e metadados publicados do COG. Ainda não extrai valores de pixel nas coordenadas da exploração.",
   };
 }
