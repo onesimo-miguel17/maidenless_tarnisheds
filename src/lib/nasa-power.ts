@@ -61,8 +61,8 @@ export interface ClimateDataset {
     precipitation: "mm/day";
     temperature: "°C";
     relativeHumidity: "%";
-    windSpeed: "m/s";
-    solarRadiation: "MJ/m²/day";
+    windSpeed?: "m/s";
+    solarRadiation?: "MJ/m²/day";
   };
   daily: DailyClimateRecord[];
   monthly: MonthlyClimateRecord[];
