@@ -28,16 +28,16 @@ export function parseWaporRasterPeriod(
   cadence: "daily" | "dekadal",
 ): WaporRasterPeriod | null {
   if (cadence === "daily") {
-    const daily = code.match(/(\\d{4})-(\\d{2})-(\\d{2})$/);
+    const daily = code.match(/(\d{4})-(\d{2})-(\d{2})$/);
     if (!daily) return null;
     const [, year, month, day] = daily;
     const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
     if (date.getUTCFullYear() !== Number(year) || date.getUTCMonth() + 1 !== Number(month) || date.getUTCDate() !== Number(day)) return null;
-    const iso = `${year}-${month}-${day}`;
+    const iso = year + "-" + month + "-" + day;
     return { code, periodStart: iso, periodEnd: iso, cadence: "daily" };
   }
 
-  const dekadalMatch = code.match(/(\\d{4})-(\\d{2})-D([123])$/);
+  const dekadalMatch = code.match(/(\d{4})-(\d{2})-D([123])$/);
   if (!dekadalMatch) return null;
   const [, year, month, dekad] = dekadalMatch;
   const monthNumber = Number(month);
@@ -45,7 +45,7 @@ export function parseWaporRasterPeriod(
   if (monthNumber < 1 || monthNumber > 12) return null;
   const startDay = dekadNumber === 1 ? 1 : dekadNumber === 2 ? 11 : 21;
   const endDay = dekadNumber === 1 ? 10 : dekadNumber === 2 ? 20 : new Date(Date.UTC(Number(year), monthNumber, 0)).getUTCDate();
-  const isoDate = (day: number) => `${year}-${month}-${String(day).padStart(2, "0")}`;
+  const isoDate = (day: number) => year + "-" + month + "-" + String(day).padStart(2, "0");
   return {
     code,
     periodStart: isoDate(startDay),
@@ -58,7 +58,7 @@ export async function fetchWaporRasterTimeline(layerCode: string, limit = 24) {
   const layer = WAPOR_LAYERS.find((candidate) => candidate.code === layerCode);
   if (!layer) throw new Error("Camada WaPOR não reconhecida.");
 
-  const baseUrl = `${WAPOR_API_BASE_URL}/catalog/workspaces/WAPOR-3/mapsets/${layer.code}/rasters`;
+  const baseUrl = WAPOR_API_BASE_URL + "/catalog/workspaces/WAPOR-3/mapsets/" + layer.code + "/rasters";
   let nextUrl: string | null = baseUrl;
   const periods: WaporRasterPeriod[] = [];
   let pagesRead = 0;
@@ -76,7 +76,7 @@ export async function fetchWaporRasterTimeline(layerCode: string, limit = 24) {
       next: { revalidate: 21_600 },
     });
     if (!response.ok) {
-      throw new Error(`A FAO WaPOR respondeu com HTTP ${response.status} ao consultar os rasters.`);
+      throw new Error("A FAO WaPOR respondeu com HTTP " + response.status + " ao consultar os rasters.");
     }
 
     const raw: unknown = await response.json();
