@@ -39,6 +39,18 @@ export default function MeteomaticsForecast({ latitude, longitude }: { latitude:
     } finally { setLoading(false); }
   }
 
+  const rainfall = data?.forecast.find((series) => series.parameter === "precip_1h:mm");
+  const wind = data?.forecast.find((series) => series.parameter === "wind_speed_10m:ms");
+  const validRainfall = rainfall?.values
+    .map((item) => item.value)
+    .filter((value): value is number => value !== null && Number.isFinite(value)) ?? [];
+  const validWind = wind?.values
+    .map((item) => item.value)
+    .filter((value): value is number => value !== null && Number.isFinite(value)) ?? [];
+  const maximumHourlyRain = validRainfall.length ? Math.max(...validRainfall) : null;
+  const rainySamples = validRainfall.filter((value) => value > 0).length;
+  const maximumWind = validWind.length ? Math.max(...validWind) : null;
+
   return (
     <section className="rounded-3xl border border-[var(--border)] bg-white p-5 shadow-sm sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -71,6 +83,28 @@ export default function MeteomaticsForecast({ latitude, longitude }: { latitude:
               </article>;
             })}
           </div>
+
+          <section className="rounded-2xl border border-[var(--border)] p-4">
+            <div>
+              <h3 className="text-sm font-semibold">Resumo da previsão</h3>
+              <p className="mt-1 text-xs leading-5 text-[var(--muted)]">Indicadores descritivos calculados directamente das séries horárias recebidas; não representam, por si só, alertas ou recomendações agronómicas.</p>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              <article className="rounded-xl bg-[var(--background)] p-3">
+                <p className="text-xs text-[var(--muted)]">Maior precipitação por registo</p>
+                <p className="mt-2 text-xl font-semibold">{display(maximumHourlyRain, "mm")}</p>
+              </article>
+              <article className="rounded-xl bg-[var(--background)] p-3">
+                <p className="text-xs text-[var(--muted)]">Registos com precipitação acima de 0 mm</p>
+                <p className="mt-2 text-xl font-semibold">{rainfall ? `${rainySamples}/${validRainfall.length}` : "Sem dados"}</p>
+              </article>
+              <article className="rounded-xl bg-[var(--background)] p-3">
+                <p className="text-xs text-[var(--muted)]">Vento máximo previsto</p>
+                <p className="mt-2 text-xl font-semibold">{display(maximumWind, "m/s")}</p>
+              </article>
+            </div>
+          </section>
+
           <div className="overflow-x-auto rounded-2xl border border-[var(--border)]">
             <table className="w-full min-w-[620px] text-left text-xs">
               <thead className="bg-[var(--background)]"><tr><th className="px-3 py-3 font-semibold">Hora UTC</th>{data.forecast.map((series) => <th key={series.parameter} className="px-3 py-3 font-semibold">{labels[series.parameter]?.label ?? series.parameter}</th>)}</tr></thead>
