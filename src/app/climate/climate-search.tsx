@@ -20,6 +20,7 @@ import { assessCropAtPlot } from "@/domain/crops/integrated-assessment";
 import { analyzeRainfallSeasonality } from "@/domain/climate/rainfall-seasonality";
 import { analyzeClimateRiskInsights } from "@/domain/climate/risk-insights";
 import { FieldContextCrosscheck } from "./field-context-crosscheck";
+import MeteomaticsForecast from "./meteomatics-forecast";
 import { soilProfileSchema } from "@/domain/soil/schema";
 import { readFarmerSession, saveFarmerSession, type FarmerSession } from "@/domain/farms/session";
 
@@ -331,6 +332,8 @@ export default function ClimateSearch() {
           {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         </div>
       </form>
+
+      <MeteomaticsForecast latitude={latitude} longitude={longitude} />
 
       {integratedAssessment && (
         <section className="rounded-3xl border-2 border-[var(--green)] bg-white p-4 shadow-sm sm:p-6">
