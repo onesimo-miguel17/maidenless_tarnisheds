@@ -92,6 +92,7 @@ export default function WaterIntelligence({ dataset }: { dataset: ClimateDataset
         <Info size={16} className="mt-0.5 shrink-0 text-[var(--green)]" />
         <div className="text-xs leading-5 text-[var(--muted)]">
           <p>{analysis.limitation}</p>
+          {analysis.status === "partial" && <p className="mt-1">A ET₀ é calculada apenas nos dias em que temperatura, humidade, vento, radiação solar e altitude estão disponíveis. A radiação solar NASA POWER pode ter atraso de disponibilização; os dias sem esse dado permanecem sem cálculo.</p>}
           <p className="mt-1">A ET₀ representa a procura evaporativa de uma superfície de referência (relva), não a água efectivamente consumida pela cultura. P − ET₀ não é um balanço de água no solo: não inclui rega, escoamento, infiltração, armazenamento, coeficiente cultural (Kc) nem fase de desenvolvimento. Não utilizar isoladamente para definir doses ou calendários de irrigação.</p>
           <p className="mt-1">Fonte: NASA POWER Daily API · método FAO-56 Penman–Monteith · radiação solar em MJ/m²/dia · vento a 2 m em m/s. {analysis.completePairedDays}/{analysis.totalDays} dias com precipitação e ET₀ simultaneamente válidas.</p>
         </div>
