@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { WAPOR_API_BASE_URL, WAPOR_LAYERS } from "@/lib/fao-wapor";
+import { WAPOR_API_BASE_URL, WAPOR_LAYERS } from "./fao-wapor";
 
 const rasterPageSchema = z.object({
   response: z.object({
@@ -27,8 +27,9 @@ export function parseWaporRasterPeriod(
   code: string,
   cadence: "daily" | "dekadal",
 ): WaporRasterPeriod | null {
-  const daily = code.match(/(\d{4})-(\d{2})-(\d{2})$/);
-  if (daily) {
+  if (cadence === "daily") {
+    const daily = code.match(/(\\d{4})-(\\d{2})-(\\d{2})$/);
+    if (!daily) return null;
     const [, year, month, day] = daily;
     const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
     if (date.getUTCFullYear() !== Number(year) || date.getUTCMonth() + 1 !== Number(month) || date.getUTCDate() !== Number(day)) return null;
@@ -36,7 +37,7 @@ export function parseWaporRasterPeriod(
     return { code, periodStart: iso, periodEnd: iso, cadence: "daily" };
   }
 
-  const dekadalMatch = code.match(/(\d{4})-(\d{2})-D([123])$/);
+  const dekadalMatch = code.match(/(\\d{4})-(\\d{2})-D([123])$/);
   if (!dekadalMatch) return null;
   const [, year, month, dekad] = dekadalMatch;
   const monthNumber = Number(month);
