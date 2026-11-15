@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseWaporRasterPeriod } from "./fao-wapor-rasters";
+import { parseWaporRasterPeriod, resolvePublicWaporCogUrl } from "./fao-wapor-rasters";
 
 describe("parseWaporRasterPeriod", () => {
   it("parses the first dekad", () => {
@@ -35,5 +35,19 @@ describe("parseWaporRasterPeriod", () => {
   it("rejects invalid dates and unknown suffixes", () => {
     expect(parseWaporRasterPeriod("WAPOR-3.L1-RSM-D.2026-02-30", "daily")).toBeNull();
     expect(parseWaporRasterPeriod("WAPOR-3.L1-RSM-D.2026-02-D4", "dekadal")).toBeNull();
+  });
+});
+
+describe("resolvePublicWaporCogUrl", () => {
+  it("accepts public FAO WaPOR COGs", () => {
+    expect(resolvePublicWaporCogUrl(
+      "https://storage.googleapis.com/fao-gismgr-wapor-3-data/DATA/WAPOR-3/MAPSET/L1-RSM-D/sample.tif",
+    )).toContain("storage.googleapis.com/fao-gismgr-wapor-3-data/");
+  });
+
+  it("rejects non-FAO and non-HTTPS URLs", () => {
+    expect(resolvePublicWaporCogUrl("https://example.com/file.tif")).toBeNull();
+    expect(resolvePublicWaporCogUrl("http://storage.googleapis.com/fao-gismgr-wapor-3-data/DATA/WAPOR-3/MAPSET/L1-RSM-D/sample.tif")).toBeNull();
+    expect(resolvePublicWaporCogUrl("https://storage.googleapis.com/other-bucket/file.tif")).toBeNull();
   });
 });
